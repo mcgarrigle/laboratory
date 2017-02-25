@@ -6,8 +6,8 @@ require "netaddr"
 class Subnet
 
   def name s
-     @name = s
-     puts "name #{s}"
+    @name = s
+    puts "name #{s}"
   end
 
   def ip4 cidr
@@ -18,7 +18,7 @@ class Subnet
   end
 
   def guest n
-     puts "guest #{n}"
+    puts "guest #{n}"
   end
 
 end
