@@ -16,6 +16,9 @@ subnet {
   guest { 
     name "guest1"
   }
+
+  guest { 
+  }
 }
 
 

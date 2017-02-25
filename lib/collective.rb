@@ -19,6 +19,7 @@ class Collective
 
   def define(s)
     eval(s)
+    @subnet.inspect
   end
 
 end
