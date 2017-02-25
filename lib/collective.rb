@@ -4,14 +4,17 @@ require "subnet"
 
 class Collective
 
+  def initialize
+  end
+
   def domain d
     @domain = d
     puts "domain #{d}"
   end
 
   def subnet(&block) 
-    s = Subnet.new
-    s.instance_eval &block
+    @subnet = Subnet.new
+    @subnet.instance_eval &block
   end
 
   def define(s)
