@@ -1,6 +1,7 @@
 
 
 require "netaddr"
+require "guest"
 
 
 class Subnet
@@ -17,8 +18,9 @@ class Subnet
     @pool.shift 10                          # first 10 IPs are reserved (Cisco LLD)
   end
 
-  def guest n
-    puts "guest #{n}"
+  def guest(&block)
+    g = Guest.new
+    g.instance_eval &block
   end
 
 end
