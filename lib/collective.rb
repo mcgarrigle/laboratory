@@ -1,24 +1,22 @@
-class Subnet
 
-  def name n
-     puts "name #{n}"
+require "subnet"
+
+
+class Collective
+
+  def domain d
+    @domain = d
+    puts "domain #{d}"
   end
 
-  def ip4 n
-     puts "network #{n}"
+  def subnet(&block) 
+    s = Subnet.new
+    s.instance_eval &block
   end
 
-  def guest n
-     puts "guest #{n}"
+  def define(s)
+    eval(s)
   end
 
 end
 
-def domain d
-  puts "domain #{d}"
-end
-
-def subnet(&block) 
-  s = Subnet.new
-  s.instance_eval &block
-end

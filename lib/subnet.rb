@@ -1,4 +1,3 @@
-#!/usr/bin/env ruby
 
 class Subnet
 
@@ -15,15 +14,4 @@ class Subnet
   end
 
 end
-
-def domain d
-  puts "domain #{d}"
-end
-
-def subnet(&block) 
-  s = Subnet.new
-  s.instance_eval &block
-end
-
-eval(File.read("network"))
 

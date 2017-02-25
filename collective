@@ -5,5 +5,7 @@ $LOAD_PATH << $LIB_DIR
 
 require "collective"
 
-eval(File.read("network"))
+
+c = Collective.new
+c.define File.read("network")
 
