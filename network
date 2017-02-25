@@ -1,0 +1,12 @@
+
+domain "foo.local"
+
+subnet {
+  name "management"
+  ip4 "10.0.0.0/24"
+  guest "foreman"
+  guest "ipa"
+  guest "host1"
+}
+
+
