@@ -1,8 +1,7 @@
 # Change these variables as needed
 
-VM_NAME="beachhead"
+VM_NAME="foreman"
 
-ISO_PATH="${HOME}/Downloads/CentOS-7-x86_64-Everything-1511.iso"
 ISO_PATH="${HOME}/Downloads/CentOS-7-x86_64-Minimal-1511.iso"
 
 VBOX_HOME="${HOME}/VirtualBox VMs"
