@@ -1,0 +1,7 @@
+
+Host foreman for
+  HostName 127.0.0.1
+  Port 2222
+  User root
+  Dynamicforward 9080
+
