@@ -20,8 +20,8 @@ vboxmanage storagectl $VM_NAME --name "IDE Controller" --add ide
 vboxmanage storageattach $VM_NAME --storagectl "IDE Controller" --port 0 --device 0 --type dvddrive --medium $ISO_PATH
 vboxmanage modifyvm $VM_NAME --ioapic on
 vboxmanage modifyvm $VM_NAME --memory 1024 --vram 128
-vboxmanage modifyvm $VM_NAME --nic1 nat
-vboxmanage modifyvm $VM_NAME --natpf1 "guestssh,tcp,,2222,,22"
+vboxmanage modifyvm $VM_NAME --nic1 intnet
+vboxmanage modifyvm $VM_NAME --nic2 nat
 vboxmanage modifyvm $VM_NAME --natdnshostresolver1 on
 vboxmanage sharedfolder add $VM_NAME --name shared --hostpath $SHARED_PATH --automount
 
