@@ -1,3 +1,4 @@
+#!/bin/bash
 
 export PASSWORD="letmein"
 export DOMAIN="foo.local"
