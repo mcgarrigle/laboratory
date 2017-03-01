@@ -5,22 +5,27 @@ export DOMAIN="foo.local"
 export REALM="FOO.LOCAL"
 export IPA_SERVER="ipa.foo.local"
 export FOR_SERVER="foreman.foo.local"
-export IPA1="10.0.1.11"
-export DNS1="10.0.1.11"
-export NETWORK="10.0.1.0/24"
-export REVERSE="1.0.10.in-addr.arpa."
-export IPRANGE="10.0.1.200 10.0.1.250"
+export FOR_ADDRESS="10.0.30.10"
+export IPA1="10.0.30.11"
+export DNS1="10.0.30.11"
+export NETWORK="10.0.30.0/24"
+export REVERSE="30.0.10.in-addr.arpa."
+export IPRANGE="10.0.30.200 10.0.30.250"
 
-yum -y install epel-release
-yum -y install https://yum.theforeman.org/releases/1.14/el7/x86_64/foreman-release.rpm
-yum -y install foreman-installer puppet
+yum install -y centos-release-scl centos-release-scl-rh foreman-release-scl
+yum install -y https://yum.theforeman.org/releases/1.14/el7/x86_64/foreman-release.rpm
+yum install -y epel-release
+yum install -y firewalld
+yum install -y foreman-installer puppet
 
 export INTERFACE=$(ip link |awk '/^2:/ { sub(/:/,"",$2); print $2 }')
 
-cat <<EOF > /etc/resolv.conf
-domain ${DOMAIN}
-nameserver ${DNS1}
-EOF
+echo "interface = ${INTERFACE}"
+
+#cat <<EOF > /etc/resolv.conf
+#domain ${DOMAIN}
+#nameserver ${DNS1}
+#EOF
 
 
 echo "Setting up Firewall Rules..."
@@ -39,17 +44,19 @@ systemctl enable firewalld
 
 echo "Running Foreman Installer..."
 foreman-installer \
---foreman-configure-epel-repo=false \
---foreman-configure-scl-repo=false \
---enable-foreman-plugin-dhcp-browser \
---enable-foreman-plugin-openscap \
---enable-foreman-proxy-plugin-openscap \
---foreman-admin-password=admin \
---foreman-proxy-dhcp=true \
---foreman-proxy-dhcp-interface="${INTERFACE}" \
---foreman-proxy-dhcp-range="${IPRANGE}" \
---foreman-proxy-dhcp-nameservers="${DNS1}" \
---foreman-ipa-authentication=false
+  --foreman-foreman-url="http://${FOR_SERVER}" \
+  --foreman-configure-epel-repo=false \
+  --foreman-configure-scl-repo=false \
+  --enable-foreman-plugin-dhcp-browser \
+  --enable-foreman-plugin-openscap \
+  --enable-foreman-proxy-plugin-openscap \
+  --foreman-admin-password=admin \
+  --foreman-proxy-dhcp=true \
+  --foreman-proxy-dhcp-interface="${INTERFACE}" \
+  --foreman-proxy-dhcp-range="${IPRANGE}" \
+  --foreman-proxy-dhcp-nameservers="${DNS1}" \
+  --foreman-proxy-dhcp-pxeserver="${FOR_ADDRESS}" \
+  --foreman-ipa-authentication=false
 
 # Setup wildcard auto-signing
 
