@@ -6,17 +6,20 @@ ISO_PATH="${HOME}/Downloads/CentOS-7-x86_64-Minimal-1511.iso"
 
 VBOX_HOME="${HOME}/VirtualBox VMs"
 
-VM_HD_PATH="${VBOX_HOME}/${VM_NAME}/sda.vdi" # The path to VM hard disk (to be created).
+VM_HD1_PATH="${VBOX_HOME}/${VM_NAME}/sda.vdi" # The path to VM hard disk (to be created).
+VM_HD2_PATH="${VBOX_HOME}/${VM_NAME}/sdb.vdi" # The path to VM hard disk (to be created).
 
 SHARED_PATH=~ # Share home directory with the VM
 
 
 vboxmanage createvm --name $VM_NAME --ostype "RedHat_64" --register
 vboxmanage storagectl $VM_NAME --name "SATA Controller" --add sata --controller IntelAHCI
-vboxmanage createhd --filename "$VM_HD_PATH" --size 32768
-vboxmanage storageattach $VM_NAME --storagectl "SATA Controller" --port 0 --device 0 --type hdd --medium "$VM_HD_PATH"
+vboxmanage createhd --filename "$VM_HD1_PATH" --size 32768
+vboxmanage createhd --filename "$VM_HD2_PATH" --size 200000000
+vboxmanage storageattach $VM_NAME --storagectl "SATA Controller" --port 0 --device 0 --type hdd --medium "$VM_HD1_PATH"
+vboxmanage storageattach $VM_NAME --storagectl "SATA Controller" --port 0 --device 1 --type hdd --medium "$VM_HD2_PATH"
 vboxmanage storagectl $VM_NAME --name "IDE Controller" --add ide
-vboxmanage storageattach $VM_NAME --storagectl "IDE Controller" --port 0 --device 0 --type dvddrive --medium $ISO_PATH
+vboxmanage storageattach $VM_NAME --storagectl "IDE Controller" --port 0 --device 0 --type dvddrive --medium "$ISO_PATH"
 vboxmanage modifyvm $VM_NAME --ioapic on
 vboxmanage modifyvm $VM_NAME --memory 1024 --vram 128
 vboxmanage modifyvm $VM_NAME --nic1 intnet
