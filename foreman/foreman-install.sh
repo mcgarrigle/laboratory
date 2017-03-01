@@ -22,6 +22,11 @@ export INTERFACE=$(ip link |awk '/^2:/ { sub(/:/,"",$2); print $2 }')
 
 echo "interface = ${INTERFACE}"
 
+hostnamectl set-hostname ${FOR_SERVER}
+
+echo "${FOR_ADDRESS} ${FOR_SERVER} foreman" >> /etc/hosts
+
+
 #cat <<EOF > /etc/resolv.conf
 #domain ${DOMAIN}
 #nameserver ${DNS1}
