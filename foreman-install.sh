@@ -14,7 +14,8 @@ export IPRANGE="10.0.30.200 10.0.30.250"
 
 yum install -y centos-release-scl centos-release-scl-rh foreman-release-scl
 yum install -y https://yum.theforeman.org/releases/1.14/el7/x86_64/foreman-release.rpm
-yum install -y epel-release firewalld
+yum install -y epel-release
+yum install -y firewalld
 yum install -y foreman-installer puppet
 
 export INTERFACE=$(ip link |awk '/^2:/ { sub(/:/,"",$2); print $2 }')
