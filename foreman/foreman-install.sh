@@ -18,9 +18,18 @@ yum install -y epel-release
 yum install -y firewalld
 yum install -y foreman-installer puppet
 
-export INTERFACE=$(ip link |awk '/^2:/ { sub(/:/,"",$2); print $2 }')
+export ETH0=$(ip link |awk '/^2:/ { sub(/:/,"",$2); print $2 }')
+export ETH1=$(ip link |awk '/^2:/ { sub(/:/,"",$2); print $2 }')
 
-echo "interface = ${INTERFACE}"
+sed -i 's/ONBOOT=no/ONBOOT=yes/' "/etc/sysconfig/network-scripts/ifcfg-${ETH0}"
+sed -i 's/ONBOOT=no/ONBOOT=yes/' "/etc/sysconfig/network-scripts/ifcfg-${ETH1}"
+
+cat <<EOF > "/etc/sysconfig/network-scripts/ifcfg-${ETH0}"
+IPADDR="${FOR_ADDRESS}"
+NETMASK="255.255.255.0"
+EOF
+
+echo "DHCP/PXE interface = ${ETH0}"
 
 hostnamectl set-hostname ${FOR_SERVER}
 
@@ -31,7 +40,6 @@ echo "${FOR_ADDRESS} ${FOR_SERVER} foreman" >> /etc/hosts
 #domain ${DOMAIN}
 #nameserver ${DNS1}
 #EOF
-
 
 echo "Setting up Firewall Rules..."
 
@@ -48,6 +56,7 @@ firewall-cmd --reload
 systemctl enable firewalld
 
 echo "Running Foreman Installer..."
+
 foreman-installer \
   --foreman-foreman-url="http://${FOR_SERVER}" \
   --foreman-configure-epel-repo=false \
@@ -57,7 +66,7 @@ foreman-installer \
   --enable-foreman-proxy-plugin-openscap \
   --foreman-admin-password=admin \
   --foreman-proxy-dhcp=true \
-  --foreman-proxy-dhcp-interface="${INTERFACE}" \
+  --foreman-proxy-dhcp-interface="${ETH0}" \
   --foreman-proxy-dhcp-range="${IPRANGE}" \
   --foreman-proxy-dhcp-nameservers="${DNS1}" \
   --foreman-proxy-dhcp-pxeserver="${FOR_ADDRESS}" \
