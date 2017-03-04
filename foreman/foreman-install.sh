@@ -25,9 +25,14 @@ sed -i 's/ONBOOT=no/ONBOOT=yes/' "/etc/sysconfig/network-scripts/ifcfg-${ETH0}"
 sed -i 's/ONBOOT=no/ONBOOT=yes/' "/etc/sysconfig/network-scripts/ifcfg-${ETH1}"
 
 cat <<EOF > "/etc/sysconfig/network-scripts/ifcfg-${ETH0}"
+DEVICE=${ETH0}
+BOOTPROTO=static
 IPADDR="${FOR_ADDRESS}"
 NETMASK="255.255.255.0"
+ONBOOT=yes
 EOF
+
+ifup ${ETH0}
 
 echo "DHCP/PXE interface = ${ETH0}"
 
