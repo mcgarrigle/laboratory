@@ -13,7 +13,7 @@ SHARED_PATH=~ # Share home directory with the VM
 
 
 vboxmanage createvm --name $VM_NAME --ostype "RedHat_64" --register
-vboxmanage createhd --filename "$VM_HD1_PATH" --size 32768
+vboxmanage createhd --filename "$VM_HD1_PATH" --size 80000
 vboxmanage createhd --filename "$VM_HD2_PATH" --size 200000000
 vboxmanage storagectl $VM_NAME --name "SATA Controller" --add sata --controller IntelAHCI
 vboxmanage storageattach $VM_NAME --storagectl "SATA Controller" --port 0 --device 0 --type hdd --medium "$VM_HD1_PATH"
