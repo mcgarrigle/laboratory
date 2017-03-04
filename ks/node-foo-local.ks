@@ -3,17 +3,22 @@
 # the file also at:
 # curl -L https://goo.gl/oX4Qd2
 
-lang en
-
-        ### Tell it to use the cdrom to get the rpms
 cdrom
-
-        ### Tell it to use a us keyboard
-keyboard uk
-
-       ### Tell it this is an upgrade and not a regular install 
 install
 
+lang en
+keyboard uk
+skipx
+
+network --noipv6 --bootproto dhcp --hostname node.foo.local
+
+rootpw "letmein"
+authconfig --useshadow --passalgo=sha256 --kickstart
+
+timezone --utc UTC
+
+bootloader --location=mbr --append="nofb quiet splash=quiet" 
+
 zerombr
-autopart
+clearpart --all
 
