@@ -33,7 +33,7 @@ logvol /tmp           --fstype=ext4 --name=tmp           --vgname=linux --size=5
 logvol /var           --fstype=ext4 --name=var           --vgname=linux --size=2048 --grow
 logvol /var/log       --fstype=ext4 --name=var_log       --vgname=linux --size=10240
 
-text
+# text
 reboot
 
 %packages --ignoremissing
