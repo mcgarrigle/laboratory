@@ -38,6 +38,11 @@ echo "DHCP/PXE interface = ${ETH0}"
 
 hostnamectl set-hostname ${FOR_SERVER}
 
+# stop host connections stalling on DNS lookup
+
+echo "UseDNS no" >> /etc/ssh/sshd_config
+
+
 echo "${FOR_ADDRESS} ${FOR_SERVER} foreman" >> /etc/hosts
 
 
