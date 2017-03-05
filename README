@@ -2,7 +2,7 @@
 Playpen
 -------
 
-A Stupid-simple engineering environment for systems integration dev rather
+A Stupid-simple engineering environment for systems integration rather
 than Software Engineering.
 
 Rationale:
@@ -32,16 +32,18 @@ Implementation:
 
 Prerequisites:
 
-Linux or macOS with VirtualBox
-Windows 10 with 'Windows Subsystem for Linux' and VirtualBox installed (not yet tested)
+* Linux with VirtualBox
+* macOS with VirtualBox
+* Windows 10 with 'Windows Subsystem for Linux' and VirtualBox installed (not yet tested)
 
 Instructions:
 
-1. Download CentOS Minimal ISO
+1. Download CentOS Minimal ISO (localtion ~/Downloads/ assumed
 2. Edit files for your own domain required IP/DHCP/PXE range
-3. # bash foreman/vm-create-foreman.sh
-4. # scp foreman/foreman-install.sh foreman/foreman-configure.sh foreman: 
-5. run foreman-install.sh and foreman-configure.sh 
+3. Add tools/ssh_config to ~/.ssh/config
+4. # bash foreman/vm-create-foreman.sh
+5. # scp foreman/foreman-install.sh foreman/foreman-configure.sh foreman: 
+6. run foreman-install.sh and foreman-configure.sh 
 
 Todo:
 

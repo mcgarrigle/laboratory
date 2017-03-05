@@ -1,5 +1,7 @@
 
-Host foreman for
+# add to ~/.ssh/config
+
+Host foreman for f
   HostName 127.0.0.1
   Port 2222
   User root
