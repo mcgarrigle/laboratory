@@ -27,9 +27,9 @@ class Subnet
     @guests << g
   end
 
-  def inspect
+  def to_h
     { :name   => @name,
-      :guests => @guests.map {|g| g.definition }
+      :guests => @guests.map {|g| g.to_h }
     }
   end
 

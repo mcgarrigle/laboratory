@@ -1,9 +1,16 @@
 
+
+require "interface"
+require "disk"
+
+
 class Guest
 
   def initialize
     @name = [*('a'..'z')].sample(8).join
+    @memory     = 1024
     @interfaces = []
+    @disks      = []
   end
 
   def name s
@@ -11,19 +18,24 @@ class Guest
     puts "guest #{s}"
   end
 
-  def method_missing(name, *args)
-    /^([a-z]+)/.match(name.to_s)
-    self.send($1, *args)
+  def memory m
+    @memory = m
   end
 
-  def interface(*args)
-    puts "  interface #{args}"
-    @interfaces << args
+  def interface(ip4 = nil, gateway4 = nil)
+    i = Interface.new(ip4, gateway4)
+    @interfaces << i
   end
 
-  def definition
+  def disk(device, size)
+    d = Disk.new(device, size)
+    @disks << d
+  end 
+
+  def to_h
     { :name       => @name,
-      :interfaces => @interfaces
+      :interfaces => @interfaces.map {|i| i.to_h },
+      :disks      => @disks.map {|d| d.to_h }
     }
   end
 

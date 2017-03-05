@@ -21,7 +21,7 @@ class Collective
 
   def define(s)
     eval(s)
-    p @subnet.inspect
+    p @subnet.to_h
   end
 
 end

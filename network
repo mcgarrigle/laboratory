@@ -7,8 +7,9 @@ subnet {
 
   guest { 
     name "foreman"
-    interface1 "10.0.30.10/24"
-    interface2 "10.0.5.10/24"
+    interface "10.0.30.10/24"
+    interface "10.0.5.10/24"
+    disk "sda", 200000
   }
 
   guest { 
