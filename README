@@ -30,14 +30,18 @@ Implementation:
                   |  host   |  localhost:2222 => foreman:22
                   +---------+
 
+Prerequisites:
+
+Linux or macOS with VirtualBox
+Windows 10 with 'Windows Subsystem for Linux' and VirtualBox installed (not yet tested)
+
 Instructions:
 
-1. Download and install VirtualBox
-2. Download CentOS Minimal ISO
-3. Edit files for your own domain required IP/DHCP/PXE range
-4. # bash foreman/vm-create-foreman.sh
-5. # scp foreman/foreman-install.sh foreman/foreman-configure.sh foreman: 
-6. run foreman-install.sh and foreman-configure.sh 
+1. Download CentOS Minimal ISO
+2. Edit files for your own domain required IP/DHCP/PXE range
+3. # bash foreman/vm-create-foreman.sh
+4. # scp foreman/foreman-install.sh foreman/foreman-configure.sh foreman: 
+5. run foreman-install.sh and foreman-configure.sh 
 
 Todo:
 
