@@ -22,12 +22,12 @@ class Guest
     @memory = m
   end
 
-  def interface(ip4 = nil, gateway4 = nil)
+  def interface(ip4:nil, gateway4: nil)
     i = Interface.new(ip4, gateway4)
     @interfaces << i
   end
 
-  def disk(device, size)
+  def disk(device:nil, size:1000)
     d = Disk.new(device, size)
     @disks << d
   end 
