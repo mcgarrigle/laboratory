@@ -10,5 +10,14 @@ class Guest
     puts "guest #{s}"
   end
 
+  def method_missing(name, *args)
+    /^([a-z]+)/.match(name.to_s)
+    self.send($1, *args)
+  end
+
+  def interface(*args)
+    puts "  interface #{args}"
+  end
+
 end
 

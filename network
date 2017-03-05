@@ -3,10 +3,12 @@ domain "foo.local"
 
 subnet {
   name "management"
-  ip4 "10.0.0.0/24"
+  ip4 "10.0.30.0/24"
 
   guest { 
     name "foreman"
+    interface1 "10.0.30.10/24"
+    interface2 "10.0.5.10/24"
   }
 
   guest { 
