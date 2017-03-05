@@ -28,9 +28,9 @@ class Subnet
   end
 
   def inspect
-    @guests.each do |g|
-      p g
-    end
+    { :name   => @name,
+      :guests => @guests.map {|g| g.definition }
+    }
   end
 
 end

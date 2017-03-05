@@ -1,10 +1,12 @@
 
+require "hypervisor"
 require "subnet"
 
 
 class Collective
 
   def initialize
+    @hypervisor = Hypervisor.new
   end
 
   def domain d
@@ -19,7 +21,7 @@ class Collective
 
   def define(s)
     eval(s)
-    @subnet.inspect
+    p @subnet.inspect
   end
 
 end

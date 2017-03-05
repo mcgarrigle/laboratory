@@ -3,6 +3,7 @@ class Guest
 
   def initialize
     @name = [*('a'..'z')].sample(8).join
+    @interfaces = []
   end
 
   def name s
@@ -17,6 +18,13 @@ class Guest
 
   def interface(*args)
     puts "  interface #{args}"
+    @interfaces << args
+  end
+
+  def definition
+    { :name       => @name,
+      :interfaces => @interfaces
+    }
   end
 
 end
