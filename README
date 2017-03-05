@@ -1,0 +1,17 @@
+
+Playpen
+-------
+
+A Stupid-simple engineering environment for systems integration dev rather
+than Software Engineering.
+
+Rationale:
+
+Vagrrant is great and everything, but is makes some assumptions that disqualifies
+it from full-bore integration dev and test.
+
+* Everything is build from boxes - production systems are'nt we need to build from whole-cloth
+* You don't have DNS so inject hosts files - good enough for SWE
+* You are always able to reach out to teh interwebs for installation assets
+
+
