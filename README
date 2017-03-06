@@ -27,8 +27,11 @@ Implementation:
   |--------+------------+-----------------------|   X.X.X.X (NAT)
                         |
                    +---------+
-                   |  host   |  localhost:2222 => foreman:22
+                   |  host   |
                    +---------+
+
+                   localhost:2222 => foreman:22
+                   localhost:9080 => SOCKS Proxy
 
 Prerequisites:
 
@@ -38,12 +41,27 @@ Prerequisites:
 
 Instructions:
 
-1. Download CentOS Minimal ISO (localtion ~/Downloads/ assumed
+1. Download CentOS Minimal ISO (location ~/Downloads assumed)
 2. Edit files for your own domain required IP/DHCP/PXE range
-3. Add tools/ssh_config to ~/.ssh/config
+3. Insert the contents of tools/ssh_config into ~/.ssh/config
 4. # bash foreman/vm-create-foreman.sh
-5. # scp foreman/foreman-install.sh foreman/foreman-configure.sh foreman: 
-6. run foreman-install.sh and foreman-configure.sh 
+5. When the foreman VM boots off the CDROM:
+   * Scroll up to "Install CentOS ..." menu item, then Tap [TAB] key to expose the linux kernel command line
+   * add " ks=http://goo.gl/oX4Qd2" to the kernel boot command and tap [ENTER]
+6. Let VM build
+7. # scp foreman/foreman-install.sh foreman: 
+8. run foreman-install.sh
+
+To look at your foreman installation:
+
+1. Open your browser "LAN Settings"
+2. Replaces any settings with:
+   * SOCKS v5
+   * Remote DNS
+   * 127.0.01 port 9080
+3. Goto https://foreman.foo.local
+4. Add the certificate
+
 
 Todo:
 
