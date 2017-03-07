@@ -1,9 +1,9 @@
 
 class Disk
 
-  def initialize(device, size)
-    @device = device
-    @size   = size
+  attr_accessor :device, :size
+
+  def initialize
   end
 
   def to_h

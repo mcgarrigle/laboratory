@@ -14,9 +14,9 @@ class Collective
     puts "domain #{d}"
   end
 
-  def subnet(&block) 
+  def subnet
     @subnet = Subnet.new
-    @subnet.instance_eval &block
+    yield @subnet
   end
 
   def define(s)
@@ -25,4 +25,3 @@ class Collective
   end
 
 end
-

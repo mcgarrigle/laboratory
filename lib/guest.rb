@@ -1,36 +1,31 @@
 
-
 require "interface"
 require "disk"
 
 
 class Guest
 
+  attr_accessor :name, :memory
+
   def initialize
-    @name = [*('a'..'z')].sample(8).join
+    @name       = [*('a'..'z')].sample(8).join
     @memory     = 1024
     @interfaces = []
     @disks      = []
   end
 
-  def name s
-    @name = s
-    puts "guest #{s}"
-  end
-
-  def memory m
-    @memory = m
-  end
-
-  def interface(ip4:nil, gateway4: nil)
-    i = Interface.new(ip4, gateway4)
+  def interface
+    i = Interface.new
+    #i.instance_eval &block
+    yield i
     @interfaces << i
   end
 
-  def disk(device:nil, size:1000)
-    d = Disk.new(device, size)
+  def disk
+    d = Disk.new
+    yield d
     @disks << d
-  end 
+  end
 
   def to_h
     { :name       => @name,
@@ -40,4 +35,3 @@ class Guest
   end
 
 end
-

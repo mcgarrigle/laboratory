@@ -5,13 +5,10 @@ require "guest"
 
 class Subnet
 
+  attr_accessor :name
+
   def initialize
     @guests = []
-  end
-
-  def name s
-    @name = s
-    puts "name #{s}"
   end
 
   def ip4 cidr
@@ -21,9 +18,9 @@ class Subnet
     @pool.shift 10                          # first 10 IPs are reserved (Cisco LLD)
   end
 
-  def guest(&block)
+  def guest
     g = Guest.new
-    g.instance_eval &block
+    yield g
     @guests << g
   end
 
@@ -34,4 +31,3 @@ class Subnet
   end
 
 end
-
