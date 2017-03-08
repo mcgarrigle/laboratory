@@ -8,10 +8,15 @@ class Subnet
   attr_accessor :name
 
   def initialize
+    @name = ""
     @guests = []
   end
 
-  def ip4 cidr
+  def ip4
+    @pi4
+  end
+
+  def ip4=(cidr)
     puts "  network #{cidr}"
     @network = NetAddr::CIDR.create(cidr)   # define subnet
     @pool = @network.enumerate              # create pool of addresses

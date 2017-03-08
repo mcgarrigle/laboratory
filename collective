@@ -4,8 +4,10 @@ $LIB_DIR = File.join(File.dirname(__FILE__), "lib")
 $LOAD_PATH << $LIB_DIR 
 
 require "collective"
+require "pp"
 
+load "network"
 
-collective = Collective.new
-collective.define File.read("network")
+@hypervisor = Hypervisor.new
 
+pp @subnet.to_h

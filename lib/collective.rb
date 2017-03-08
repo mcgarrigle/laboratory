@@ -3,11 +3,11 @@ require "hypervisor"
 require "subnet"
 
 
-class Collective
+module Collective
 
-  def initialize
-    @hypervisor = Hypervisor.new
-  end
+  #def initialize
+  #  @hypervisor = Hypervisor.new
+  #end
 
   def domain d
     @domain = d
@@ -25,3 +25,5 @@ class Collective
   end
 
 end
+
+include Collective

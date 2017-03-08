@@ -2,8 +2,8 @@
 domain "foo.local"
 
 subnet { |s|
-  s.name "management"
-  s.ip4 "10.0.30.0/24"
+  s.name = "management"
+  s.ip4 = "10.0.30.0/24"
 
   s.guest do |g|
     g.name = "foreman"
