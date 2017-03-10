@@ -10,4 +10,6 @@ load "network"
 
 @hypervisor = Hypervisor.new
 
-pp @subnet.to_h
+pp @hypervisor.list
+
+# pp @subnet.to_h
