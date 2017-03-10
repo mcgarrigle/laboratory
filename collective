@@ -12,4 +12,9 @@ load "network"
 
 pp @hypervisor.list
 
+g = Guest.new
+g.name = "foo"
+@hypervisor.create(g)
+
+
 # pp @subnet.to_h
