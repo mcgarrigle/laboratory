@@ -37,6 +37,9 @@ Prerequisites:
 
 * Linux with VirtualBox
 * macOS with VirtualBox
+* Windows 8 + git for Windows + windows ruby.
+  - https://git-for-windows.github.io/
+  - https://rubyinstaller.org/
 * Windows 10 with 'Windows Subsystem for Linux' and VirtualBox installed (not yet tested)
 
 Instructions:
