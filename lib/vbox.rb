@@ -12,7 +12,7 @@ class Vbox
   end
 
   def createvm(args = {})
-    command("createvm --register", args)
+    command("createvm --register --name #{string @name}", args)
   end
 
   def method_missing(method, *args)

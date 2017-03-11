@@ -46,8 +46,9 @@ describe Vbox do
   describe "#createvm" do
 
     it "calls system adding --register" do
-      expect(subject).to receive(:system).with('vboxmanage createvm --register --name "foo"')
-      subject.createvm(:name => "foo")
+      subject = Vbox.new("foo")
+      expect(subject).to receive(:system).with('vboxmanage createvm --register --name "foo" --bar baz')
+      subject.createvm(:bar => :baz)
     end
 
   end
@@ -71,7 +72,7 @@ describe Vbox do
       Vbox.list(:vms)
     end
 
-    it "returns a hash" do
+    it "returns a hash of id => name" do
       allow(Vbox).to receive(:`).and_return(%Q["foo" {xxxx}\n"bar" {yyyy}\n])
       expect(Vbox.list(:vms)).to be == { "{xxxx}" => "foo", "{yyyy}" => "bar" }
     end
