@@ -23,7 +23,7 @@ describe Vbox do
   end
 
   # flatten:
-  # take  hash and converts into commandline args
+  # takes hash and converts into commandline args
 
   describe "#flatten" do
     
@@ -53,14 +53,14 @@ describe Vbox do
 
   end
 
-  # syntax sugar for #command() that injects name of VM
+  # syntax sugar for #command that injects name of VM
 
   describe "#method_missing" do
 
     it "calls system" do
-      vbox = Vbox.new("vm-name")
-      expect(vbox).to receive(:system).with('vboxmanage foo "vm-name" --bar baz')
-      vbox.foo(:bar => :baz)
+      subject = Vbox.new("vm-name")
+      expect(subject).to receive(:system).with('vboxmanage foo "vm-name" --bar baz')
+      subject.foo(:bar => :baz)
     end
 
   end
