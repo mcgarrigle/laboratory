@@ -23,7 +23,7 @@ describe Vbox do
   end
 
   # flatten:
-  # take hash of and convert into commandline args
+  # take  hash and converts into commandline args
 
   describe "#flatten" do
     
@@ -37,8 +37,27 @@ describe Vbox do
   describe "#command" do
 
     it "calls system" do
-      expect(subject).to receive(:system).with("vboxmanage foo --bar baz")
+      expect(subject).to receive(:system).with('vboxmanage foo --bar baz')
       subject.command("foo", :bar => :baz)
+    end
+
+  end
+
+  describe "#createvm" do
+
+    it "calls system adding --register" do
+      expect(subject).to receive(:system).with('vboxmanage createvm --register --name "foo"')
+      subject.createvm(:name => "foo")
+    end
+
+  end
+
+  describe "#method_missing" do
+
+    it "calls system" do
+      vbox = Vbox.new("vm-name")
+      expect(vbox).to receive(:system).with('vboxmanage foo "vm-name" --bar baz')
+      vbox.foo(:bar => :baz)
     end
 
   end
