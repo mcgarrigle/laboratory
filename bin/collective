@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-$LIB_DIR = File.join(File.dirname(__FILE__), "lib")
+$LIB_DIR = File.join(File.dirname(__FILE__), "..", "lib")
 $LOAD_PATH << $LIB_DIR 
 
 require "collective"

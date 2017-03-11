@@ -52,12 +52,28 @@ describe Vbox do
 
   end
 
+  # syntax sugar for #command() that injects name of VM
+
   describe "#method_missing" do
 
     it "calls system" do
       vbox = Vbox.new("vm-name")
       expect(vbox).to receive(:system).with('vboxmanage foo "vm-name" --bar baz')
       vbox.foo(:bar => :baz)
+    end
+
+  end
+
+  describe ".list" do
+
+    it "calls vboxmanage" do
+      expect(Vbox).to receive(:`).with('vboxmanage list vms').and_return('"foo" {xxxx}')
+      Vbox.list(:vms)
+    end
+
+    it "returns a hash" do
+      allow(Vbox).to receive(:`).and_return(%Q["foo" {xxxx}\n"bar" {yyyy}\n])
+      expect(Vbox.list(:vms)).to be == { "{xxxx}" => "foo", "{yyyy}" => "bar" }
     end
 
   end

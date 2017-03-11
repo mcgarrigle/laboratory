@@ -5,6 +5,12 @@ class Vbox
     @name = name
   end
 
+  def self.list(type = :vms)
+    vms = %x[vboxmanage list #{type}]
+    vms = vms.lines.map {|s| /"(.+)" (.*)/.match(s.chomp); [$2,$1] }
+    Hash[vms]
+  end
+
   def createvm(args = {})
     command("createvm --register", args)
   end

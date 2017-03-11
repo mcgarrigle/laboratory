@@ -5,18 +5,11 @@ require "vm"
 class Hypervisor
 
   def initialize
-    @vbox = Vbox.new
-  end
-
-  def vblist(s)
-    vms = %x[vboxmanage list #{s}]
-    vms = vms.lines.map {|s| /"(.+)" (.*)/.match(s.chomp); [$2,$1] }
-    Hash[vms]
   end
 
   def list
-    all     = vblist(:vms)
-    running = vblist(:runningvms)
+    all     = Vbox.list(:vms)
+    running = Vbox.list(:runningvms)
     vms = all.map do |id, name|
       vm = VM.new(id, name)
       vm.state = running[id] ? :running : :stopped
@@ -40,7 +33,9 @@ class Hypervisor
   end
 
   def start(guest)
-    system %Q[vboxmanage startvm "#{guest.id}" --type headless]
+    vbox = Vbox.new(guest.name)
+    vbox.startvm(:type => :headless)
+    # system %Q[vboxmanage startvm "#{guest.id}" --type headless]
   end
 
   def stop(guest)
