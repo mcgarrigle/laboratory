@@ -20,7 +20,7 @@ class Vbox
   end
 
   def command(s, args)
-    system %Q[vboxmanage #{s} #{flatten args}]
+    system "vboxmanage #{s} #{flatten args}"
   end
 
   def flatten(args = {})
@@ -28,9 +28,10 @@ class Vbox
   end
 
   def string(s)
-    case s
-    when String then "\"#{s}\""
-    else s.to_s
+    if String === s
+      %Q["#{s}"]
+    else 
+      s.to_s
     end
   end
 
