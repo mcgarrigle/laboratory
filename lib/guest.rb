@@ -1,7 +1,7 @@
 
 require "interface"
+require "dvd"
 require "disk"
-
 
 class Guest
 
@@ -18,13 +18,19 @@ class Guest
 
   def interface
     i = Interface.new
-    #i.instance_eval &block
     yield i
     @interfaces << i
   end
 
   def disk
     d = Disk.new
+    yield d
+    @disks << d
+  end
+
+  def dvd
+    d = Disk.new(:sr0)
+    d.media = ''
     yield d
     @disks << d
   end

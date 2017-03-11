@@ -1,9 +1,9 @@
 
 class Dvd
 
-  attr_accessor :media
+  attr_accessor :device, :media
 
-  def initialize(media = nil)
+  def initialize(device = :sr0, media = nil)
     @media = media
   end
 

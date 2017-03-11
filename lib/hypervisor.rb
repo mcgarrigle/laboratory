@@ -30,12 +30,12 @@ class Hypervisor
     vbox.modifyvm(:boot3 => :disk)
     vbox.storagectl(:name => "IDE", :add => :ide)
     vbox.storagectl(:name => "SATA", :add => :sata, :controller => :IntelAHCI)
+    dvd = guest.disks.
   end
 
   def start(guest)
     vbox = Vbox.new(guest.name)
     vbox.startvm(:type => :headless)
-    # system %Q[vboxmanage startvm "#{guest.id}" --type headless]
   end
 
   def stop(guest)
