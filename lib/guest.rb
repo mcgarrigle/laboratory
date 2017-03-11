@@ -5,13 +5,15 @@ require "disk"
 
 class Guest
 
-  attr_accessor :name, :memory
+  attr_accessor :name, :memory, :vram, :ostype
 
   def initialize
     @name       = [*('a'..'z')].sample(8).join
     @memory     = 1024
+    @vram       = 128
     @interfaces = []
     @disks      = []
+    @ostype     = "RedHat_64"
   end
 
   def interface
