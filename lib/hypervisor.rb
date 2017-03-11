@@ -35,8 +35,8 @@ class Hypervisor
     vbox.modifyvm(:boot1 => :net)
     vbox.modifyvm(:boot2 => :dvd)
     vbox.modifyvm(:boot3 => :disk)
-    vbox.storagectl(:name => "IDE Controller", :add => :ide)
-    vbox.storagectl(:name => "SATA Controller", :add => :sata, :controller => :IntelAHCI)
+    vbox.storagectl(:name => "IDE", :add => :ide)
+    vbox.storagectl(:name => "SATA", :add => :sata, :controller => :IntelAHCI)
   end
 
   def start(guest)
