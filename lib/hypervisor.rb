@@ -27,7 +27,7 @@ class Hypervisor
 
   def create(guest)
     vbox = Vbox.new(guest.name)
-    vbox.create(:name => guest.name, :ostype => guest.ostype)
+    vbox.createvm(:name => guest.name, :ostype => guest.ostype)
     vbox.modifyvm(:ioapic => :on)
     vbox.modifyvm(:memory => guest.memory, :vram => guest.vram)
     vbox.modifyvm(:nic1 => :intnet)

@@ -34,4 +34,13 @@ describe Vbox do
 
   end
 
+  describe "#command" do
+
+    it "calls system" do
+      expect(subject).to receive(:system).with("vboxmanage foo --bar baz")
+      subject.command("foo", :bar => :baz)
+    end
+
+  end
+
 end

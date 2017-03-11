@@ -5,7 +5,7 @@ class Vbox
     @name = name
   end
 
-  def create(args = {})
+  def createvm(args = {})
     command("createvm --register", args)
   end
 
@@ -14,7 +14,7 @@ class Vbox
   end
 
   def command(s, args)
-    puts %Q[vboxmanage #{s} #{flatten args}]
+    system %Q[vboxmanage #{s} #{flatten args}]
   end
 
   def flatten(args = {})
