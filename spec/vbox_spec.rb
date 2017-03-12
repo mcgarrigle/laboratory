@@ -3,6 +3,8 @@ require "vbox"
 
 describe Vbox do
 
+  subject { Vbox.new("foo") }
+
   # string:
   # takes a scalar and adds quotes if a string
 
@@ -46,24 +48,13 @@ describe Vbox do
   describe "#createvm" do
 
     it "calls system adding --register" do
-      subject = Vbox.new("foo")
       expect(subject).to receive(:system).with('vboxmanage createvm --register --name "foo" --bar baz')
       subject.createvm(:bar => :baz)
     end
 
   end
 
-  # syntax sugar for #command that injects name of VM
-
-  describe "#method_missing" do
-
-    it "calls system" do
-      subject = Vbox.new("vm-name")
-      expect(subject).to receive(:system).with('vboxmanage foo "vm-name" --bar baz')
-      subject.foo(:bar => :baz)
-    end
-
-  end
+  # TODO Moar tests
 
   describe ".list" do
 

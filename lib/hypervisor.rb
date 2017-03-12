@@ -35,7 +35,8 @@ class Hypervisor
     vbox.storageattach(:storagectl => "IDE", :port => 0, :device => 0, :type => :dvddrive, :medium => dvd.medium)
     disks.each do |disk|
       path = File.join(ENV["HOME"], "VirtualBox VMs", guest.name, disk.device.to_s + ".vdi")
-      vbox.command(:createhd, :filename => path, :size => disk.size)
+#      vbox.command(:createhd, :filename => path, :size => disk.size)
+      vbox.createhd(:filename => path, :size => disk.size)
       vbox.storageattach(:storagectl => "SATA", :port => 0, :device => 0, :type => :hdd, :medium => path)
     end
   end

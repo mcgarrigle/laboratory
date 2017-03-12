@@ -15,8 +15,24 @@ class Vbox
     command("createvm --register --name #{string @name}", args)
   end
 
-  def method_missing(method, *args)
-    command("#{method} \"#{@name}\"", args.first)
+  def createhd(args = {})
+    command("createhd", args)
+  end
+
+  def modifyvm(args = {})
+    command("modifyvm \"#{@name}\"", args)
+  end
+
+  def storagectl(args = {})
+    command("storagectl \"#{@name}\"", args)
+  end
+
+  def storageattach(args = {})
+    command("storageattach \"#{@name}\"", args)
+  end
+
+  def startvm(args = {})
+    command("startvm \"#{@name}\"", args)
   end
 
   def command(s, args)
