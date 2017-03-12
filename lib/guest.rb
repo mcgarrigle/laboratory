@@ -6,14 +6,15 @@ require "disk"
 class Guest
 
   attr_accessor :name, :memory, :vram, :ostype
+  attr_accessor :interfaces, :disks
 
   def initialize
     @name       = [*('a'..'z')].sample(8).join
     @memory     = 1024
     @vram       = 128
+    @ostype     = "RedHat_64"
     @interfaces = []
     @disks      = []
-    @ostype     = "RedHat_64"
   end
 
   def interface
@@ -30,7 +31,7 @@ class Guest
 
   def dvd
     d = Disk.new(:sr0)
-    d.media = ''
+    d.medium = 'emptydrive'
     yield d
     @disks << d
   end
