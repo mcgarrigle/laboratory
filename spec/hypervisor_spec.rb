@@ -49,6 +49,15 @@ describe Hypervisor do
       subject.create(@guest)
     end
 
+    it "should attach a disk" do
+      expect(vbox).to receive(:storageattach).with(hash_including(:storagectl => "SATA", :type => :hdd))
+      subject.create(@guest)
+    end
+
+    it "should attach a dvd" do
+      expect(vbox).to receive(:storageattach).with(hash_including(:storagectl => "IDE", :type => :dvddrive))
+      subject.create(@guest)
+    end
 
   end
 
