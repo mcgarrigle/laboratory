@@ -59,6 +59,29 @@ describe Hypervisor do
       subject.create(@guest)
     end
 
+    context "when creating multiple hard disks" do
+
+      before (:each) do
+        @guest = Guest.new
+        @guest.name = "foo"
+        @guest.dvd {}
+        @guest.disk {}
+        @guest.disk {}
+      end
+
+      it "should create disks" do
+        expect(vbox).to receive(:createhd).twice
+        subject.create(@guest)
+      end
+
+      it "should attach the disks" do
+        expect(vbox).to receive(:storageattach).with(hash_including(:type => :hdd, :port => 0))
+        expect(vbox).to receive(:storageattach).with(hash_including(:type => :hdd, :port => 1))
+        subject.create(@guest)
+      end
+
+    end
+
   end
 
 end

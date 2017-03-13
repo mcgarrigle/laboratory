@@ -33,10 +33,10 @@ class Hypervisor
     dvds,disks = guest.disks.partition {|d| d.device == :sr0 }
     dvd = dvds.first
     vbox.storageattach(:storagectl => "IDE", :port => 0, :device => 0, :type => :dvddrive, :medium => dvd.medium)
-    disks.each do |disk|
+    disks.each_with_index do |disk, port|
       path = File.join(ENV["HOME"], "VirtualBox VMs", guest.name, "#{disk.device}.vdi")
       vbox.createhd(:filename => path, :size => disk.size)
-      vbox.storageattach(:storagectl => "SATA", :port => 0, :device => 0, :type => :hdd, :medium => path)
+      vbox.storageattach(:storagectl => "SATA", :port => port, :device => 0, :type => :hdd, :medium => path)
     end
   end
 
