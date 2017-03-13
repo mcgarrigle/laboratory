@@ -1,6 +1,5 @@
 
 require "interface"
-require "dvd"
 require "disk"
 
 class Guest
@@ -34,13 +33,6 @@ class Guest
     d.medium = 'emptydrive'
     yield d
     @disks << d
-  end
-
-  def to_h
-    { :name       => @name,
-      :interfaces => @interfaces.map {|i| i.to_h },
-      :disks      => @disks.map {|d| d.to_h }
-    }
   end
 
 end
