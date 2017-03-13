@@ -23,7 +23,6 @@ class Hypervisor
     vbox.createvm(:ostype => guest.ostype)
     vbox.modifyvm(:ioapic => :on)
     vbox.modifyvm(:memory => guest.memory, :vram => guest.vram)
-    # vbox.modifyvm(:nic1 => :intnet)
     vbox.modifyvm(:natdnshostresolver1 => :on)
     vbox.modifyvm(:boot1 => :net)
     vbox.modifyvm(:boot2 => :dvd)
