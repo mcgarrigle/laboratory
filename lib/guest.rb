@@ -14,6 +14,7 @@ class Guest
     @ostype     = "RedHat_64"
     @interfaces = []
     @disks      = []
+    @block      = :sda
   end
 
   def interface
@@ -24,6 +25,8 @@ class Guest
 
   def disk
     d = Disk.new
+    d.device = @block
+    @block = @block.succ
     yield d
     @disks << d
   end

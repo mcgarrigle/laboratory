@@ -30,6 +30,7 @@ describe Hypervisor do
       @guest.name = "foo"
       @guest.dvd {}
       @guest.disk {}
+      @guest.interface {|i| i.network = :intnet }
 
       allow(Vbox).to receive(:new).and_return(vbox)
       allow(vbox).to receive(:createvm)
@@ -56,6 +57,11 @@ describe Hypervisor do
 
     it "should attach a dvd" do
       expect(vbox).to receive(:storageattach).with(hash_including(:storagectl => "IDE", :type => :dvddrive))
+      subject.create(@guest)
+    end
+
+    it "should create a network interface" do
+      expect(vbox).to receive(:modifyvm).with(hash_including(:nic1 => :intnet))
       subject.create(@guest)
     end
 

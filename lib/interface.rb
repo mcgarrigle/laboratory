@@ -4,9 +4,10 @@ require "netaddr"
 
 class Interface
 
-  attr_accessor :netmask4, :prefix4, :gateway4
+  attr_accessor :network, :netmask4, :prefix4, :gateway4
 
   def initialize
+    @network  = :nat
     @ip4      = "0.0.0.0"
     @netmask4 = "0.0.0.0"
     @gateway4 = "0.0.0.0"
@@ -15,10 +16,10 @@ class Interface
 
   def ip4=(s)
     if s.include? '/'
-      network = NetAddr::CIDR.create(s) 
-      @ip4      = network.ip
-      @netmask4 = network.netmask_ext
-      @prefix4  = network.netmask
+      cidr = NetAddr::CIDR.create(s) 
+      @ip4      = cidr.ip
+      @netmask4 = cidr.netmask_ext
+      @prefix4  = cidr.netmask
     else
       @ip4 = s
     end

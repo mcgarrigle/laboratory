@@ -14,6 +14,8 @@ g = Guest.new
 g.name = "foo"
 g.dvd {|d| d.medium = "/Users/pete/Downloads/CentOS-7-x86_64-Minimal-1511.iso"}
 g.disk {}
+g.interface {|i| i.network = :intnet }
+g.interface {|i| i.network = :nat    }
 
 pp g
 

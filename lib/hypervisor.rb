@@ -23,16 +23,24 @@ class Hypervisor
     vbox.createvm(:ostype => guest.ostype)
     vbox.modifyvm(:ioapic => :on)
     vbox.modifyvm(:memory => guest.memory, :vram => guest.vram)
-    vbox.modifyvm(:nic1 => :intnet)
+    # vbox.modifyvm(:nic1 => :intnet)
     vbox.modifyvm(:natdnshostresolver1 => :on)
     vbox.modifyvm(:boot1 => :net)
     vbox.modifyvm(:boot2 => :dvd)
     vbox.modifyvm(:boot3 => :disk)
+
+    guest.interfaces.each_with_index do |interface, i|
+      name = "nic#{i + 1}".to_sym
+      vbox.modifyvm(name => interface.network)
+    end
+
     vbox.storagectl(:name => "IDE", :add => :ide)
     vbox.storagectl(:name => "SATA", :add => :sata, :controller => :IntelAHCI)
     dvds,disks = guest.disks.partition {|d| d.device == :sr0 }
     dvd = dvds.first
+
     vbox.storageattach(:storagectl => "IDE", :port => 0, :device => 0, :type => :dvddrive, :medium => dvd.medium)
+
     disks.each_with_index do |disk, port|
       path = File.join(ENV["HOME"], "VirtualBox VMs", guest.name, "#{disk.device}.vdi")
       vbox.createhd(:filename => path, :size => disk.size)
