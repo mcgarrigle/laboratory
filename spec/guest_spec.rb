@@ -26,7 +26,11 @@ describe Guest do
       expect(subject.boot).to eql [:dvd, :disk]
     end
 
-    it "should reject order" do
+    it "should reject non-arrays" do
+      expect { subject.boot = "shoe" }.to raise_error(ArgumentError)
+    end
+
+    it "should reject order if device not known" do
       expect { subject.boot = [:dvd, :majick] }.to raise_error(ArgumentError)
     end
 

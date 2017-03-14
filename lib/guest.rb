@@ -20,6 +20,7 @@ class Guest
 
   def boot=(order)
     @boot = order
+    raise ArgumentError, "not an array on boot" unless (Array === order)
     wrong = @boot - [:net, :dvd, :disk]
     raise ArgumentError, "did not expect on boot command (#{wrong})" if wrong.size > 0 
     #vbox.modifyvm(:boot1 => :net)
