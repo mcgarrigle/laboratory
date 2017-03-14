@@ -19,6 +19,19 @@ describe Guest do
 
   end
 
+  describe "#boot" do
+
+    it "should set order" do
+      subject.boot = [:dvd, :disk]
+      expect(subject.boot).to eql [:dvd, :disk]
+    end
+
+    it "should reject order" do
+      expect { subject.boot = [:dvd, :majick] }.to raise_error(ArgumentError)
+    end
+
+  end
+
   describe "#disk" do
   
     it "should create all disks" do
