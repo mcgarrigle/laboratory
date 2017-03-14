@@ -29,8 +29,12 @@ class Hypervisor
     vbox.modifyvm(:boot3 => :disk)
 
     guest.interfaces.each_with_index do |interface, i|
-      name = "nic#{i + 1}".to_sym
-      vbox.modifyvm(name => interface.network)
+      nic = "nic#{i + 1}".to_sym
+      vbox.modifyvm(nic => interface.network)
+      if interface.port_forward
+        port = "natpf#{i + 1}".to_sym
+        vbox.modifyvm(port => interface.port_forward)
+      end
     end
 
     vbox.storagectl(:name => "IDE", :add => :ide)

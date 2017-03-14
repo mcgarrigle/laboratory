@@ -5,6 +5,7 @@ require "netaddr"
 class Interface
 
   attr_accessor :network, :netmask4, :prefix4, :gateway4
+  attr_accessor :port_forward
 
   def initialize
     @network  = :nat

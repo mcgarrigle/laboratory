@@ -65,6 +65,13 @@ describe Hypervisor do
       subject.create(@guest)
     end
 
+    it "should add port forwarding" do
+      expect(vbox).to receive(:modifyvm).with(hash_including(:nic2 => :nat))
+      expect(vbox).to receive(:modifyvm).with(hash_including(:natpf2 => "guestssh,tcp,,2222,,22"))
+      @guest.interface {|i| i.network = :nat; i.port_forward = "guestssh,tcp,,2222,,22" }
+      subject.create(@guest)
+    end
+
     context "when creating multiple hard disks" do
 
       before (:each) do
