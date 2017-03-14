@@ -5,7 +5,7 @@ require "guest"
 
 class Subnet
 
-  attr_accessor :name
+  attr_accessor :name, :guests
 
   def initialize
     @name = ""
@@ -20,19 +20,13 @@ class Subnet
     puts "  network #{cidr}"
     @network = NetAddr::CIDR.create(cidr)   # define subnet
     @pool = @network.enumerate              # create pool of addresses
-    @pool.shift 10                          # first 10 IPs are reserved (Cisco LLD)
+    @pool.shift 10                          # first 10 IPs are reserved 
   end
 
   def guest
     g = Guest.new
     yield g
     @guests << g
-  end
-
-  def to_h
-    { :name   => @name,
-      :guests => @guests.map {|g| g.to_h }
-    }
   end
 
 end

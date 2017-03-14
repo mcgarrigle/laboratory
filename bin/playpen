@@ -10,15 +10,8 @@ load "network"
 
 @hypervisor = Hypervisor.new
 
-g = Guest.new
-g.name = "foo"
-g.dvd {|d| d.medium = "../Downloads/CentOS-7-x86_64-Minimal-1511.iso"}
-g.disk {}
-g.disk {}
-g.interface {|i| i.network = :intnet }
-g.interface {|i| i.network = :nat; i.port_forward = "guestssh,tcp,,2222,,22" }
-
-pp g
-
-@hypervisor.create(g)
-@hypervisor.start(g)
+@subnet.guests.each do |guest|
+  pp guest
+  @hypervisor.create(guest)
+  @hypervisor.start(guest)
+end

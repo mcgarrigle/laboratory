@@ -6,21 +6,18 @@ subnet { |s|
   s.ip4 = "10.0.30.0/24"
 
   s.guest do |g|
-    g.name = "foreman"
-    g.interface {|i| i.ip4 = "10.0.30.10/24"; i.gateway4 = "10.0.30.1" }
-    g.interface {|i| i.ip4 = "10.0.5.10/24" }
-    g.disk {|d| d.device = "sda"; d.size = 200000 }
+    g.name = "theforeman"
+    g.interface do |i| 
+      i.network = :intnet
+      i.ip4 = "10.0.30.10/24"
+    end
+    g.interface do |i|
+      i.network = :nat
+      i.port_forward = "guestssh,tcp,,2222,,22"
+    end
+    g.boot = [:dvd, :disk]
+    g.dvd  {|d| d.medium = "../Downloads/CentOS-7-x86_64-Minimal-1511.iso"}
+    g.disk {|d| d.size = 32768 }
   end
-
-  s.guest do |g|
-    g.name = "ipa"
-  end
-
-  s.guest do |g|
-    g.name = "guest1"
-  end
-
-  s.guest {
-  }
 
 }
