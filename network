@@ -1,7 +1,7 @@
 
 domain "foo.local"
 
-subnet { |s|
+subnet do |s|
   s.name = "management"
   s.ip4 = "10.0.30.0/24"
 
@@ -20,4 +20,15 @@ subnet { |s|
     g.disk {|d| d.size = 32768 }
   end
 
-}
+  s.guest do |g|
+    g.name = "ipa"
+    g.interface do |i| 
+      i.network = :intnet
+      i.ip4 = "10.0.30.10/24"
+    end
+    g.boot = [:net, :disk]
+    g.dvd  {}
+    g.disk {|d| d.size = 32768 }
+  end
+
+end
