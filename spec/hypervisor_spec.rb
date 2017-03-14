@@ -45,6 +45,13 @@ describe Hypervisor do
       subject.create(@guest)
     end
 
+    it "should set boot order" do
+      expect(vbox).to receive(:modifyvm).with(hash_including(:boot1 => :net))
+      expect(vbox).to receive(:modifyvm).with(hash_including(:boot2 => :dvd))
+      expect(vbox).to receive(:modifyvm).with(hash_including(:boot3 => :disk))
+      subject.create(@guest)
+    end
+
     it "should create a disk" do
       expect(vbox).to receive(:createhd)   # TODO make better
       subject.create(@guest)

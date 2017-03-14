@@ -24,9 +24,11 @@ class Hypervisor
     vbox.modifyvm(:ioapic => :on)
     vbox.modifyvm(:memory => guest.memory, :vram => guest.vram)
     vbox.modifyvm(:natdnshostresolver1 => :on)
-    vbox.modifyvm(:boot1 => :net)
-    vbox.modifyvm(:boot2 => :dvd)
-    vbox.modifyvm(:boot3 => :disk)
+
+    guest.boot.each_with_index do |device, i|
+      boot = "boot#{i + 1}".to_sym
+      vbox.modifyvm(boot => device)
+    end
 
     guest.interfaces.each_with_index do |interface, i|
       nic = "nic#{i + 1}".to_sym
