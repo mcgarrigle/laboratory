@@ -36,8 +36,7 @@ class Guest
   end
 
   def disk
-    d = Disk.new
-    d.device = @block
+    d = Disk.new(@block)
     @block = @block.succ
     yield d
     @disks << d
