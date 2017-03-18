@@ -12,6 +12,8 @@ load "network"
 
 @subnet.guests.each do |guest|
   pp guest
-  @hypervisor.create(guest)
-  @hypervisor.start(guest)
+  if guest.enabled
+    @hypervisor.create(guest)
+    @hypervisor.start(guest)
+  end
 end

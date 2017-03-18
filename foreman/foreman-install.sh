@@ -19,7 +19,7 @@ yum install -y firewalld
 yum install -y foreman-installer puppet
 
 export ETH0=$(ip link |awk '/^2:/ { sub(/:/,"",$2); print $2 }')
-export ETH1=$(ip link |awk '/^2:/ { sub(/:/,"",$2); print $2 }')
+export ETH1=$(ip link |awk '/^3:/ { sub(/:/,"",$2); print $2 }')
 
 sed -i 's/ONBOOT=no/ONBOOT=yes/' "/etc/sysconfig/network-scripts/ifcfg-${ETH0}"
 sed -i 's/ONBOOT=no/ONBOOT=yes/' "/etc/sysconfig/network-scripts/ifcfg-${ETH1}"
