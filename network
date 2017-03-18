@@ -6,7 +6,7 @@ subnet do |s|
   s.ip4 = "10.0.30.0/24"
 
   s.guest do |g|
-    g.name = "theforeman"
+    g.name = "foreman"
     g.interface do |i| 
       i.network = :intnet
       i.ip4 = "10.0.30.10/24"
@@ -24,7 +24,7 @@ subnet do |s|
     g.name = "ipa"
     g.interface do |i| 
       i.network = :intnet
-      i.ip4 = "10.0.30.10/24"
+      i.ip4 = "10.0.30.11/24"
     end
     g.boot = [:net, :disk]
     g.dvd  {}

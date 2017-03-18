@@ -54,6 +54,15 @@ describe Vbox do
 
   end
 
+  describe "#startvm" do
+
+    it "calls system" do
+      expect(subject).to receive(:system).with('vboxmanage startvm "foo" --type headless')
+      subject.startvm
+    end
+
+  end
+
   # TODO Moar tests
 
   describe ".list" do

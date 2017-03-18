@@ -53,9 +53,9 @@ class Hypervisor
     end
   end
 
-  def start(guest)
+  def start(guest, type = :headless)
     vbox = Vbox.new(guest.name)
-    vbox.startvm(:type => :headless)
+    vbox.startvm(type)
   end
 
   def stop(guest)

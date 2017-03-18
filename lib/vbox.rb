@@ -31,11 +31,11 @@ class Vbox
     command("storageattach \"#{@name}\"", args)
   end
 
-  def startvm(args = {})
-    command("startvm \"#{@name}\"", args)
+  def startvm(type = :headless)
+    command("startvm \"#{@name}\"", :type => type)
   end
 
-  def command(s, args)
+  def command(s, args = {})
     system "vboxmanage #{s} #{flatten args}"
   end
 
