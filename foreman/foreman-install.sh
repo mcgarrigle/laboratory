@@ -70,16 +70,15 @@ echo "Running Foreman Installer..."
 
 foreman-installer \
   --foreman-foreman-url="http://${FOR_SERVER}" \
+  --foreman-admin-password=admin \
   --foreman-configure-epel-repo=false \
   --foreman-configure-scl-repo=false \
   --enable-foreman-plugin-dhcp-browser \
-  --enable-foreman-plugin-openscap \
-  --enable-foreman-proxy-plugin-openscap \
-  --foreman-admin-password=admin \
+  --foreman-proxy-tftp=true \
   --foreman-proxy-dhcp=true \
   --foreman-proxy-dhcp-interface="${ETH0}" \
   --foreman-proxy-dhcp-range="${IPRANGE}" \
-  --foreman-proxy-dhcp-nameservers="${DNS1}" \
+  --foreman-proxy-dhcp-nameservers="${FOR_ADDRESS}" \
   --foreman-proxy-dhcp-pxeserver="${FOR_ADDRESS}" \
   --foreman-ipa-authentication=false
 
