@@ -56,6 +56,7 @@ echo "Setting up Firewall Rules..."
 systemctl start firewalld
 firewall-cmd --permanent --add-service=http
 firewall-cmd --permanent --add-service=https
+firewall-cmd --permanent --add-port=81/tcp
 firewall-cmd --permanent --add-port=69/tcp
 firewall-cmd --permanent --add-port=67-69/udp
 firewall-cmd --permanent --add-port=53/tcp

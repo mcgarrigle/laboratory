@@ -67,6 +67,14 @@ To look at your foreman installation:
 3. Goto https://foreman.foo.local
 4. Add the certificate
 
+Post Installation Configuration
+
+Mount installation media on /media/dvd
+
+cp /media/dvd/isolinux/vmlinuz /var/lib/tftpboot/boot/CentOS-*-x86_64-vmlinuz 
+cp /media/dvd/isolinux/initrd.img /var/lib/tftpboot/boot/CentOS-*-x86_64-initrd.img 
+
+
 
 Todo:
 

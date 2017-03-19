@@ -23,7 +23,7 @@ subnet do |s|
 
   s.guest do |g|
     g.name = "ipa"
-    g.enabled = false
+    g.enabled = true
     g.interface do |i| 
       i.network = :intnet
       i.ip4 = "10.0.30.11/24"
