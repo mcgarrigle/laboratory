@@ -4,9 +4,12 @@ $LIB_DIR = File.join(File.dirname(__FILE__), "..", "lib")
 $LOAD_PATH << $LIB_DIR 
 
 require "collective"
-require "pp"
+require "command"
 
 load "network"
+
+#command = Command.new
+#command.run(*ARGV)
 
 @hypervisor = Hypervisor.new
 

@@ -27,7 +27,7 @@ describe Command do
     end
 
     it "should call Hypervisor#list" do
-      expect(hypervisor).to receive(:list)
+      expect(hypervisor).to receive(:list).and_return([])
       subject.run("list")
     end
 
