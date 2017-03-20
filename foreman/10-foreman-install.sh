@@ -86,3 +86,5 @@ foreman-installer \
 
 echo "*" > /etc/puppet/autosign.conf
 
+/bin/cp -f foreman.yaml .hammer/cli.modules.d/foreman.yml 
+

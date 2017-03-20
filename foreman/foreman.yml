@@ -1,3 +1,5 @@
+# .hammer/cli.modules.d/foreman.yml 
+
 :foreman:
   # Credentials. You'll be asked for the interactively if you leave them blank here
   :username: 'admin'
