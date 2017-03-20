@@ -12,6 +12,12 @@ describe Command do
 
   end
 
+  context "on garbage command" do
+
+    it "should print error"
+
+  end
+
   context "on list" do
 
     let(:hypervisor) { instance_double("Hypervisor") }
