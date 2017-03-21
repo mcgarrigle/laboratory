@@ -10,15 +10,3 @@ load "network"
 
 command = Command.new(@subnet)
 command.run(*ARGV)
-
-exit
-
-@hypervisor = Hypervisor.new
-
-@subnet.guests.each do |guest|
-  pp guest
-  if guest.enabled
-    @hypervisor.create(guest)
-    @hypervisor.start(guest)
-  end
-end
