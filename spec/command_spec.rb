@@ -1,20 +1,27 @@
 
 require "command"
+require "subnet"
 
 describe Command do
+
+  let(:subnet) { subnet = instance_double("Subnet") }
+
+  subject do
+    Command.new(subnet)
+  end
 
   context "during initilization" do
 
     it "should create a new hypervisor" do
       expect(Hypervisor).to receive(:new).and_return(double)
-      Command.new
+      Command.new(subnet)
     end
 
   end
 
   context "on garbage command" do
 
-    it "should print error"
+    xit "should print error"
 
   end
 

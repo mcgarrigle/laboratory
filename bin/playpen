@@ -8,8 +8,10 @@ require "command"
 
 load "network"
 
-#command = Command.new
-#command.run(*ARGV)
+command = Command.new(@subnet)
+command.run(*ARGV)
+
+exit
 
 @hypervisor = Hypervisor.new
 
