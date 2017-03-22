@@ -42,7 +42,8 @@ class Vbox
   end
 
   def command(s, args = {})
-    system "vboxmanage #{s}#{flatten args}"
+    err = system("vboxmanage #{s}#{flatten args}")
+    # TODO raise "error calling: #{s}" if err
   end
 
   def flatten(args = {})

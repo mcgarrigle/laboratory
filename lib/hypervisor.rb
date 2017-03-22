@@ -51,6 +51,8 @@ class Hypervisor
       vbox.createhd(:filename => path, :size => disk.size)
       vbox.storageattach(:storagectl => "SATA", :port => port, :device => 0, :type => :hdd, :medium => path)
     end
+  rescue
+    raise
   end
 
   def start(guest, type = :headless)
@@ -58,7 +60,7 @@ class Hypervisor
     vbox.startvm(type)
   end
 
-  def stop(guest)
+  def stop(guest, type = :acpipowerbutton)
     vbox = Vbox.new(guest.name)
     vbox.stopvm(type)
   end

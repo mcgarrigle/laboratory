@@ -50,6 +50,7 @@ class Command
   end
 
   def down(guest)
+    @hypervisor.stop(guest)
   end
 
   def run(*args)
