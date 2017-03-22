@@ -59,6 +59,8 @@ class Hypervisor
   end
 
   def stop(guest)
+    vbox = Vbox.new(guest.name)
+    vbox.stopvm(type)
   end
 
   def destroy(guest)

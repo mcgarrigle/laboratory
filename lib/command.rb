@@ -28,6 +28,16 @@ class Command
     end
   end
 
+  def _down_help_text
+    "down: stop all guests"
+  end
+
+  def _down
+    @subnet.guests.each do |guest|
+      down(guest)
+    end
+  end
+
   def _help
     methods = self.class.instance_methods.select {|m| m.to_s.end_with? "_help_text" }
     text = methods.map {|method| self.send method }.join("\n")
@@ -37,6 +47,9 @@ class Command
   def up(guest)
     @hypervisor.create(guest)
     @hypervisor.start(guest)
+  end
+
+  def down(guest)
   end
 
   def run(*args)

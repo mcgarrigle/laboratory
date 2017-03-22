@@ -35,12 +35,19 @@ class Vbox
     command("startvm \"#{@name}\"", :type => type)
   end
 
+  def stopvm(type = :acpipowerbutton)
+    ok = [:poweroff, :acpipowerbutton]
+    raise "shutdown type '#{type}' not known" unless ok.include? type
+    command("controlvm \"#{@name}\" #{type}")
+  end
+
   def command(s, args = {})
-    system "vboxmanage #{s} #{flatten args}"
+    system "vboxmanage #{s}#{flatten args}"
   end
 
   def flatten(args = {})
-    args.map {|k,v| "--#{k.to_s} #{string v}"}.join(" ")
+    return "" if args.size == 0
+    " " + args.map {|k,v| "--#{k.to_s} #{string v}"}.join(" ")
   end
 
   def string(s)

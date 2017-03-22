@@ -31,7 +31,12 @@ describe Vbox do
     
     it "returns correct types" do
       args = { :string => "foo", :symbol => :bar, :integer => 123 }
-      expect(subject.flatten(args)).to be == '--string "foo" --symbol bar --integer 123'
+      expect(subject.flatten(args)).to be == ' --string "foo" --symbol bar --integer 123'
+    end
+
+    it "returns empty string" do
+      args = {}
+      expect(subject.flatten(args)).to be == ''
     end
 
   end
@@ -59,6 +64,24 @@ describe Vbox do
     it "calls system" do
       expect(subject).to receive(:system).with('vboxmanage startvm "foo" --type headless')
       subject.startvm
+    end
+
+  end
+
+  describe "#stopvm" do
+
+    it "calls controlvm" do
+      expect(subject).to receive(:system).with('vboxmanage controlvm "foo" acpipowerbutton')
+      subject.stopvm
+    end
+
+    it "calls controlvm with :poweroff" do
+      expect(subject).to receive(:system).with('vboxmanage controlvm "foo" poweroff')
+      subject.stopvm(:poweroff)
+    end
+
+    it "raise if wrong parameter" do
+      expect { subject.stopvm(:notright) }.to raise_error(RuntimeError)
     end
 
   end
