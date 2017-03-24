@@ -5,25 +5,6 @@ describe Vbox do
 
   subject { Vbox.new("foo") }
 
-  # string:
-  # takes a scalar and adds quotes if a string
-
-  describe "#string" do
-    
-    it "returns quotes for strings" do
-      expect(subject.string('foo')).to be == '"foo"'
-    end
-
-    it "returns bareword for symbols" do
-      expect(subject.string(:foo)).to be == 'foo'
-    end
-
-    it "returns string for numeric" do
-      expect(subject.string(123)).to be == '123'
-    end
-
-  end
-
   # argv:
   # takes hash and converts into commandline args
 
@@ -31,12 +12,12 @@ describe Vbox do
     
     it "returns correct types" do
       args = { :string => "foo", :symbol => :bar, :integer => 123 }
-      expect(subject.argv(args)).to be == ' --string "foo" --symbol bar --integer 123'
+      expect(subject.argv(args)).to be == ["--string", "foo", "--symbol", "bar", "--integer", "123"]
     end
 
-    it "returns empty string" do
+    it "returns empty array" do
       args = {}
-      expect(subject.argv(args)).to be == ''
+      expect(subject.argv(args)).to be == []
     end
 
   end
@@ -44,8 +25,8 @@ describe Vbox do
   describe "#command" do
 
     it "calls system" do
-      expect(subject).to receive(:system).with('vboxmanage foo --bar baz')
-      subject.command("foo", :bar => :baz)
+      expect(subject).to receive(:system).with('vboxmanage', 'foo', 'bar', 'baz').and_return(true)
+      subject.command("foo", 'bar', 'baz')
     end
 
   end
@@ -53,7 +34,7 @@ describe Vbox do
   describe "#createvm" do
 
     it "calls system adding --register" do
-      expect(subject).to receive(:system).with('vboxmanage createvm --register --name "foo" --bar baz')
+      expect(subject).to receive(:system).with('vboxmanage', 'createvm', '--register', '--name', 'foo', '--bar', 'baz').and_return(true)
       subject.createvm(:bar => :baz)
     end
 
@@ -62,7 +43,7 @@ describe Vbox do
   describe "#startvm" do
 
     it "calls system" do
-      expect(subject).to receive(:system).with('vboxmanage startvm "foo" --type headless')
+      expect(subject).to receive(:system).with('vboxmanage', 'startvm', 'foo', '--type', 'headless').and_return(true)
       subject.startvm
     end
 
@@ -71,12 +52,12 @@ describe Vbox do
   describe "#stopvm" do
 
     it "calls controlvm" do
-      expect(subject).to receive(:system).with('vboxmanage controlvm "foo" acpipowerbutton')
+      expect(subject).to receive(:system).with('vboxmanage', 'controlvm', 'foo', 'acpipowerbutton').and_return(true)
       subject.stopvm
     end
 
     it "calls controlvm with :poweroff" do
-      expect(subject).to receive(:system).with('vboxmanage controlvm "foo" poweroff')
+      expect(subject).to receive(:system).with('vboxmanage', 'controlvm', 'foo', 'poweroff').and_return(true)
       subject.stopvm(:poweroff)
     end
 
