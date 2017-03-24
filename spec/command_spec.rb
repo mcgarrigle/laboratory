@@ -33,8 +33,8 @@ describe Command do
       allow(Hypervisor).to receive(:new).and_return(hypervisor)
     end
 
-    it "should call Hypervisor#list" do
-      expect(hypervisor).to receive(:list).and_return([])
+    it "should call Hypervisor.list" do
+      expect(Hypervisor).to receive(:list).and_return([])
       subject.run("list")
     end
 

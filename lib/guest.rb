@@ -5,7 +5,7 @@ require "disk"
 class Guest
 
   attr_accessor :name, :enabled, :memory, :vram, :ostype
-  attr_accessor :interfaces, :disks    
+  attr_accessor :interfaces, :disks, :status
 
   def initialize
     @name       = [*('a'..'z')].sample(8).join

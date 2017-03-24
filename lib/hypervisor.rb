@@ -7,7 +7,7 @@ class Hypervisor
   def initialize
   end
 
-  def list
+  def self.list
     all     = Vbox.list(:vms)
     running = Vbox.list(:runningvms)
     vms = all.map do |id, name|

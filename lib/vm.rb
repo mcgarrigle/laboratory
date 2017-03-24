@@ -9,4 +9,8 @@ class VM
     @state = :unknown
   end
 
+  def to_s
+    "%s %7s %s" % [@id, @state, @name]
+  end
+
 end

@@ -11,9 +11,9 @@ class Command
   end
 
   def _list
-    list = @hypervisor.list
+    list = Hypervisor.list
     list.each do |guest|
-      p guest
+      puts guest
     end
   end
 
@@ -21,10 +21,26 @@ class Command
     "up: starts all guests"
   end
 
+  def all_guests
+    vms = Hypervisor.list.map {|g| [g.name, g.state] }
+    Hash[vms]
+  end
+
+  def status
+    vms = all_guests
+    @subnet.guests.each {|g| g.status = vms[g.name] }
+    @subnet.guests
+  end
+
   def _up
-    targets = @subnet.guests.select {|g| g.enabled }
-    targets.each do |guest|
-      up(guest)
+    targets = status.select {|g| g.enabled }
+    targets.select {|g| g.status.nil? }.each do |guest|
+      puts "create #{guest.name}"
+      @hypervisor.create(guest) 
+    end
+    targets.reject {|g| g.status == :running }.each do |guest|
+      puts "starting #{guest.name}"
+      @hypervisor.start(guest)
     end
   end
 
@@ -34,7 +50,7 @@ class Command
 
   def _down
     @subnet.guests.each do |guest|
-      down(guest)
+      @hypervisor.stop(guest)
     end
   end
 
@@ -42,15 +58,6 @@ class Command
     methods = self.class.instance_methods.select {|m| m.to_s.end_with? "_help_text" }
     text = methods.map {|method| self.send method }.join("\n")
     puts "\n#{text}"
-  end
-
-  def up(guest)
-    @hypervisor.create(guest)
-    @hypervisor.start(guest)
-  end
-
-  def down(guest)
-    @hypervisor.stop(guest)
   end
 
   def run(*args)
