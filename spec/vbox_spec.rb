@@ -24,19 +24,19 @@ describe Vbox do
 
   end
 
-  # flatten:
+  # argv:
   # takes hash and converts into commandline args
 
-  describe "#flatten" do
+  describe "#argv" do
     
     it "returns correct types" do
       args = { :string => "foo", :symbol => :bar, :integer => 123 }
-      expect(subject.flatten(args)).to be == ' --string "foo" --symbol bar --integer 123'
+      expect(subject.argv(args)).to be == ' --string "foo" --symbol bar --integer 123'
     end
 
     it "returns empty string" do
       args = {}
-      expect(subject.flatten(args)).to be == ''
+      expect(subject.argv(args)).to be == ''
     end
 
   end

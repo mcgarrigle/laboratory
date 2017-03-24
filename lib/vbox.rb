@@ -42,11 +42,11 @@ class Vbox
   end
 
   def command(s, args = {})
-    err = system("vboxmanage #{s}#{flatten args}")
+    err = system("vboxmanage #{s}#{argv args}")
     # TODO raise "error calling: #{s}" if err
   end
 
-  def flatten(args = {})
+  def argv(args = {})
     return "" if args.size == 0
     " " + args.map {|k,v| "--#{k.to_s} #{string v}"}.join(" ")
   end
