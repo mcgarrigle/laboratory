@@ -11,7 +11,7 @@ export NETWORK="10.0.30.0/24"
 export REVERSE="30.0.10.in-addr.arpa."
 export IPRANGE="10.0.30.200 10.0.30.250"
 
-yum install -y firewalld vim
+yum install -y firewalld vim httpd
 yum install -y epel-release
 yum install -y tinyproxy
 
