@@ -4,9 +4,9 @@ mkdir -p /media/dvd
 mkdir -p /var/www/html/cdn
 
 mount /dev/sr0 /media/dvd
-cp -r /media/dvd /var/www/html/cdn/centos
+cp -rv /media/dvd /var/www/html/cdn/centos
 
-cp 15-cdn.conf /etc/httpd/conf.d
+cp http-15-cdn.conf /etc/httpd/conf.d
 
 cp /var/www/html/cdn/centos/isolinux/vmlinuz    /var/lib/tftpboot/boot/CentOS-7.2.1511-x86_64-vmlinuz 
 cp /var/www/html/cdn/centos/isolinux/initrd.img /var/lib/tftpboot/boot/CentOS-7.2.1511-x86_64-initrd.img 
