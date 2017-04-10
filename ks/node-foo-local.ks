@@ -34,7 +34,7 @@ logvol /var           --fstype=ext4 --name=var           --vgname=linux --size=2
 logvol /var/log       --fstype=ext4 --name=var_log       --vgname=linux --size=10240
 
 text
-reboot
+reboot --eject
 
 %packages --ignoremissing
 yum
