@@ -37,7 +37,7 @@ subnet do |s|
 
   s.guest do |g|
     g.name   = "ipa"
-    g.memory = 1024
+    g.memory = 2048
     g.boot   = [:dvd, :disk]
     g.interface do |i| 
       i.network = :intnet

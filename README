@@ -20,20 +20,26 @@ Implementation:
 
   DNS Domain: foo.local
 
-  |--------+------------+-------------+---------|   10.0.30.0/24 (intnet)
+  |--------+------------+-------------+---------|   10.0.30.0/24 (vbox intnet)
       eth0 |            |             |
       +---------+  +---------+   +---------+  
       |   cdn   |  |   ipa   |   | foreman |
       +---------+  +---------+   +---------+  
       eth1 |
-  |--------+------------+-----------------------|   X.X.X.X (NAT)
+  |--------+------------+-----------------------|   10.0.3.15/24 (vbox nat)
                         |
                    +---------+
                    |  host   |
                    +---------+
 
                    localhost:2222 => foreman:22
-                   localhost:9080 => SOCKS Proxy
+                   localhost:9080 => SOCKS Proxy (inbound)
+
+Roles:
+
+cdn:     yum repo, http(s) outbound proxy, DNS forwarder
+ipa:     authorative DNS, LDAP, Kerberos
+foreman: DHCP, TFTP PXE, Foreman
 
 Prerequisites:
 
@@ -73,7 +79,6 @@ Mount installation media on /media/dvd
 
 cp /media/dvd/isolinux/vmlinuz /var/lib/tftpboot/boot/CentOS-*-x86_64-vmlinuz 
 cp /media/dvd/isolinux/initrd.img /var/lib/tftpboot/boot/CentOS-*-x86_64-initrd.img 
-
 
 
 Todo:
