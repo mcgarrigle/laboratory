@@ -1,6 +1,6 @@
 
 function uppercase {
-  echo $1 | awk '{print toupper($0)}'
+  echo $1 | awk '{ print toupper($0) }'
 }
 
 function if-enable {
@@ -20,11 +20,14 @@ EOF
 export PASSWORD="letmein"
 export DOMAIN="foo.local"
 export REALM=$(uppercase $DOMAIN)
+export CDN_SERVER="cdn.${DOMAIN}"
 export FOR_SERVER="foreman.${DOMAIN}"
+export IPA_SERVER="ipa.${DOMAIN}"
+export CDN_URL="http://${CDN_SERVER}"
 export FOR_URL="http://${FOR_SERVER}"
-export IPA_SERVER="ipa.${DOMAIN}.local"
-export FOR_ADDRESS="10.0.30.10"
+export CDN_ADDRESS="10.0.30.10"
 export IPA_ADDRESS="10.0.30.11"
+export FOR_ADDRESS="10.0.30.12"
 export IPA1="${IPA_ADDRESS}"
 export DNS0="$(grep nameserver /etc/resolv.conf | sed 's/^nameserver //')"
 export DNS1="${IPA_ADDRESS}"

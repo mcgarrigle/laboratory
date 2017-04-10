@@ -5,7 +5,7 @@ ADDRESS="$2"
 
 source 00-environment.sh
 
-yum install -y firewalld vim httpd
+yum install -y firewalld vim
 yum install -y epel-release
 
 # assumption: eth1 is up and configured via DHCP during kickstart

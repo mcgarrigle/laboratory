@@ -8,8 +8,8 @@ subnet do |s|
   s.ip4 = "10.0.30.0/24"
 
   s.guest do |g|
-    g.name   = "foreman"
-    g.memory = 3096
+    g.name   = "cdn"
+    g.memory = 1024
     g.boot   = [:dvd, :disk]
     g.interface do |i| 
       i.network = :intnet
@@ -20,7 +20,19 @@ subnet do |s|
       i.port_forward = "guestssh,tcp,,2222,,22"
     end
     g.dvd  {|d| d.medium = ISO  }
-    g.disk {|d| d.size = 204800 }
+    g.disk {|d| d.size = 102400 }
+  end
+
+  s.guest do |g|
+    g.name   = "foreman"
+    g.memory = 2048
+    g.boot   = [:dvd, :disk]
+    g.interface do |i| 
+      i.network = :intnet
+      i.ip4 = "10.0.30.11/24"
+    end
+    g.dvd  {|d| d.medium = ISO  }
+    g.disk {|d| d.size = 102400 }
   end
 
   s.guest do |g|
@@ -29,10 +41,10 @@ subnet do |s|
     g.boot   = [:dvd, :disk]
     g.interface do |i| 
       i.network = :intnet
-      i.ip4 = "10.0.30.11/24"
+      i.ip4 = "10.0.30.12/24"
     end
-    g.dvd  {|d| d.medium = ISO }
-    g.disk {|d| d.size = 32768 }
+    g.dvd  {|d| d.medium = ISO  }
+    g.disk {|d| d.size = 102400 }
   end
 
 end
