@@ -1,4 +1,6 @@
-# server kicksrart
+# Foreman server kickstart
+#
+# https://goo.gl/NxsKBl
 
 cdrom
 install
@@ -7,7 +9,7 @@ lang en
 keyboard uk
 skipx
 
-network --noipv6 --bootproto static --ip 10.0.30.12 --netmask 255.255.255.0 --hostname foreman.foo.local
+network --noipv6 --bootproto static --ip 10.0.30.11 --netmask 255.255.255.0 --hostname foreman.foo.local
 
 rootpw "letmein"
 authconfig --useshadow --passalgo=sha256 --kickstart

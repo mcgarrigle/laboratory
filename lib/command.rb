@@ -50,8 +50,13 @@ class Command
 
   def _down
     @subnet.guests.each do |guest|
-      @hypervisor.stop(guest)
+      down(guest)
     end
+  end
+
+  def down(guest)
+    @hypervisor.stop(guest)
+  rescue
   end
 
   def _help
