@@ -1,4 +1,3 @@
-
 #!/bin/bash
 
 # make sure you have 2G RAM
@@ -15,7 +14,7 @@ ipa-server-install \
   --admin-password=changeme \
   --mkhomedir \
   --hostname=ipa.foo.local \
-  --ip-address=10.0.30.11 \
+  --ip-address=10.0.30.10 \
   --no-host-dns \
   --auto-forwarders \
   --auto-reverse
