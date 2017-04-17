@@ -3,6 +3,12 @@
 # make sure you have 2G RAM
 # and /etc/hosts has hostname
 
+host="ipa"
+fqdn="${host}.foo.local"
+ip="10.0.30.10"
+
+echo "10.0.30.10 ipa.foo.local ipa" >> /etc/hosts
+
 yum install -y ipa-installer ipa-server-dns
 
 ipa-server-install \
@@ -13,8 +19,8 @@ ipa-server-install \
   --ds-password=changeme \
   --admin-password=changeme \
   --mkhomedir \
-  --hostname=ipa.foo.local \
-  --ip-address=10.0.30.10 \
+  --hostname="${fqdn}" \
+  --ip-address="${ip}" \
   --no-host-dns \
   --auto-forwarders \
   --auto-reverse

@@ -18,11 +18,7 @@ foreman-installer \
   --foreman-proxy-dhcp-interface="${ETH0}" \
   --foreman-proxy-dhcp-gateway= \
   --foreman-proxy-dhcp-nameservers="${FOR_ADDRESS}" \
-  --foreman-proxy-dns=true \
-  --foreman-proxy-dns-interface="${ETH0}" \
-  --foreman-proxy-dns-zone="${DOMAIN}" \
-  --foreman-proxy-dns-reverse="${REVERSE}" \
-  --foreman-proxy-dns-forwarders="${DNS0}" \
+  --foreman-proxy-dns=false \
   --foreman-proxy-foreman-base-url="${FOR_URL}" \
   --foreman-proxy-oauth-consumer-key="${CONSUMER_KEY}" \
   --foreman-proxy-oauth-consumer-secret="${CONSUMER_SECRET}"
