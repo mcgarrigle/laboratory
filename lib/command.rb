@@ -2,7 +2,9 @@
 class Command 
 
   def initialize(subnet)
+    vms = Hypervisor.status
     @subnet     = subnet
+    @subnet.guests.each {|g| g.status = vms[g.name] }
     @hypervisor = Hypervisor.new
   end
 
@@ -32,16 +34,24 @@ class Command
     @subnet.guests
   end
 
-  def _up
-    targets = status.select {|g| g.enabled }
-    targets.select {|g| g.status.nil? }.each do |guest|
+  def _up(*names)
+    if names.size == 0
+      @subnet.guests.each {|guest| up(guest) }
+    else
+      names.each {|name| up(@subnet.find(name)) }
+    end
+  end
+
+  def up(guest)
+    puts "create #{guest.name} #{guest.status}"
+    if guest.status.nil?
       puts "create #{guest.name}"
       @hypervisor.create(guest) 
     end
-    targets.reject {|g| g.status == :running }.each do |guest|
+    unless guest.status == :running
       puts "starting #{guest.name}"
       @hypervisor.start(guest)
-    end
+    end 
   end
 
   def _down_help_text

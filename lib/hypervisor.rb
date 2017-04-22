@@ -18,6 +18,11 @@ class Hypervisor
     return vms
   end
 
+  def self.status
+    vms = list.map {|g| [g.name, g.state] }
+    Hash[vms]
+  end
+
   def create(guest)
     vbox = Vbox.new(guest.name)
     vbox.createvm(:ostype => guest.ostype)
