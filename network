@@ -43,6 +43,7 @@ subnet do |s|
     g.interface do |i|
       i.network = :nat
       i.port_forward = "ssh,tcp,,2222,,22"
+      i.port_forward = "http,tcp,,9080,,80"
       i.port_forward = "proxy,tcp,,9090,,9090"
     end
     g.dvd  {|d| d.medium = ISO  }
