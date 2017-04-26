@@ -32,6 +32,7 @@ logvol /home          --fstype=ext4 --name=home          --vgname=linux --size=5
 logvol /tmp           --fstype=ext4 --name=tmp           --vgname=linux --size=5120
 logvol /var           --fstype=ext4 --name=var           --vgname=linux --size=2048 --grow
 logvol /var/log       --fstype=ext4 --name=var_log       --vgname=linux --size=10240
+logvol /var/log/audit --fstype=ext4 --name=var_log_audit --vgname=linux --size=1024
 
 text
 reboot --eject
