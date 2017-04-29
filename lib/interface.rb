@@ -5,14 +5,14 @@ require "netaddr"
 class Interface
 
   attr_accessor :network, :netmask4, :prefix4, :gateway4
-  attr_accessor :port_forward
 
   def initialize
-    @network  = :nat
-    @ip4      = "0.0.0.0"
-    @netmask4 = "0.0.0.0"
-    @gateway4 = "0.0.0.0"
-    @prefix4  = "/0"
+    @network      = :nat
+    @ip4          = "0.0.0.0"
+    @netmask4     = "0.0.0.0"
+    @gateway4     = "0.0.0.0"
+    @prefix4      = "/0"
+    @port_forward = []
   end
 
   def ip4=(s)
@@ -24,6 +24,14 @@ class Interface
     else
       @ip4 = s
     end
+  end
+
+  def port_forward=(s)
+    @port_forward << s
+  end
+
+  def port_forward
+    @port_forward
   end
 
   def ip4

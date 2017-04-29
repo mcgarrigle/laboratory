@@ -28,4 +28,8 @@ class Subnet
     @guests << g
   end
 
+  def find(name)
+    @guests.select {|g| g.name == name }.first
+  end
+
 end

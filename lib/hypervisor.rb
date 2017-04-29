@@ -18,6 +18,11 @@ class Hypervisor
     return vms
   end
 
+  def self.status
+    vms = list.map {|g| [g.name, g.state] }
+    Hash[vms]
+  end
+
   def create(guest)
     vbox = Vbox.new(guest.name)
     vbox.createvm(:ostype => guest.ostype)
@@ -31,11 +36,14 @@ class Hypervisor
     end
 
     guest.interfaces.each_with_index do |interface, i|
-      nic = "nic#{i + 1}".to_sym
+      n = i  + 1
+      nic = "nic#{n}".to_sym
       vbox.modifyvm(nic => interface.network)
       if interface.port_forward
-        port = "natpf#{i + 1}".to_sym
-        vbox.modifyvm(port => interface.port_forward)
+        port = "natpf#{n}".to_sym
+        interface.port_forward.each do |pf|
+          vbox.modifyvm(port => pf)
+        end
       end
     end
 

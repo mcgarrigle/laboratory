@@ -7,8 +7,8 @@ class Guest
   attr_accessor :name, :enabled, :memory, :vram, :ostype
   attr_accessor :interfaces, :disks, :status
 
-  def initialize
-    @name       = [*('a'..'z')].sample(8).join
+  def initialize(name = "fooo")
+    @name       = name
     @enabled    = true
     @memory     = 1024
     @vram       = 128
@@ -17,6 +17,10 @@ class Guest
     @interfaces = []
     @disks      = []
     @block      = :sda
+  end
+
+  def self.newname
+    [*('a'..'z')].sample(8).join
   end
 
   def boot=(order)

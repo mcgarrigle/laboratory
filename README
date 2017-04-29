@@ -13,27 +13,32 @@ Vagrant is great and everything, but is makes some assumptions that disqualifies
 it from full-bore integration dev and test.
 
 * Everything is build from boxes - production systems aren't, we need to tailor from whole-cloth
-* You don't have DNS so inject hosts files - good enough for SWE
+* With Vagrant you don't have DNS so inject hosts files - good enough for SWE
 * You are always able to reach out to teh interwebs for installation assets
 
 Implementation:
 
   DNS Domain: foo.local
 
-  |--------+------------+-------------+---------|   10.0.30.0/24 (intnet)
+  |--------+------------+-------------+---------|   10.0.30.0/24 (vbox intnet)
+           |            |             |
       eth0 |            |             |
       +---------+  +---------+   +---------+  
-      | foreman |  |   ipa   |   | guest1  |
+      |   ipa   |  | foreman |   | guest1  |
       +---------+  +---------+   +---------+  
       eth1 |
-  |--------+------------+-----------------------|   X.X.X.X (NAT)
-                        |
-                   +---------+
-                   |  host   |
-                   +---------+
+           |
+  |-----+--+------------+-----------------------|   10.0.3.15/24 (vbox nat)
+        |
+   +---------+  localhost:2222 => ipa:22   (sshd)
+   |  host   |  localhost:9080 => ipa:80   (httpd)
+   +---------+  localhost:9090 => ipa:80   (tinyproxy)
 
-                   localhost:2222 => foreman:22
-                   localhost:9080 => SOCKS Proxy
+
+Roles:
+
+ipa:     tinyproxy, authorative DNS, LDAP, Kerberos
+foreman: DHCP, TFTP PXE, Foreman
 
 Prerequisites:
 
@@ -73,7 +78,6 @@ Mount installation media on /media/dvd
 
 cp /media/dvd/isolinux/vmlinuz /var/lib/tftpboot/boot/CentOS-*-x86_64-vmlinuz 
 cp /media/dvd/isolinux/initrd.img /var/lib/tftpboot/boot/CentOS-*-x86_64-initrd.img 
-
 
 
 Todo:
