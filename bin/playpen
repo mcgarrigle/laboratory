@@ -6,7 +6,11 @@ $LOAD_PATH << $LIB_DIR
 require "collective"
 require "command"
 
-load "network"
+PLAYPEN = ENV["PLAYPEN"] || "network"
+
+puts "/// using '#{PLAYPEN}' playpen file"
+
+load PLAYPEN
 
 command = Command.new(@subnet)
 command.run(*ARGV)
