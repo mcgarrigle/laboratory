@@ -3,7 +3,7 @@ require "hypervisor"
 require "subnet"
 
 
-module Collective
+module Playpen
 
   def domain d
     @domain = d
@@ -16,4 +16,4 @@ module Collective
 
 end
 
-include Collective
+include Playpen

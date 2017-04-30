@@ -23,6 +23,10 @@ class Guest
     [*('a'..'z')].sample(8).join
   end
 
+  def to_s
+    "%7s %s" % [@status, @name]
+  end
+
   def boot=(order)
     raise ArgumentError, "not an array on boot" unless (Array === order)
     wrong = order - [:net, :dvd, :disk]

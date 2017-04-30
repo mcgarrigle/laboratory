@@ -2,10 +2,10 @@
 class Command 
 
   def initialize(subnet)
-    vms = Hypervisor.status
-    @subnet     = subnet
-    @subnet.guests.each {|g| g.status = vms[g.name] }
     @hypervisor = Hypervisor.new
+    vms = Hypervisor.status
+    @subnet = subnet
+    @subnet.guests.each {|g| g.status = vms[g.name] }
   end
 
   def _list_help_text
@@ -13,8 +13,7 @@ class Command
   end
 
   def _list
-    list = Hypervisor.list
-    list.each do |guest|
+    @subnet.guests.each do |guest|
       puts guest
     end
   end
