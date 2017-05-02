@@ -1,5 +1,5 @@
 
-ISO = "../Downloads/CentOS-7-x86_64-Minimal-1511.iso"
+ISO = "../Downloads/centos-gold-7.3.1611.iso"
 
 domain "foo.local"
 

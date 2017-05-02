@@ -1,4 +1,4 @@
-# cdrom kicksrart
+# gold cdrom kicksrart
 
 cdrom
 install
@@ -7,7 +7,7 @@ lang en
 keyboard uk
 skipx
 
-network --hostnamer=node.foo.local
+network --hostname=node.foo.local
 network --device=enp0s3 --noipv6 --bootproto=static --ip=10.0.30.200 --netmask=255.255.255.0
 network --device=enp0s8 --noipv6 --bootproto=dhcp
 
@@ -26,12 +26,12 @@ part pv.01 --size=1    --ondisk=sda --grow
 
 volgroup linux pv.01
 
-logvol /              --fstype=ext4 --name=root          --vgname=linux --size=10240
-logvol /home          --fstype=ext4 --name=home          --vgname=linux --size=5120
-logvol /tmp           --fstype=ext4 --name=tmp           --vgname=linux --size=5120
-logvol /var           --fstype=ext4 --name=var           --vgname=linux --size=2048 --grow
-logvol /var/log       --fstype=ext4 --name=var_log       --vgname=linux --size=10240
-logvol /var/log/audit --fstype=ext4 --name=var_log_audit --vgname=linux --size=1024
+logvol /              --fstype=xfs --name=root          --vgname=linux --size=10240
+logvol /home          --fstype=xfs --name=home          --vgname=linux --size=5120
+logvol /tmp           --fstype=xfs --name=tmp           --vgname=linux --size=5120
+logvol /var           --fstype=xfs --name=var           --vgname=linux --size=2048 --grow
+logvol /var/log       --fstype=xfs --name=var_log       --vgname=linux --size=10240
+logvol /var/log/audit --fstype=xfs --name=var_log_audit --vgname=linux --size=1024
 
 text
 reboot --eject
@@ -42,4 +42,8 @@ dhclient
 wget
 vim
 @Core
+%end
+%post
+  echo "UseDNS no" >> /etc/ssh/sshd_config
+  echo "10.0.30.200 node.foo.local node" >> /etc/hosts
 %end
