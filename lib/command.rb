@@ -1,11 +1,11 @@
 
 class Command 
 
-  def initialize(subnet)
+  def initialize(laboratory)
     @hypervisor = Hypervisor.new
     vms = Hypervisor.status
-    @subnet = subnet
-    @subnet.guests.each {|g| g.status = vms[g.name] }
+    @laboratory = laboratory
+    @laboratory.guests.each {|g| g.status = vms[g.name] }
   end
 
   def _list_help_text
@@ -13,7 +13,7 @@ class Command
   end
 
   def _list
-    @subnet.guests.each do |guest|
+    @laboratory.guests.each do |guest|
       puts guest
     end
   end
@@ -29,15 +29,15 @@ class Command
 
   def status
     vms = all_guests
-    @subnet.guests.each {|g| g.status = vms[g.name] }
-    @subnet.guests
+    @laboratory.guests.each {|g| g.status = vms[g.name] }
+    @laboratory.guests
   end
 
   def _up(*names)
     if names.size == 0
-      @subnet.guests.each {|guest| up(guest) }
+      @laboratory.guests.each {|guest| up(guest) }
     else
-      names.each {|name| up(@subnet.find(name)) }
+      names.each {|name| up(@laboratory.find(name)) }
     end
   end
 
@@ -58,7 +58,7 @@ class Command
   end
 
   def _down
-    @subnet.guests.each do |guest|
+    @laboratory.guests.each do |guest|
       down(guest)
     end
   end
