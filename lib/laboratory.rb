@@ -3,7 +3,7 @@ require "netaddr"
 require "guest"
 
 
-class Subnet
+class Laboratory
 
   attr_accessor :name, :guests
 

@@ -1,0 +1,16 @@
+#!/usr/bin/env ruby
+
+$LIB_DIR = File.join(File.dirname(__FILE__), "..", "lib")
+$LOAD_PATH << $LIB_DIR 
+
+require "dsl"
+require "command"
+
+LABORATORY = ENV["LABORATORY"] || "network.lab"
+
+puts "/// using '#{LABORATORY}' laboratory file"
+
+load LABORATORY
+
+command = Command.new(@laboratory)
+command.run(*ARGV)

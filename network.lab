@@ -3,11 +3,11 @@ ISO = "../Downloads/centos-gold-7.3.1611.iso"
 
 domain "foo.local"
 
-subnet do |s|
-  s.name = "management"
-  s.ip4 = "10.0.30.0/24"
+laboratory do |lab|
+  lab.name = "example"
+  lab.ip4 = "10.0.30.0/24"
 
-  s.guest do |g|
+  lab.guest do |g|
     g.enabled = false
     g.name   = "cdn"
     g.memory = 1024
@@ -20,7 +20,7 @@ subnet do |s|
     g.disk {|d| d.size = 102400 }
   end
 
-  s.guest do |g|
+  lab.guest do |g|
     g.name   = "foreman"
     g.memory = 2048
     g.boot   = [:dvd, :disk]
@@ -32,7 +32,7 @@ subnet do |s|
     g.disk {|d| d.size = 102400 }
   end
 
-  s.guest do |g|
+  lab.guest do |g|
     g.name   = "ipa"
     g.memory = 3192
     g.boot   = [:dvd, :disk]

@@ -42,8 +42,9 @@ class Vbox
   end
 
   def command(*args)
-    ok = system("vboxmanage", *args)
-    raise "error calling: #{args}" unless ok
+puts "vboxmange #{args}"
+    #ok = system("vboxmanage", *args)
+    #raise "error calling: #{args}" unless ok
   end
 
   def argv(args = {})
