@@ -6,9 +6,9 @@ $LOAD_PATH << $LIB_DIR
 require "playpen"
 require "command"
 
-PLAYPEN = ENV["PLAYPEN"] || "network"
+PLAYPEN = ENV["PLAYPEN"] || "network.lab"
 
-puts "/// using '#{PLAYPEN}' playpen file"
+puts "/// using '#{PLAYPEN}' laboratory file"
 
 load PLAYPEN
 
