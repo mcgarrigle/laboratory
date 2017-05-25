@@ -4,7 +4,11 @@ require "laboratory"
 
 describe Command do
 
-  let(:laboratory) { laboratory = instance_double("Laboratory") }
+  let(:laboratory) { 
+    laboratory = instance_double("Laboratory")
+    allow(laboratory).to receive(:guests).and_return([])
+    laboratory
+  }
 
   subject do
     Command.new(laboratory)
