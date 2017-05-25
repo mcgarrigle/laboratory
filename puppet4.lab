@@ -3,10 +3,10 @@ ISO = "../Downloads/centos-gold-7.3.1611.iso"
 
 domain "foo.local"
 
-subnet do |s|
-  s.name = "management"
+laboratory do |lab|
+  lab.name = "puppet4"
 
-  s.guest do |g|
+  lab.guest do |g|
     g.name   = "puppet"
     g.memory = 2048
     g.boot   = [:dvd, :disk]
@@ -22,7 +22,7 @@ subnet do |s|
     g.disk {|d| d.size = 102400 }
   end
 
-  s.guest do |g|
+  lab.guest do |g|
     g.name   = "labrat"
     g.memory = 2048
     g.boot   = [:dvd, :disk]
