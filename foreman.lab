@@ -1,0 +1,28 @@
+
+ISO = "../Downloads/centos-gold-7.3.1611.iso"
+
+domain "foo.local"
+
+laboratory do |lab|
+  lab.name = "example"
+
+  lab.guest do |g|
+    g.name   = "foreman"
+    g.memory = 3192
+    g.boot   = [:dvd, :disk]
+    g.interface do |i| 
+      i.network = :intnet
+      i.ip4 = "10.0.30.12/24"
+    end
+    g.interface do |i|
+      i.network = :nat
+      i.port_forward = "ssh,tcp,,9022,,22"
+      i.port_forward = "http,tcp,,9080,,80"
+      i.port_forward = "https,tcp,,9443,,443"
+      i.port_forward = "proxy,tcp,,9090,,9090"
+    end
+    g.dvd  {|d| d.medium = ISO  }
+    g.disk {|d| d.size = 102400 }
+  end
+
+end

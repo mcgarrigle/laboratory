@@ -1,0 +1,48 @@
+
+ISO = "../Downloads/centos-gold-7.3.1611.iso"
+
+domain "foo.local"
+
+laboratory do |lab|
+  lab.name = "ipa"
+  lab.ip4 = "10.0.30.0/24"
+
+  #network :public do
+  #end
+
+  #network :private do
+  #end
+
+  lab.guest do |g|
+    g.name   = "server"
+    g.memory = 1024
+    g.boot   = [:dvd, :disk]
+    g.interface do |i| 
+      i.network = :intnet
+      i.ip4 = "10.0.30.11/24"
+    end
+    g.interface do |i| 
+      i.network = :bridged
+      i.ip4 = "10.0.40.11/24"
+    end
+    g.dvd  {|d| d.medium = ISO  }
+    g.disk {|d| d.size = 102400 }
+  end
+
+  lab.guest do |g|
+    g.name   = "ipa"
+    g.memory = 3192
+    g.boot   = [:dvd, :disk]
+    g.interface do |i| 
+      i.network = :intnet
+      i.ip4 = "10.0.30.10/24"
+    end
+    g.interface do |i| 
+      i.network = :bridged
+      i.ip4 = "10.0.40.10/24"
+    end
+    g.dvd  {|d| d.medium = ISO  }
+    g.disk {|d| d.size = 102400 }
+  end
+
+end
