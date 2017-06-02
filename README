@@ -4,7 +4,7 @@ Playpen
 
 Super-simple-virtual-wrapper-xp-mac-and-linux ♬ ...
 
-An engineering environment for systems integration rather
+An engineering loboratory environment for systems integration rather
 than Software Engineering.
 
 Rationale:
@@ -12,11 +12,15 @@ Rationale:
 Vagrant is great and everything, but is makes some assumptions that disqualifies
 it from full-bore integration dev and test.
 
-* Everything is build from boxes - production systems aren't, we need to tailor from whole-cloth
-* With Vagrant you don't have DNS so inject hosts files - good enough for SWE
-* You are always able to reach out to teh interwebs for installation assets
+  * Everything is build from boxes - production systems aren't, we need to tailor from whole-cloth
+  * With Vagrant you don't have DNS so inject hosts files - I assume integration with global DNS or provide our own
+  * You are always able to reach out to teh interwebs for installation assets - I can build disconnected environments
 
-Implementation:
+also 
+
+  * Not everything is a JVM or a cloud instance or a docker container
+
+Example Laboratory:
 
   DNS Domain: foo.local
 
@@ -24,7 +28,7 @@ Implementation:
            |            |             |
       eth0 |            |             |
       +---------+  +---------+   +---------+  
-      |   ipa   |  | foreman |   | guest1  |
+      |   ipa   |  | foreman |   | guest   |
       +---------+  +---------+   +---------+  
       eth1 |
            |
@@ -34,55 +38,45 @@ Implementation:
    |  host   |  localhost:9080 => ipa:80   (httpd)
    +---------+  localhost:9090 => ipa:80   (tinyproxy)
 
+Prerequisites
+-------------
 
-Roles:
+  * Linux with VirtualBox
+  * macOS with VirtualBox
+  * Windows 8 with VirtualBox + git for Windows + windows ruby.
+    - https://git-for-windows.github.io/
+    - https://rubyinstaller.org/
+  * Windows 10 with VirtualBox + 'Windows Subsystem for Linux' (not yet tested)
 
-ipa:     tinyproxy, authorative DNS, LDAP, Kerberos
-foreman: DHCP, TFTP PXE, Foreman
+Instructions
+------------
+Reccomendation: Create a CentOS "gold build" ISO (see https://github.com/mcgarrigle/centos-gold)
 
-Prerequisites:
+  $ sudo yum install git ruby
+  $ git clone https://githib.com/mcgarrigle/laboratory
+  $ cd laboratory
+  $ add ~/laboratory/bin to your PATH
+  $ sudo gem install bundler
+  $ sudo bundle install
+  $ review network.lab to see what is going to be built
+  $ lab up
 
-* Linux with VirtualBox
-* macOS with VirtualBox
-* Windows 8 with VirtualBox + git for Windows + windows ruby.
-  - https://git-for-windows.github.io/
-  - https://rubyinstaller.org/
-* Windows 10 with VirtualBox + 'Windows Subsystem for Linux' (not yet tested)
+Watch all the VMs spin up - if using "centos-gold", watch them install themselves.
 
-Instructions:
+Also see:
 
-1. Download CentOS Minimal ISO (location ~/Downloads assumed)
-2. Edit files for your own domain required IP/DHCP/PXE range
-3. Insert the contents of tools/ssh_config into ~/.ssh/config
-4. # bash foreman/vm-create-foreman.sh
-5. When the foreman VM boots off the CDROM:
-   * Scroll up to "Install CentOS ..." menu item, then Tap [TAB] key to expose the linux kernel command line
-   * add " ks=http://goo.gl/oX4Qd2" to the kernel boot command and tap [ENTER]
-6. Let VM build
-7. # scp foreman/foreman-install.sh foreman: 
-8. run foreman-install.sh
+  https://github.com/mcgarrigle/role-*
 
-To look at your foreman installation:
+for scripts to install the various server roles in this example.
 
-1. Open your browser "LAN Settings"
-2. Replaces any settings with:
-   * SOCKS v5
-   * Remote DNS
-   * 127.0.01 port 9080
-3. Goto https://foreman.foo.local
-4. Add the certificate
+Manual
+------
 
-Post Installation Configuration
+The environment variable LABORATORY designates the lab file;
+the default lab is "network.lab".
 
-Mount installation media on /media/dvd
-
-cp /media/dvd/isolinux/vmlinuz /var/lib/tftpboot/boot/CentOS-*-x86_64-vmlinuz 
-cp /media/dvd/isolinux/initrd.img /var/lib/tftpboot/boot/CentOS-*-x86_64-initrd.img 
-
-
-Todo:
-
-* Get foreman config and repo to a better state
-* IPA 
-* Do everything from the collective framework
+lab help
+lab up    - creates and starts your lab
+lab down  - shuts all VMs down (acpi off)
+lab list  - show status of all VMs in lab
 
