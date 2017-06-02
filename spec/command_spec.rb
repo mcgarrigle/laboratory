@@ -1,20 +1,24 @@
 
 require "command"
-require "subnet"
+require "laboratory"
 
 describe Command do
 
-  let(:subnet) { subnet = instance_double("Subnet") }
+  let(:laboratory) { 
+    laboratory = instance_double("Laboratory")
+    allow(laboratory).to receive(:guests).and_return([])
+    laboratory
+  }
 
   subject do
-    Command.new(subnet)
+    Command.new(laboratory)
   end
 
   context "during initilization" do
 
     it "should create a new hypervisor" do
       expect(Hypervisor).to receive(:new).and_return(double)
-      Command.new(subnet)
+      Command.new(laboratory)
     end
 
   end

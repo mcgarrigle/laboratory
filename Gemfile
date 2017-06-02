@@ -8,3 +8,4 @@ source "https://rubygems.org"
 
 gem "rspec"
 gem "netaddr"
+gem "inifile"
