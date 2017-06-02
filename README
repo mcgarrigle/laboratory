@@ -53,7 +53,7 @@ Instructions
 Reccomendation: Create a CentOS "gold build" ISO (see https://github.com/mcgarrigle/centos-gold)
 
   $ sudo yum install git ruby
-  $ git clone https://githib.com/mcgarrigle/laboratory
+  $ git clone https://githib.com/mcgarrigle/laboratory.git
   $ cd laboratory
   $ add ~/laboratory/bin to your PATH
   $ sudo gem install bundler
