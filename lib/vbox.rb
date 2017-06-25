@@ -41,6 +41,10 @@ class Vbox
     command("controlvm", @name, type.to_s)
   end
 
+  def unregistervm
+    command("unregistervm", @name, "--delete")
+  end
+
   def command(*args)
     # puts "vboxmange #{args}"
     ok = system("vboxmanage", *args)

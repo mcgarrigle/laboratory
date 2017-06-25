@@ -74,6 +74,8 @@ class Hypervisor
   end
 
   def destroy(guest)
+    vbox = Vbox.new(guest.name)
+    vbox.unregistervm
   end
 
 end

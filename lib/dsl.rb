@@ -9,8 +9,8 @@ module Dsl
     @domain = d
   end
 
-  def laboratory
-    @laboratory = Laboratory.new
+  def laboratory(name = "")
+    @laboratory = Laboratory.new(name)
     yield @laboratory
   end
 

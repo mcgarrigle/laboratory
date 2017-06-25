@@ -8,6 +8,10 @@ class Command
     @laboratory.guests.each {|g| g.status = vms[g.name] }
   end
 
+  def running
+    @laboratory.guests.select {|g| g.status == :running }
+  end
+
   def _list_help_text
     "list: lists guests"
   end
@@ -22,12 +26,12 @@ class Command
     "up: starts all guests"
   end
 
-  def all_guests
+  def x_all_guests
     vms = Hypervisor.list.map {|g| [g.name, g.state] }
     Hash[vms]
   end
 
-  def status
+  def x_status
     vms = all_guests
     @laboratory.guests.each {|g| g.status = vms[g.name] }
     @laboratory.guests
@@ -65,6 +69,25 @@ class Command
 
   def down(guest)
     @hypervisor.stop(guest)
+  rescue
+  end
+
+  def _delete_help_text
+    "delete: stop and delete all guests"
+  end
+
+  def _delete
+    running.each do |guest|
+      @hypervisor.stop(guest)
+    end
+    @laboratory.guests.each do |guest|
+      @hypervisor.destroy(guest)
+    end
+  end
+
+  def delete(guest)
+    @hypervisor.stop(guest)
+    @hypervisor.destroy(guest)
   rescue
   end
 

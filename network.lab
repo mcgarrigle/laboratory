@@ -1,15 +1,14 @@
+#!/usr/bin/env lab
 
 ISO = "../Downloads/centos-gold-7.3.1611.iso"
 
 domain "foo.local"
 
-laboratory do |lab|
-  lab.name = "example"
+laboratory "network" do |lab|
   lab.ip4 = "10.0.30.0/24"
 
-  lab.guest do |g|
+  lab.guest "cdn" do |g|
     g.enabled = false
-    g.name   = "cdn"
     g.memory = 1024
     g.boot   = [:dvd, :disk]
     g.interface do |i| 
@@ -20,8 +19,7 @@ laboratory do |lab|
     g.disk {|d| d.size = 102400 }
   end
 
-  lab.guest do |g|
-    g.name   = "foreman"
+  lab.guest "foreman" do |g|
     g.memory = 2048
     g.boot   = [:dvd, :disk]
     g.interface do |i| 
@@ -32,8 +30,7 @@ laboratory do |lab|
     g.disk {|d| d.size = 102400 }
   end
 
-  lab.guest do |g|
-    g.name   = "ipa"
+  lab.guest "ipa" do |g|
     g.memory = 3192
     g.boot   = [:dvd, :disk]
     g.interface do |i| 

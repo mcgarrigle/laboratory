@@ -7,8 +7,8 @@ class Laboratory
 
   attr_accessor :name, :guests
 
-  def initialize
-    @name = ""
+  def initialize(name = "")
+    @name = name
     @guests = []
   end
 
@@ -22,8 +22,8 @@ class Laboratory
     @pool.shift 10                          # first 10 IPs are reserved 
   end
 
-  def guest
-    g = Guest.new
+  def guest(name = nil)
+    g = Guest.new(name)
     yield g
     @guests << g
   end
