@@ -4,9 +4,10 @@ require "netaddr"
 
 class Interface
 
-  attr_accessor :network, :netmask4, :prefix4, :gateway4
+  attr_accessor :id, :network, :netmask4, :prefix4, :gateway4
 
-  def initialize
+  def initialize(id = 0)
+    @id           = id
     @network      = :nat
     @ip4          = "0.0.0.0"
     @netmask4     = "0.0.0.0"
