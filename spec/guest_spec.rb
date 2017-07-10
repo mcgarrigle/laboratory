@@ -7,12 +7,13 @@ describe Guest do
   describe "#interface" do
 
     it "should create an interface" do
-      expect(Interface).to receive(:new)
+      expect(Interface).to receive(:new).with(1)
       subject.interface { }
     end
 
     it "should create all interfaces" do
-      expect(Interface).to receive(:new).twice
+      expect(Interface).to receive(:new).with(1)
+      expect(Interface).to receive(:new).with(2)
       subject.interface { }
       subject.interface { }
     end
