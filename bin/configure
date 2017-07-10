@@ -1,0 +1,31 @@
+#!/bin/bash
+
+HOSTNAME="$1"
+ADDRESS="$2"
+DOMAIN="foo.local"
+FQDN="${HOSTNAME}.${DOMAIN}"
+NETMASK="255.255.255.0"
+
+export ETH0=$(ip link |awk '/^2:/ { sub(/:/,"",$2); print $2 }')
+export ETH1=$(ip link |awk '/^3:/ { sub(/:/,"",$2); print $2 }')
+
+
+function if-configure {
+cat <<EOF > "/etc/sysconfig/network-scripts/ifcfg-${1}"
+BOOTPROTO=static
+DEVICE=${1}
+IPADDR="${2}"
+NETMASK="${3}"
+ONBOOT=yes
+EOF
+}
+
+echo "setting ${FQDN} on ${ETH0}" "${ADDRESS}" "${NETMASK}"
+
+if-configure "${ETH0}" "${ADDRESS}" "${NETMASK}"
+
+hostnamectl set-hostname ${FQDN}
+
+echo "${ADDRESS} ${FQDN} ${HOSTNAME}" >> /etc/hosts
+
+systemctl restart network
