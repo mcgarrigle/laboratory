@@ -19,17 +19,6 @@ laboratory "network" do |lab|
     g.disk {|d| d.size = 102400 }
   end
 
-  lab.guest "foreman" do |g|
-    g.memory = 2048
-    g.boot   = [:dvd, :disk]
-    g.interface do |i| 
-      i.network = :intnet
-      i.ip4 = "10.0.30.12/24"
-    end
-    g.dvd  {|d| d.medium = ISO  }
-    g.disk {|d| d.size = 102400 }
-  end
-
   lab.guest "ipa" do |g|
     g.memory = 3192
     g.boot   = [:dvd, :disk]
@@ -46,6 +35,17 @@ laboratory "network" do |lab|
     end
     g.dvd  {|d| d.medium = ISO  }
     g.disk {|d| d.size = 204800 }
+  end
+
+  lab.guest "foreman" do |g|
+    g.memory = 4096
+    g.boot   = [:dvd, :disk]
+    g.interface do |i| 
+      i.network = :intnet
+      i.ip4 = "10.0.30.12/24"
+    end
+    g.dvd  {|d| d.medium = ISO  }
+    g.disk {|d| d.size = 102400 }
   end
 
 end
