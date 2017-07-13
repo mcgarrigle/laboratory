@@ -16,8 +16,8 @@ laboratory "simple" do |lab|
     end
     g.interface do |i|
       i.network = :nat
-      i.forward("ssh", from:":3022", to:":22")
-      i.forward("http", from:":3080", to:":80")
+      i.forward("ssh",   from:":3022", to:":22")
+      i.forward("http",  from:":3080", to:":80")
       i.forward("https", from:":3443", to:":443")
       i.forward("proxy", from:":3090", to:":9090")
     end
