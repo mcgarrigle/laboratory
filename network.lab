@@ -28,10 +28,10 @@ laboratory "network" do |lab|
     end
     g.interface do |i|
       i.network = :nat
-      i.port_forward = "ssh,tcp,,9022,,22"
-      i.port_forward = "http,tcp,,9080,,80"
-      i.port_forward = "https,tcp,,9443,,443"
-      i.port_forward = "proxy,tcp,,9090,,9090"
+      i.forward("ssh",   from:":9022", to:":22")
+      i.forward("http",  from:":9080", to:":80")
+      i.forward("https", from:":9443", to:":443")
+      i.forward("proxy", from:":9090", to:":9090")
     end
     g.dvd  {|d| d.medium = ISO  }
     g.disk {|d| d.size = 204800 }

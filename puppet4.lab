@@ -1,13 +1,12 @@
+#!/usr/bin/env lab
 
 ISO = "../Downloads/centos-gold-7.3.1611.iso"
 
 domain "foo.local"
 
-laboratory do |lab|
-  lab.name = "puppet4"
+laboratory "puppet4" do |lab|
 
-  lab.guest do |g|
-    g.name   = "puppet"
+  lab.guest "puppet" do |g|
     g.memory = 2048
     g.boot   = [:dvd, :disk]
     g.interface do |i| 
@@ -16,14 +15,13 @@ laboratory do |lab|
     end
     g.interface do |i|
       i.network = :nat
-      i.port_forward = "ssh,tcp,,7022,,22"
+      i.forward("ssh", from:":7022", to:":22")
     end
     g.dvd  {|d| d.medium = ISO  }
     g.disk {|d| d.size = 102400 }
   end
 
-  lab.guest do |g|
-    g.name   = "labrat"
+  lab.guest "labrat" do |g|
     g.memory = 2048
     g.boot   = [:dvd, :disk]
     g.interface do |i| 
