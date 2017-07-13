@@ -37,13 +37,11 @@ class Hypervisor
 
     guest.interfaces.each_with_index do |interface, i|
       n = i  + 1
-      nic = "nic#{n}".to_sym
+      nic  = "nic#{n}".to_sym
+      port = "natpf#{n}".to_sym
       vbox.modifyvm(nic => interface.network)
-      if interface.port_forward
-        port = "natpf#{n}".to_sym
-        interface.port_forward.each do |pf|
-          vbox.modifyvm(port => pf)
-        end
+      interface.rules.each do |rule|
+        vbox.modifyvm(port => rule.to_s)
       end
     end
 

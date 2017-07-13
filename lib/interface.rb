@@ -1,19 +1,19 @@
 
 require "netaddr"
-
+require "forward"
 
 class Interface
 
-  attr_accessor :id, :network, :netmask4, :prefix4, :gateway4
+  attr_accessor :id, :network, :netmask4, :prefix4, :gateway4, :rules
 
   def initialize(id = 0)
-    @id           = id
-    @network      = :nat
-    @ip4          = "0.0.0.0"
-    @netmask4     = "0.0.0.0"
-    @gateway4     = "0.0.0.0"
-    @prefix4      = "/0"
-    @port_forward = []
+    @id       = id
+    @network  = :nat
+    @ip4      = "0.0.0.0"
+    @netmask4 = "0.0.0.0"
+    @gateway4 = "0.0.0.0"
+    @prefix4  = "/0"
+    @rules    = []
   end
 
   def ip4=(s)
@@ -27,13 +27,16 @@ class Interface
     end
   end
 
-  def port_forward=(s)
-    @port_forward << s
+  # def Forward.initialize(name, protocol: :tcp, from:, to:)
+
+  def forward(name, protocol: :tcp, from:, to:)
+    rule = Forward.new(name, protocol: protocol, from: from, to: to)
+    @rules << rule
   end
 
-  def port_forward
-    @port_forward
-  end
+  #def forward
+  #  @forward
+  #end
 
   def ip4
     @ip4
