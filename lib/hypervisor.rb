@@ -38,8 +38,13 @@ class Hypervisor
     guest.interfaces.each_with_index do |interface, i|
       n = i  + 1
       nic  = "nic#{n}".to_sym
+      net  = "intnet#{n}".to_sym
       port = "natpf#{n}".to_sym
-      vbox.modifyvm(nic => interface.network)
+      case interface.network
+      when :nat, :bridged, :intnet, :hostonly then vbox.modifyvm(nic => interface.network)
+      else vbox.modifyvm(nic => :intnet)
+           vbox.modifyvm(net => interface.network)
+      end
       interface.rules.each do |rule|
         vbox.modifyvm(port => rule.to_s)
       end

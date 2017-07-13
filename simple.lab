@@ -11,7 +11,7 @@ laboratory "simple" do |lab|
     g.memory = 1024
     g.boot   = [:dvd, :disk]
     g.interface do |i| 
-      i.network = :intnet
+      i.network = :vlan130
       i.ip4 = "10.0.30.10/24"
     end
     g.interface do |i|

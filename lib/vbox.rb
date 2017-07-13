@@ -46,7 +46,7 @@ class Vbox
   end
 
   def command(*args)
-    # puts "vboxmange #{args}"
+    # puts "vboxmanage #{args.join(' ')}"; return
     ok = system("vboxmanage", *args)
     raise "error calling: #{args}" unless ok
   end
