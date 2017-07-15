@@ -6,9 +6,8 @@ $LOAD_PATH << $LIB_DIR
 require "dsl"
 require "command"
 
-# LABORATORY = ENV["LABORATORY"] || "network.lab"
-
-LABORATORY = ARGV.shift
+LABORATORY = ENV["LABORATORY"] || "network.lab"
+# LABORATORY = ARGV.shift
 
 puts "/// using '#{LABORATORY}' laboratory file"
 

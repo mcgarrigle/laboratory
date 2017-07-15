@@ -6,11 +6,18 @@ class Forward
 
   attr_accessor :protocol, :from_ip, :from_port, :to_ip, :to_port
 
-  def initialize(name, protocol: :tcp, from:, to:)
+  def initialize(name, options = {})
     @name     = name
-    @protocol = protocol
-    (@from_ip, @from_port) = endpoint(from)
-    (@to_ip, @to_port) = endpoint(to)
+    @protocol = options[:protocol] || :tcp
+    rule = find_rule(options)
+    (@from_ip, @from_port) = endpoint(rule)
+    (@to_ip, @to_port) = endpoint(options[rule])
+  end
+
+  def find_rule(options)
+    keys = options.keys.select {|k| k.class == String }
+    raise "only one port forwarding rule allowed" unless keys.size == 1
+    return keys.first
   end
 
   def ipaddr(s)

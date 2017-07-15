@@ -1,0 +1,10 @@
+#!/bin/bash
+
+gw=$(ip route|awk '/^default/ { print $3 }')
+dev=$(ip route|awk '/^default/ { print $5 }')
+mac=$(cat "/sys/class/net/${dev}/address")
+block=$(echo $mac | tr ':' '-')
+
+echo "gateway = ${gw} ${mac} (${dev})"
+
+curl "http://${gw}/${block}"

@@ -29,8 +29,8 @@ class Interface
 
   # def Forward.initialize(name, protocol: :tcp, from:, to:)
 
-  def forward(name, protocol: :tcp, from:, to:)
-    rule = Forward.new(name, protocol: protocol, from: from, to: to)
+  def forward(name, options = {})
+    rule = Forward.new(name, options)
     @rules << rule
   end
 

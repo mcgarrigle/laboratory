@@ -29,13 +29,13 @@ describe Interface do
   describe "#forward" do
 
     it "should contain an array of one" do
-      subject.forward("guestssh", from:":2222", to:":22")
+      subject.forward("guestssh", ":2222" => ":22")
       expect(subject.rules.map(&:to_s)).to eql ["guestssh,tcp,,2222,,22"]
     end
 
     it "should contain an array of two" do
-      subject.forward("guestssh", from:":2222", to:":22")
-      subject.forward("guestscp", from:":3333", to:":33")
+      subject.forward("guestssh", ":2222" => ":22")
+      subject.forward("guestscp", ":3333" => ":33")
       expect(subject.rules.map(&:to_s)).to eql ["guestssh,tcp,,2222,,22", "guestscp,tcp,,3333,,33"]
     end
 
