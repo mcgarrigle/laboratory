@@ -26,17 +26,6 @@ class Command
     "up: starts all guests"
   end
 
-  def x_all_guests
-    vms = Hypervisor.list.map {|g| [g.name, g.state] }
-    Hash[vms]
-  end
-
-  def x_status
-    vms = all_guests
-    @laboratory.guests.each {|g| g.status = vms[g.name] }
-    @laboratory.guests
-  end
-
   def _up(*names)
     if names.size == 0
       @laboratory.guests.each {|guest| up(guest) }
@@ -89,6 +78,11 @@ class Command
     @hypervisor.stop(guest)
     @hypervisor.destroy(guest)
   rescue
+  end
+
+  def _ssh(host)
+    jumps = @laboratory.guests.select {|g| g }
+    p jumps
   end
 
   def _help
