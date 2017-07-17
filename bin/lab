@@ -6,10 +6,17 @@ $LOAD_PATH << $LIB_DIR
 require "dsl"
 require "command"
 
-LABORATORY = ENV["LABORATORY"] || "network.lab"
+def find
+  return "project.lab" if File.exists? "project.lab"  # look for project.lab first
+  files = Dir.glob("*.lab")
+  raise "no lab file found" unless (files)
+  files.first
+end
+
+LABORATORY = ENV["LABORATORY"] || find
 # LABORATORY = ARGV.shift
 
-puts "/// using '#{LABORATORY}' laboratory file"
+puts "/// using '#{LABORATORY}' laboratory project"
 
 load LABORATORY
 
