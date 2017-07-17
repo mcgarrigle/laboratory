@@ -81,8 +81,10 @@ class Command
   end
 
   def _ssh(host)
-    jumps = @laboratory.guests.select {|g| g }
-    p jumps
+    rules = @laboratory.guests.map {|g| g.interfaces }.map {|a| a.map {|i| i.rules } }.flatten
+    p rules
+    ssh_rule = rules.select {|r| r.name == "ssh" }.first
+    p ssh_rule
   end
 
   def _help

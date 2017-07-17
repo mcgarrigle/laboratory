@@ -34,10 +34,6 @@ class Interface
     @rules << rule
   end
 
-  #def forward
-  #  @forward
-  #end
-
   def ip4
     @ip4
   end
