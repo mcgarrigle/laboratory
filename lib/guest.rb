@@ -24,7 +24,8 @@ class Guest
   end
 
   def to_s
-    "%7s %s" % [@status, @name]
+    status = @status || "defined"
+    "%7s %s" % [status, @name]
   end
 
   def boot=(order)

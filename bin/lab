@@ -16,7 +16,7 @@ end
 LABORATORY = ENV["LABORATORY"] || find
 # LABORATORY = ARGV.shift
 
-puts "/// using '#{LABORATORY}' laboratory project"
+puts "\n/// experimenting in the '#{LABORATORY}' laboratory\n\n"
 
 load LABORATORY
 
