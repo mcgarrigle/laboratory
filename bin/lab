@@ -9,16 +9,26 @@ require "command"
 def find
   return "project.lab" if File.exists? "project.lab"  # look for project.lab first
   files = Dir.glob("*.lab")
-  raise "no lab file found" unless (files)
   files.first
 end
 
-LABORATORY = ENV["LABORATORY"] || find
-# LABORATORY = ARGV.shift
+def load_laboratory(lab)
+  load lab
+rescue => e
+  raise "#{e.backtrace.first} #{e.message}"
+end
 
-puts "\n/// experimenting in the '#{LABORATORY}' laboratory\n\n"
+begin
+  LABORATORY = ENV["LABORATORY"] || find
 
-load LABORATORY
+  raise "no laboratory file found" unless LABORATORY
 
-command = Command.new(@laboratory)
-command.run(*ARGV)
+  load_laboratory LABORATORY
+
+  puts "\n/// experimenting in the '#{@laboratory.name}' laboratory\n\n"
+
+  command = Command.new(@laboratory)
+  command.run(*ARGV)
+rescue => e
+  puts e
+end
