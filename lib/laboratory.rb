@@ -1,27 +1,17 @@
 
-require "netaddr"
 require "network"
 require "guest"
 
 
 class Laboratory
 
-  attr_accessor :name, :guests
+  attr_accessor :name, :guests, :domain
 
   def initialize(name = "")
     @name     = name
     @networks = []
     @guests   = []
-  end
-
-  def ip4
-    @pi4
-  end
-
-  def ip4=(cidr)
-    @network = NetAddr::CIDR.create(cidr)   # define subnet
-    @pool = @network.enumerate              # create pool of addresses
-    @pool.shift 10                          # first 10 IPs are reserved 
+    @domain   = "foo.local"
   end
 
   def network(name, options = {})
@@ -39,3 +29,4 @@ class Laboratory
   end
 
 end
+
