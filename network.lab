@@ -7,6 +7,9 @@ domain "foo.local"
 laboratory "network" do |lab|
   lab.ip4 = "10.0.30.0/24"
 
+  # lab.network(:management, :hostonly => "10.0.30.0/24")
+  # lab.network(:cluster,    :intnet   => "10.0430.0/24")
+
   lab.guest "cdn" do |g|
     g.enabled = false
     g.memory = 1024
