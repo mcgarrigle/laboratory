@@ -81,7 +81,16 @@ class Command
   end
 
   def _ssh(host)
-    rules = @laboratory.guests.map {|g| g.interfaces }.map {|a| a.map {|i| i.rules } }.flatten
+    # rules = @laboratory.guests.map {|g| g.interfaces }.map {|a| a.map {|i| i.rules } }.flatten
+    # rules = @laboratory.all.guests.interfaces.rules
+    rules = []
+    @laboratory.guests.each do |g|
+      g.interfaces.each do |i|
+        i.rules.each do |r|
+          rules << r
+        end
+      end
+    end
     p rules
     ssh_rule = rules.select {|r| r.name == "ssh" }.first
     p ssh_rule
