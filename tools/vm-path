@@ -1,0 +1,21 @@
+
+require 'nokogiri'
+
+home = ENV["HOME"]
+
+if ENV["OS"] == "Darwin"
+  xml = File.join(home, "Library", "VirtualBox", "Virtualbox.xml")
+else
+  xml = File.join(home, ".VirtualBox", "Virtualbox.xml")
+end
+
+p xml
+
+doc = Nokogiri::XML(File.read(xml))
+
+e = doc.at_xpath("//xmlns:SystemProperties")
+
+dir = e.attribute("defaultMachineFolder").value
+
+p dir
+p Dir.glob(dir + "/*")
