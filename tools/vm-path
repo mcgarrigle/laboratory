@@ -13,9 +13,7 @@ p xml
 
 doc = Nokogiri::XML(File.read(xml))
 
-e = doc.at_xpath("//xmlns:SystemProperties")
-
-dir = e.attribute("defaultMachineFolder").value
+dir = doc.at_xpath("//xmlns:SystemProperties/@defaultMachineFolder").to_s
 
 p dir
 p Dir.glob(dir + "/*")

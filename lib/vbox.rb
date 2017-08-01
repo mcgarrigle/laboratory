@@ -1,8 +1,24 @@
 
+require 'nokogiri'
+
 class Vbox
 
   def initialize(name = nil)
     @name = name
+  end
+
+  def self.config_file
+    home = ENV["HOME"]
+    if ENV["OS"] == "Darwin"
+      return File.join(home, "Library", "VirtualBox", "Virtualbox.xml")
+    else
+      return File.join(home, ".VirtualBox", "Virtualbox.xml")
+    end
+  end
+
+  def self.machine_folder
+    doc = Nokogiri::XML(File.read(config_file))
+    return doc.at_xpath("//xmlns:SystemProperties/@defaultMachineFolder").to_s
   end
 
   def self.list(type = :vms)
