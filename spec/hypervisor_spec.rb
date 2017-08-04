@@ -33,6 +33,7 @@ describe Hypervisor do
       @guest.interface {|i| i.network = :intnet }
 
       allow(Vbox).to receive(:new).and_return(vbox)
+      allow(vbox).to receive(:name).and_return("bar")
       allow(vbox).to receive(:createvm)
       allow(vbox).to receive(:modifyvm)
       allow(vbox).to receive(:storagectl)

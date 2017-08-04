@@ -8,7 +8,7 @@ class Network
   def initialize(name, options = {})
     @name = name.to_s 
     @connection, address = options.first
-    assert(@connection, :nat, :intnet, :hostonly)
+    assert(@connection, :nat, :natnetwork, :intnet, :hostonly)
     cidr = NetAddr::CIDR.create(address)
     @ip4      = cidr.ip
     @netmask4 = cidr.netmask_ext

@@ -7,6 +7,10 @@ class Vbox
     @name = name
   end
 
+  def name
+    @name
+  end
+
   def self.config_file
     home = ENV["HOME"]
     if ENV["OS"] == "Darwin"
