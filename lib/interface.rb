@@ -27,15 +27,15 @@ class Interface
     end
   end
 
+  def ip4
+    @ip4
+  end
+
   # def Forward.initialize(name, protocol: :tcp, from:, to:)
 
   def forward(name, options = {})
     rule = Forward.new(name, options)
     @rules << rule
-  end
-
-  def ip4
-    @ip4
   end
 
 end
