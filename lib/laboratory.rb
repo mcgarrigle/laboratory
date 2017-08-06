@@ -6,6 +6,7 @@ require "guest"
 class Laboratory
 
   attr_accessor :name, :domain
+  attr_reader   :networks
 
   def initialize(name = "")
     @name     = name

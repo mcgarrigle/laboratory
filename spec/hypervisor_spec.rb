@@ -7,13 +7,13 @@ describe Hypervisor do
   describe ".list" do
 
     it "calls Vbox.list" do
-      expect(Vbox).to receive(:list).twice.and_return({})
+      expect(Vbox).to receive(:vms).twice.and_return({})
       Hypervisor.list
     end
 
     it "classifies running vms" do
-      allow(Vbox).to receive(:list).with(:vms).and_return({ "{xxxx}" => "foo", "{yyyy}" => "bar" })
-      allow(Vbox).to receive(:list).with(:runningvms).and_return({ "{xxxx}" => "foo" })
+      allow(Vbox).to receive(:vms).with(:vms).and_return({ "{xxxx}" => "foo", "{yyyy}" => "bar" })
+      allow(Vbox).to receive(:vms).with(:runningvms).and_return({ "{xxxx}" => "foo" })
       list = Hypervisor.list
       expect(list[0].state).to eql :running
       expect(list[1].state).to eql :stopped

@@ -69,16 +69,16 @@ describe Vbox do
 
   # TODO Moar tests
 
-  describe ".list" do
+  describe ".vms" do
 
     it "calls vboxmanage" do
       expect(Vbox).to receive(:`).with('vboxmanage list vms').and_return('"foo" {xxxx}')
-      Vbox.list(:vms)
+      Vbox.vms(:vms)
     end
 
     it "returns a hash of id => name" do
       allow(Vbox).to receive(:`).and_return(%Q["foo" {xxxx}\n"bar" {yyyy}\n])
-      expect(Vbox.list(:vms)).to be == { "{xxxx}" => "foo", "{yyyy}" => "bar" }
+      expect(Vbox.vms(:vms)).to be == { "{xxxx}" => "foo", "{yyyy}" => "bar" }
     end
 
   end

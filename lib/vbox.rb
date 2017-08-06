@@ -25,10 +25,14 @@ class Vbox
     return doc.at_xpath("//xmlns:SystemProperties/@defaultMachineFolder").to_s
   end
 
-  def self.list(type = :vms)
-    vms = %x[vboxmanage list #{type}]
-    vms = vms.lines.map {|s| /"(.+)" (.*)/.match(s.chomp); [$2,$1] }
+  def self.vms(type = :vms)
+    vms = list(type).map {|s| /"(.+)" (.*)/.match(s); [$2,$1] }
     Hash[vms]
+  end
+
+  def self.list(type)
+    array = %x[vboxmanage list #{type}]
+    array.lines.map(&:chomp)
   end
 
   def createvm(args = {})

@@ -9,8 +9,8 @@ class Hypervisor
   end
 
   def self.list
-    all     = Vbox.list(:vms)
-    running = Vbox.list(:runningvms)
+    all     = Vbox.vms(:vms)
+    running = Vbox.vms(:runningvms)
     vms = all.map do |id, name|
       vm = VM.new(id, name)
       vm.state = running[id] ? :running : :stopped
