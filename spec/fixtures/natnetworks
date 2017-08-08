@@ -1,0 +1,20 @@
+NetworkName:    NatNetwork
+IP:             10.0.20.1
+Network:        10.0.20.0/24
+IPv6 Enabled:   No
+IPv6 Prefix:    fd17:625c:f037:2::/64
+DHCP Enabled:   No
+Enabled:        Yes
+loopback mappings (ipv4)
+        127.0.0.1=2
+
+NetworkName:    cluster
+IP:             10.0.40.1
+Network:        10.0.40.0/24
+IPv6 Enabled:   No
+IPv6 Prefix:    fd17:625c:f037:2::/64
+DHCP Enabled:   No
+Enabled:        Yes
+loopback mappings (ipv4)
+        127.0.0.1=2
+
