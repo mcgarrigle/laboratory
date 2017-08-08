@@ -6,6 +6,7 @@ class Command
     vms = Hypervisor.status
     @laboratory = laboratory
     @laboratory.guests.each {|g| g.status = vms[g.name] }
+    # @networks = Vbox.networks
   end
 
   def running

@@ -1,5 +1,6 @@
 
 require 'nokogiri'
+require 'record_stream'
 
 class Vbox
 
@@ -28,6 +29,15 @@ class Vbox
   def self.vms(type = :vms)
     vms = list(type).map {|s| /"(.+)" (.*)/.match(s); [$2,$1] }
     Hash[vms]
+  end
+
+  def self.networks
+    stream = RecordStream.new(list(:natnets))
+    nats = stream.records.map {|n| Network.new(n["NetworkName"], :natnetwork => n["Network"]) }
+    p nats
+    stream = RecordStream.new(list(:hostonlyifs))
+    hoifs = stream.records.map {|n| Network.new(n["Name"], :hostonly => "#{n['IPAddress']} #{n['NetworkMask']}") }
+    p hoifs
   end
 
   def self.list(type)

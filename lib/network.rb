@@ -10,7 +10,7 @@ class Network
     @connection, address = options.first
     assert(@connection, :nat, :natnetwork, :intnet, :hostonly)
     cidr = NetAddr::CIDR.create(address)
-    @ip4      = cidr.ip
+    @ip4      = cidr.base
     @netmask4 = cidr.netmask_ext
     @prefix4  = cidr.netmask
   end
