@@ -1,7 +1,9 @@
 #!/bin/bash
 
 HOSTNAME="$1"
-ADDRESS="$2"
+ADDRESS0="$2"
+ADDRESS1="$3"
+
 DOMAIN="foo.local"
 FQDN="${HOSTNAME}.${DOMAIN}"
 NETMASK="255.255.255.0"
@@ -10,22 +12,28 @@ export ETH0=$(ip link |awk '/^2:/ { sub(/:/,"",$2); print $2 }')
 export ETH1=$(ip link |awk '/^3:/ { sub(/:/,"",$2); print $2 }')
 
 
+# TODO GATEWAY and DNS
+
 function if-configure {
 cat <<EOF > "/etc/sysconfig/network-scripts/ifcfg-${1}"
 BOOTPROTO=static
+ONBOOT=yes
 DEVICE=${1}
 IPADDR="${2}"
 NETMASK="${3}"
-ONBOOT=yes
+${4}
 EOF
 }
 
-echo "setting ${FQDN} on ${ETH0}" "${ADDRESS}" "${NETMASK}"
+echo "setting ${FQDN} on ${ETH0}" "${ADDRESS0}" "${NETMASK}"
 
-if-configure "${ETH0}" "${ADDRESS}" "${NETMASK}"
+if-configure "${ETH0}" "${ADDRESS0}" "${NETMASK}" "DNS1=10.0.30.11"
+if-configure "${ETH1}" "${ADDRESS1}" "${NETMASK}" "GATEWAY=10.0.40.1"
 
 hostnamectl set-hostname ${FQDN}
 
-echo "${ADDRESS} ${FQDN} ${HOSTNAME}" >> /etc/hosts
+echo "${ADDRESS0} ${FQDN} ${HOSTNAME}" >> /etc/hosts
+echo "${ADDRESS1} ${FQDN} ${HOSTNAME}" >> /etc/hosts
 
 systemctl restart network
+
