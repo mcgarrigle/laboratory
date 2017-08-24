@@ -1,4 +1,6 @@
 
+require 'hypervisor'
+
 class Command 
 
   def initialize(laboratory)
@@ -11,6 +13,15 @@ class Command
 
   def running
     @laboratory.guests.select {|g| g.status == :running }
+  end
+
+  def these(names)
+    if names.size == 0
+      guests = @laboratory.guests
+    else
+      guests = names.map {|n| @laboratory.find(n) }.compact
+    end
+    guests.each {|g| yield g }
   end
 
   def _list_help_text
@@ -28,11 +39,7 @@ class Command
   end
 
   def _up(*names)
-    if names.size == 0
-      @laboratory.guests.each {|guest| up(guest) }
-    else
-      names.each {|name| up(@laboratory.find(name)) }
-    end
+    these(names) {|guest| up(guest) }
   end
 
   def up(guest)
@@ -51,13 +58,12 @@ class Command
     "down: stop all guests"
   end
 
-  def _down
-    @laboratory.guests.each do |guest|
-      down(guest)
-    end
+  def _down(*names)
+    these(names) {|guest| down(guest) }
   end
 
   def down(guest)
+    puts "down #{guest.name}"
     @hypervisor.stop(guest)
   rescue
   end
@@ -66,13 +72,8 @@ class Command
     "delete: stop and delete all guests"
   end
 
-  def _delete
-    running.each do |guest|
-      @hypervisor.stop(guest)
-    end
-    @laboratory.guests.each do |guest|
-      @hypervisor.destroy(guest)
-    end
+  def _delete(*names)
+    these(names) {|guest| delete(guest) }
   end
 
   def delete(guest)

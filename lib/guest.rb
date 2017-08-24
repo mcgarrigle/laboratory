@@ -7,8 +7,8 @@ class Guest
   attr_accessor :name, :enabled, :memory, :vram, :ostype
   attr_accessor :interfaces, :disks, :status
 
-  def initialize(name = "fooo")
-    @name       = name
+  def initialize(name = "foo")
+    @name       = name.to_s
     @enabled    = true
     @memory     = 1024
     @vram       = 128
