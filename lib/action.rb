@@ -17,26 +17,27 @@ class Action
 
   def up(guest)
     puts "up #{guest.name} #{guest.status}"
-    if guest.status.nil?
-      puts "  create #{guest.name}"
-      @hypervisor.create(guest) 
+    case guest.status
+    when :running then return
+    when nil      then @hypervisor.create(guest)
     end
-    unless guest.status == :running
-      puts "  starting #{guest.name}"
-      @hypervisor.start(guest)
-    end 
+    @hypervisor.start(guest)
   rescue
   end
 
   def down(guest)
     puts "down #{guest.name} #{guest.status}"
+    return if guest.status == :stopped
     @hypervisor.stop(guest)
   rescue
   end
 
   def delete(guest)
     puts "delete #{guest.name} #{guest.status}"
-    @hypervisor.stop(guest)
+    case guest.status
+    when nil      then return
+    when :running then @hypervisor.stop(guest)
+    end
     @hypervisor.destroy(guest)
   rescue
   end
