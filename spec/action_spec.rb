@@ -1,8 +1,8 @@
 
-require "command"
+require "action"
 require "laboratory"
 
-describe Command do
+describe Action do
 
   let(:laboratory) { 
     laboratory = instance_double("Laboratory")
@@ -11,21 +11,15 @@ describe Command do
   }
 
   subject do
-    Command.new(laboratory)
+    Action.new(laboratory)
   end
 
   context "during initilization" do
 
     it "should create a new hypervisor" do
       expect(Hypervisor).to receive(:new).and_return(double)
-      Command.new(laboratory)
+      Action.new(laboratory)
     end
-
-  end
-
-  context "on garbage command" do
-
-    xit "should print error"
 
   end
 
@@ -39,7 +33,7 @@ describe Command do
 
     xit "should call Hypervisor.list" do
       expect(Hypervisor).to receive(:list).and_return([])
-      subject.run("list")
+      subject.list
     end
 
   end

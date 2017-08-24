@@ -4,10 +4,8 @@ require 'hypervisor'
 class Action
 
   def initialize(laboratory)
-    @hypervisor = Hypervisor.new
-    vms = Hypervisor.status
     @laboratory = laboratory
-    @laboratory.guests.each {|g| g.status = vms[g.name] }
+    @hypervisor = Hypervisor.new
     # @networks = Vbox.networks
   end
 
@@ -18,23 +16,26 @@ class Action
   end
 
   def up(guest)
-    puts "create #{guest.name} #{guest.status}"
+    puts "up #{guest.name} #{guest.status}"
     if guest.status.nil?
-      puts "create #{guest.name}"
+      puts "  create #{guest.name}"
       @hypervisor.create(guest) 
     end
     unless guest.status == :running
-      puts "starting #{guest.name}"
+      puts "  starting #{guest.name}"
       @hypervisor.start(guest)
     end 
+  rescue
   end
 
   def down(guest)
+    puts "down #{guest.name} #{guest.status}"
     @hypervisor.stop(guest)
   rescue
   end
 
   def delete(guest)
+    puts "delete #{guest.name} #{guest.status}"
     @hypervisor.stop(guest)
     @hypervisor.destroy(guest)
   rescue
