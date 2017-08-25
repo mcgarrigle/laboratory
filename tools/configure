@@ -2,12 +2,13 @@
 
 function if-configure {
 cat <<EOF > "/etc/sysconfig/network-scripts/ifcfg-${1}"
-BOOTPROTO=static
-ONBOOT=yes
-DEVICE=${1}
+BOOTPROTO="static"
+ONBOOT="yes"
+DEVICE="${1}"
 IPADDR="${2}"
 NETMASK="${3}"
 ${4}
+${5}
 EOF
 echo "${2} ${FQDN} ${HOSTNAME}" >> /etc/hosts
 }
@@ -16,23 +17,23 @@ HOSTNAME="$1"
 ADDRESS0="$2"
 ADDRESS1="$3"
 
+DOMAIN="foo.local"
+FQDN="${HOSTNAME}.${DOMAIN}"
+
 SUBNET1=$(echo ${ADDRESS1} | cut -d. -f1-3)
 GATEWAY1="${SUBNET1}.1"
 DNS1="$GATEWAY1"
 NETMASK="255.255.255.0"
-
-DOMAIN="foo.local"
-FQDN="${HOSTNAME}.${DOMAIN}"
 
 export ETH0=$(ip link |awk '/^2:/ { sub(/:/,"",$2); print $2 }')
 export ETH1=$(ip link |awk '/^3:/ { sub(/:/,"",$2); print $2 }')
 
 echo "setting ${FQDN} on ${ETH1}" "${ADDRESS1}" "${NETMASK}"
 
-if-configure "${ETH0}" "${ADDRESS0}" "${NETMASK}" "DNS1=${DNS1}"
-if-configure "${ETH1}" "${ADDRESS1}" "${NETMASK}" "GATEWAY=${GATEWAY1}"
+if-configure "${ETH0}" "${ADDRESS0}" "${NETMASK}" "DNS1=\"${DNS1}\"" "DEFROUTE=\"no\""
+if-configure "${ETH1}" "${ADDRESS1}" "${NETMASK}" "GATEWAY=\"${GATEWAY1}\"" "DEFROUTE=\"yes\""
 
-hostnamectl set-hostname ${FQDN}
+hostnamectl set-hostname "${FQDN}"
 
 systemctl restart network
 
