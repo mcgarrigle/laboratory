@@ -20,6 +20,7 @@ class Hypervisor
   end
 
   def self.status
+    Vbox.networks
     vms = list.map {|g| [g.name, g.state] }
     Hash[vms]
   end

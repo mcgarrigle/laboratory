@@ -1,6 +1,6 @@
 #!/usr/bin/env lab
 
-ISO = "../Downloads/centos-gold-7.3.1611.iso"
+ISO = "../Downloads/centos-gold-7.4.1708.iso"
 
 
 laboratory "project" do |lab|

@@ -6,12 +6,12 @@ end
 
 class Network
 
-  attr_accessor :name, :connection, :cidr, :ip4, :netmask4, :prefix4
+  attr_accessor :name, :connection, :local, :cidr, :ip4, :netmask4, :prefix4
 
   def initialize(name, options = {})
-    @name = name.to_s 
+     @name = name.to_s 
     @connection, address = options.first
-    assert(@connection, :nat, :natnetwork, :intnet, :hostonly)
+    assert(@connection, :bridged, :nat, :natnetwork, :intnet, :hostonly)
     @cidr = NetAddr::CIDR.create(address)
     @ip4      = @cidr.base
     @netmask4 = @cidr.netmask_ext
@@ -24,9 +24,7 @@ class Network
   # * they have the same cidr
 
   def ===(b)
-    if self.cidr != b.cidr
-      return false
-    end
+    return false if self.cidr != b.cidr
     raise NetworkClashError if self.connection != b.connection
     true
   end

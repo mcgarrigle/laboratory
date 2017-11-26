@@ -9,10 +9,6 @@ class Command
     @action = Action.new(@laboratory)
   end
 
-  def running
-    @laboratory.guests.select {|g| g.status == :running }
-  end
-
   def these(names)
     if names.size == 0
       guests = @laboratory.guests
@@ -45,7 +41,7 @@ class Command
   def _down(*names)
     these(names) {|guest| @action.down(guest) }
   end
-
+ 
   def _delete_help_text
     "delete: stop and delete all guests"
   end
