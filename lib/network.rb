@@ -9,7 +9,7 @@ class Network
   attr_accessor :name, :connection, :local, :cidr, :ip4, :netmask4, :prefix4
 
   def initialize(name, options = {})
-     @name = name.to_s 
+    @name = name.to_s 
     @connection, address = options.first
     assert(@connection, :bridged, :nat, :natnetwork, :intnet, :hostonly)
     @cidr = NetAddr::CIDR.create(address)

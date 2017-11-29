@@ -4,16 +4,23 @@ require "forward"
 
 class Interface
 
-  attr_accessor :id, :network, :netmask4, :prefix4, :gateway4, :rules
+  attr_accessor :id, :netmask4, :prefix4, :gateway4, :rules
+  attr_reader   :connection, :network_name
 
   def initialize(id = 0)
-    @id       = id
-    @network  = :nat
-    @ip4      = "0.0.0.0"
-    @netmask4 = "0.0.0.0"
-    @gateway4 = "0.0.0.0"
-    @prefix4  = "/0"
-    @rules    = []
+    @id           = id
+    @connection   = :nat
+    @network_name = ""
+    @ip4          = "0.0.0.0"
+    @netmask4     = "0.0.0.0"
+    @gateway4     = "0.0.0.0"
+    @prefix4      = "/0"
+    @rules        = []
+  end
+
+  def network(connection, name = "")
+    @connection   = assert(connection, :bridged, :nat, :intnet, :natnetwork, :hostonly)
+    @network_name = name.to_s
   end
 
   def ip4=(s)
@@ -38,4 +45,24 @@ class Interface
     @rules << rule
   end
 
+  def nic
+    return "nic#{@id}".to_sym
+  end
+
+  def nic_network
+    param = case @connection
+    when :intnet     then "intnet"
+    when :natnetwork then "nat-network"
+    when :hostonly   then "hostonlyadapter"
+    else "nic"
+    end
+    return "#{param}#{@id}".to_s
+  end 
+
+  def assert(value, *valid)
+    raise ArgumentError, "#{value} should be one of #{valid.join(', ')}" unless (valid.include? value)
+    value
+  end
+
 end
+

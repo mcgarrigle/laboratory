@@ -6,18 +6,18 @@ ISO = "../Downloads/centos-gold-7.4.1708.iso"
 laboratory "project" do |lab|
   lab.domain = "foo.local"
 
-  lab.network :management, :hostonly => "10.0.30.0/24"
-  lab.network :cluster, :natnetwork => "10.0.40.0/24"
+  # lab.network :management, :hostonly => "10.0.30.0/24"
+  # lab.network :cluster, :natnetwork => "10.0.40.0/24"
 
   lab.guest "ipa" do |g|
     g.memory = 3192
     g.boot   = [:dvd, :disk]
     g.interface do |i| 
-      i.network = :management
+      i.network(:hostonly, :vboxnet0)
       i.ip4 = "10.0.30.11"
     end
     g.interface do |i|
-      i.network = :cluster
+      i.network(:natnetwork, :cluster)
       i.ip4 = "10.0.40.11"
     end
     g.dvd  {|d| d.medium = ISO  }
@@ -28,11 +28,11 @@ laboratory "project" do |lab|
     g.memory = 4096
     g.boot   = [:dvd, :disk]
     g.interface do |i| 
-      i.network = :intnet
+      i.network(:hostonly, :vboxnet0)
       i.ip4 = "10.0.30.10/24"
     end
     g.interface do |i|
-      i.network = :cluster
+      i.network(:natnetwork, :cluster)
       i.ip4 = "10.0.40.10"
     end
     g.dvd  {|d| d.medium = ISO  }

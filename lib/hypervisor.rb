@@ -58,14 +58,12 @@ class Hypervisor
   end
 
   def create_interface(interface)
-    nic  = "nic#{interface.id}".to_sym
-    net  = "intnet#{interface.id}".to_sym
-    port = "natpf#{interface.id}".to_sym
-    case interface.network
-    when :nat, :bridged, :intnet, :hostonly then @vbox.modifyvm(nic => interface.network)
-    else @vbox.modifyvm(nic => :intnet)
-         @vbox.modifyvm(net => interface.network)
+    @vbox.modifyvm(interface.nic => interface.connection)
+    case interface.connection
+    when :intnet, :natnetwork, :hostonly then 
+      @vbox.modifyvm(interface.nic_network => interface.network_name)
     end
+    port = "natpf#{interface.id}".to_sym
     interface.rules.each do |rule|
       @vbox.modifyvm(port => rule.to_s)
     end

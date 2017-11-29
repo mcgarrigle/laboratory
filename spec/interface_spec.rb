@@ -3,6 +3,44 @@ require "interface"
 
 describe Interface do
 
+  describe "#network" do
+
+    it "should set connection for bridged" do
+      subject.network :bridged
+      expect(subject.connection).to eql :bridged
+      expect(subject.network_name).to eql ""
+    end
+
+    it "should set connection for nat" do
+      subject.network :nat
+      expect(subject.connection).to eql :nat
+      expect(subject.network_name).to eql ""
+    end
+
+    it "should set network_name for intnet" do
+      subject.network :intnet, "cluster"
+      expect(subject.connection).to eql :intnet
+      expect(subject.network_name).to eql "cluster"
+    end
+
+    it "should set network_name for natnetwork" do
+      subject.network :natnetwork, :application
+      expect(subject.connection).to eql :natnetwork
+      expect(subject.network_name).to eql "application"
+    end
+
+    it "should set network_name for hostonly" do
+      subject.network :hostonly, "management"
+      expect(subject.connection).to eql :hostonly
+      expect(subject.network_name).to eql "management"
+    end
+
+    it "should barf an unknown connection type" do
+      expect { subject.network :magic }.to raise_error(ArgumentError)
+    end
+
+  end
+
   describe "#ip4=" do
 
     context "when supplying CIDR address" do
