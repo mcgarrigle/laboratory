@@ -1,0 +1,8 @@
+#!/bin/bash
+
+NETWORK=$(vboxmanage natnetwork list|grep Name|cut -d':' -f2| sed -e 's/^[[:space:]]*//')
+echo $NETWORK
+
+vboxmanage natnetwork stop --netname "${NETWORK}"
+vboxmanage natnetwork start --netname "${NETWORK}"
+
