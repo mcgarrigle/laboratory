@@ -4,12 +4,10 @@ require 'record_stream'
 
 class Vbox
 
+  attr_reader :name
+
   def initialize(name = nil)
     @name = name
-  end
-
-  def name
-    @name
   end
 
   def self.config_file
@@ -32,12 +30,12 @@ class Vbox
   end
 
   def self.networks
-    stream = RecordStream.new(list(:natnets))
-    nats = stream.records.map {|n| Network.new(n["NetworkName"], :natnetwork => n["Network"]) }
-    p nats
-    stream = RecordStream.new(list(:hostonlyifs))
-    hoifs = stream.records.map {|n| Network.new(n["Name"], :hostonly => "#{n['IPAddress']} #{n['NetworkMask']}") }
-    p hoifs
+    #stream = RecordStream.new(list(:natnets))
+    #nats = stream.records.map {|n| Network.new(n["NetworkName"], :natnetwork => n["Network"]) }
+    #p nats
+    #stream = RecordStream.new(list(:hostonlyifs))
+    #hoifs = stream.records.map {|n| Network.new(n["Name"], :hostonly => "#{n['IPAddress']} #{n['NetworkMask']}") }
+    #p hoifs
   end
 
   def self.list(type)

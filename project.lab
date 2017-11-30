@@ -9,11 +9,11 @@ laboratory "project" do |lab|
   # lab.network :management, :hostonly => "10.0.30.0/24"
   # lab.network :cluster, :natnetwork => "10.0.40.0/24"
 
-  lab.guest "ipa" do |g|
+  lab.guest "test1" do |g|
     g.memory = 3192
     g.boot   = [:dvd, :disk]
     g.interface do |i| 
-      i.network(:hostonly, :vboxnet0)
+      i.network(:hostonly, 0)   # n = "vboxnet{n}" or "VirtualBox Host-Only Ethernet Adapter {#(n + 1)}"
       i.ip4 = "10.0.30.11"
     end
     g.interface do |i|
@@ -24,11 +24,11 @@ laboratory "project" do |lab|
     g.disk {|d| d.size = 102400 }
   end
 
-  lab.guest "foreman" do |g|
+  lab.guest "test2" do |g|
     g.memory = 4096
     g.boot   = [:dvd, :disk]
     g.interface do |i| 
-      i.network(:hostonly, :vboxnet0)
+      i.network(:hostonly, 0)
       i.ip4 = "10.0.30.10/24"
     end
     g.interface do |i|
