@@ -50,7 +50,7 @@ class Interface
   end
 
   def nic
-    return "nic#{@id}".to_sym
+    return "nic#{@id}"
   end
 
   def nic_network
