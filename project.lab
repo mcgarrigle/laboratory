@@ -13,11 +13,11 @@ laboratory "project" do |lab|
     g.memory = 3192
     g.boot   = [:dvd, :disk]
     g.interface do |i| 
-      i.network(:hostonly, 0)   # n = "vboxnet{n}" or "VirtualBox Host-Only Ethernet Adapter {#(n + 1)}"
+      i.hostonly(:vboxnet0)   # "vboxnet{n}" => "VirtualBox Host-Only Ethernet Adapter #{n + 1}"
       i.ip4 = "10.0.30.11"
     end
     g.interface do |i|
-      i.network(:natnetwork, :cluster)
+      i.natnetwork(:cluster)
       i.ip4 = "10.0.40.11"
     end
     g.dvd  {|d| d.medium = ISO  }
@@ -28,11 +28,11 @@ laboratory "project" do |lab|
     g.memory = 4096
     g.boot   = [:dvd, :disk]
     g.interface do |i| 
-      i.network(:hostonly, 0)
+      i.hostonly(:vboxnet0)
       i.ip4 = "10.0.30.10/24"
     end
     g.interface do |i|
-      i.network(:natnetwork, :cluster)
+      i.natnetwork(:cluster)
       i.ip4 = "10.0.40.10"
     end
     g.dvd  {|d| d.medium = ISO  }

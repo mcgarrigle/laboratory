@@ -61,7 +61,7 @@ class Hypervisor
     @vbox.modifyvm(interface.nic => interface.connection)
     case interface.connection
     when :intnet, :natnetwork, :hostonly then 
-      @vbox.modifyvm(interface.nic_network => interface.network_name)
+      @vbox.modifyvm(interface.adapter => interface.name)
     end
     port = "natpf#{interface.id}".to_sym
     interface.rules.each do |rule|

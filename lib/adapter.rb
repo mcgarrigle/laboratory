@@ -1,27 +1,27 @@
 
-module Adapter
+class Adapter
 
-  def bridged
+  def self.bridged
     return {:bridged => nil}
   end
 
-  def nat
+  def self.nat
     return {:nat => nil}
   end
 
-  def intnet(name = :intnet)
+  def self.intnet(name = :intnet)
     return {:intnet => {:intnet => name.to_s}}
   end
 
-  def natnetwork(name)
+  def self.natnetwork(name)
     return {:natnetwork => {"nat-network" => name.to_s}}
   end
 
-  def hostonly(name)
+  def self.hostonly(name)
     return {:hostonly => {:hostonlyadapter => _vboxnet(name.to_s)}}
   end
 
-  def _vboxnet(name)
+  def self._vboxnet(name)
     return name unless Gem.win_platform?
     n = name[/\d+/].to_i
     if n == 0

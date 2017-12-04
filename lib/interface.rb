@@ -5,21 +5,60 @@ require "forward"
 class Interface
 
   attr_accessor :id, :netmask4, :prefix4, :gateway4, :rules
-  attr_reader   :connection, :network_name
+  attr_reader   :connection, :name
 
   def initialize(id = 0)
     @id           = id
     @connection   = :nat
+    @adapter      = ""
+    @name         = ""
     @network_name = ""
     @ip4          = "0.0.0.0"
     @netmask4     = "0.0.0.0"
     @gateway4     = "0.0.0.0"
     @prefix4      = "/0"
     @rules        = []
+    @config       = {}
   end
 
-  def network(connection, name = "")
-    @connection   = assert(connection, :bridged, :nat, :intnet, :natnetwork, :hostonly)
+  def bridged
+    @connection = :bridged
+  end
+
+  def nat
+    @connection = :nat
+  end
+
+  def intnet(name = :intnet)
+    @connection = :intnet
+    @adapter    = "intnet"
+    @name       = name.to_s
+  end
+
+  def natnetwork(name)
+    @connection = :natnetwork
+    @adapter    = "nat-network"
+    @name       = name.to_s
+  end
+
+  def hostonly(name)
+    @connection = :hostonly
+    @adapter    = "hostonlyadapter"
+    @name       = _vboxnet(name.to_s)
+  end
+
+  def _vboxnet(name)
+    return name unless Gem.win_platform?
+    n = name[/\d+/].to_i
+    if n == 0
+      return "VirtualBox Host-Only Ethernet Adapter"
+    else
+      return "VirtualBox Host-Only Ethernet Adapter ##{n + 1}"
+    end
+  end
+
+  def _network(connection = {})
+    @connection = assert(connection.keys.first, :bridged, :nat, :intnet, :natnetwork, :hostonly)
     if name.class == Fixnum
       @network_name = hostonly_interface(name)
     else
@@ -53,25 +92,9 @@ class Interface
     return "nic#{@id}"
   end
 
-  def nic_network
-    param = case @connection
-    when :intnet     then "intnet"
-    when :natnetwork then "nat-network"
-    when :hostonly   then "hostonlyadapter"
-    else "nic"
-    end
-    return "#{param}#{@id}".to_s
+  def adapter
+    return "#{@adapter}#{@id}"
   end 
-
-  def hostonly_interface(n)
-    if ENV["OS"] == "Darwin"
-      return "vboxnet#{n}"
-    else
-      name = "VirtualBox Host-Only Ethernet Adapter"
-      return name if n  == 0
-      return "#{name} ##{n + 1}"
-    end
-  end
 
   def assert(value, *valid)
     raise ArgumentError, "#{value} should be one of #{valid.join(', ')}" unless (valid.include? value)
