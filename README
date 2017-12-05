@@ -4,7 +4,7 @@ Playpen
 
 Super-simple-virtual-wrapper-xp-mac-and-linux ♬ ...
 
-An engineering loboratory environment for systems integration rather
+An engineering laboratory environment for systems integration rather
 than Software Engineering.
 
 Rationale:
@@ -30,9 +30,9 @@ Example Laboratory:
   |----------+--------------+------+-------+---------|  10.0.40.0/24 (vbox natnetwork)
              |              |              |
       enp0s8 |              |              |
-      +------+-----+  +-----------+  +-----+----+  
-      |     ipa    |  |  foreman  |  |   guest  |
-      +------+-----+  +-----+-----+  +-----+----+  
+      +------+-----+  +-----------+  +-----+-----+  
+      |     ipa    |  |  foreman  |  |   guest   |
+      +------+-----+  +-----+-----+  +-----+-----+  
       enp0s3 |              |              |
              |              |              |
   |-----+----+--------------+--------------+---------|  10.0.30.0/24 (vbox hostonly)
@@ -68,6 +68,10 @@ Watch all the VMs spin up - if using "centos-gold", watch them install themselve
 
 Also see:
 
+  https://github.com/mcgarrigle/centos-gold
+
+  and 
+
   https://github.com/mcgarrigle/role-*
 
 for scripts to install the various server roles in this example.
@@ -76,10 +80,11 @@ Manual
 ------
 
 The environment variable LABORATORY designates the lab file;
-the default lab is "network.lab".
+the default lab is "project.lab".
 
 lab help
-lab up    - creates and starts your lab
-lab down  - shuts all VMs down (acpi off)
-lab list  - show status of all VMs in lab
+lab up     - creates and starts your lab
+lab down   - shuts all VMs down (acpi off)
+lab list   - show status of all VMs in lab
+lab delete - delete all VMs
 
