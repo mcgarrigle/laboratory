@@ -30,7 +30,7 @@ describe Hypervisor do
       @guest.name = "foo"
       @guest.dvd {}
       @guest.disk {}
-      @guest.interface {|i| i.network :intnet }
+      @guest.interface {|i| i.intnet }
 
       allow(Vbox).to receive(:new).and_return(vbox)
       allow(vbox).to receive(:name).and_return("bar")
@@ -76,7 +76,7 @@ describe Hypervisor do
     it "should add port forwarding" do
       expect(vbox).to receive(:modifyvm).with(hash_including("nic2" => :nat))
       expect(vbox).to receive(:modifyvm).with(hash_including(:natpf2 => "guestssh,tcp,,2222,,22"))
-      @guest.interface {|i| i.network :nat; i.forward("guestssh", ":2222" => ":22") }
+      @guest.interface {|i| i.nat; i.forward("guestssh", ":2222" => ":22") }
       subject.create(@guest)
     end
 
