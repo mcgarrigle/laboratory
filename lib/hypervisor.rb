@@ -28,8 +28,9 @@ class Hypervisor
   def create(guest)
     @vbox = Vbox.new(guest.name)
     @vbox.createvm(:ostype => guest.ostype)
-    @vbox.modifyvm(:ioapic => :on)
+    @vbox.modifyvm(:cpus => guest.cores)
     @vbox.modifyvm(:memory => guest.memory, :vram => guest.vram)
+    @vbox.modifyvm(:ioapic => :on)
     @vbox.modifyvm(:natdnshostresolver1 => :on)
 
     guest.boot.each_with_index do |device, i|

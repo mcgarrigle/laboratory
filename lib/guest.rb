@@ -4,12 +4,13 @@ require "disk"
 
 class Guest
 
-  attr_accessor :name, :enabled, :memory, :vram, :ostype
+  attr_accessor :name, :enabled, :cores, :memory, :vram, :ostype
   attr_accessor :interfaces, :disks, :status
 
   def initialize(name = "foo")
     @name       = name.to_s
     @enabled    = true
+    @cores      = 1
     @memory     = 1024
     @vram       = 128
     @ostype     = "RedHat_64"
