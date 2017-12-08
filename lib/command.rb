@@ -56,6 +56,9 @@ class Command
     puts "\n#{text}"
   end
 
+  def help(method)
+  end
+
   def run(*args)
     command = args.shift
     method  = "_#{command}".to_sym
