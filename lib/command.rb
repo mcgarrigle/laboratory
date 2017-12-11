@@ -19,7 +19,7 @@ class Command
   end
 
   def _list_help_text
-    "list: lists guests"
+    "lists guests"
   end
 
   def _list
@@ -27,7 +27,7 @@ class Command
   end
 
   def _up_help_text
-    "up: starts all guests"
+    "starts all guests"
   end
 
   def _up(*names)
@@ -35,7 +35,7 @@ class Command
   end
 
   def _down_help_text
-    "down: stop all guests"
+    "stop all guests"
   end
 
   def _down(*names)
@@ -43,7 +43,7 @@ class Command
   end
  
   def _delete_help_text
-    "delete: stop and delete all guests"
+    "stop and delete all guests"
   end
 
   def _delete(*names)
@@ -52,8 +52,13 @@ class Command
 
   def _help
     methods = self.class.instance_methods.select {|m| m.to_s.end_with? "_help_text" }
-    text = methods.map {|method| self.send method }.join("\n")
-    puts "\n#{text}"
+    puts methods.map {|method| help(method) }.join("\n")
+  end
+
+  def help(method)
+    command = method.to_s.match(/_(.*?)_/)[1]
+    text = self.send method
+    "%-6s %s" % [command, text]
   end
 
   def run(*args)
