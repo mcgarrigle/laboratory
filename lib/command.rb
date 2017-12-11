@@ -58,14 +58,14 @@ class Command
   def help(method)
     command = method.to_s.match(/_(.*?)_/)[1]
     text = self.send method
-    "%-6s %s" % [command, text]
+    "%-6s - %s" % [command, text]
   end
 
   def run(*args)
     command = args.shift
     method  = "_#{command}".to_sym
     unless self.respond_to? method
-      puts "command '#{command}' not known"
+      puts "command '#{command}' not known\n\n"
       _help
       exit
     end
