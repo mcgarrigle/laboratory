@@ -4,3 +4,4 @@ bin/htmldiff
 bin/ldiff
 bin/rspec
 *.swp
+Gemfile.lock
