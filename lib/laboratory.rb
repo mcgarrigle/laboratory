@@ -22,7 +22,7 @@ class Laboratory
 
   def guest(name = nil)
     g = Guest.new(name)
-    yield g
+    yield g if block_given?
     @guests[g.name] = g
   end
 
