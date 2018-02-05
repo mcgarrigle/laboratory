@@ -37,6 +37,9 @@ describe Guest do
 
   end
 
+  describe "#usb" do
+  end
+
   describe "#disk" do
   
     it "should create all disks" do
