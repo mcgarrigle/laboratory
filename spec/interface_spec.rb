@@ -32,7 +32,11 @@ describe Interface do
     it "should set network_name for hostonly" do
       subject.hostonly "management"
       expect(subject.connection).to eql :hostonly
-      expect(subject.name).to eql "management"
+      if Gem.win_platform?
+        expect(subject.name).to eql "VirtualBox Host-Only Ethernet Adapter"
+      else
+        expect(subject.name).to eql "management"
+      end
     end
 
   end
