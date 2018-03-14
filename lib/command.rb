@@ -13,16 +13,20 @@ class Command
     if names.size == 0
       guests = @laboratory.guests
     else
-      guests = names.map {|n| @laboratory.find(n) }.compact
+      guests = names.map { |n| @laboratory.find(n) }.compact
     end
-    guests.each {|g| yield g }
+    guests.each { |g| yield g }
   end
 
   def _list_help_text
-    "lists guests"
+    "lists guests (aliases: ls)"
   end
 
   def _list
+    @action.list
+  end
+
+  def _ls
     @action.list
   end
 
@@ -31,7 +35,7 @@ class Command
   end
 
   def _up(*names)
-    these(names) {|guest| @action.up(guest) }
+    these(names) { |guest| @action.up(guest) }
   end
 
   def _down_help_text
@@ -39,7 +43,7 @@ class Command
   end
 
   def _down(*names)
-    these(names) {|guest| @action.down(guest) }
+    these(names) { |guest| @action.down(guest) }
   end
  
   def _delete_help_text
@@ -47,12 +51,12 @@ class Command
   end
 
   def _delete(*names)
-    these(names) {|guest| @action.delete(guest) }
+    these(names) { |guest| @action.delete(guest) }
   end
 
   def _help
-    methods = self.class.instance_methods.select {|m| m.to_s.end_with? "_help_text" }
-    puts methods.map {|method| help(method) }.join("\n")
+    methods = self.class.instance_methods.select { |m| m.to_s.end_with? "_help_text" }
+    puts methods.map { |method| help(method) }.join("\n")
   end
 
   def help(method)
