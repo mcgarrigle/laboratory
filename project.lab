@@ -12,6 +12,7 @@ laboratory "project" do |lab|
   lab.guest "foreman" do |g|
     g.cores  = 2
     g.memory = 4096
+    g.usb    = "2.0"
     g.boot   = [:dvd, :disk]
     g.interface do |i| 
       i.hostonly(:vboxnet0)   # "vboxnet{n}" => "VirtualBox Host-Only Ethernet Adapter #{n + 1}"
