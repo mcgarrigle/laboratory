@@ -29,13 +29,27 @@ describe Interface do
       expect(subject.name).to eql "application"
     end
 
-    it "should set network_name for hostonly" do
-      subject.hostonly "management"
+    it "should set network_name for hostonly vboxnet0" do
+      subject.hostonly "vboxnet0"
       expect(subject.connection).to eql :hostonly
-      expect(subject.name).to eql "management"
+      if Gem.win_platform?
+        expect(subject.name).to eql "VirtualBox Host-Only Ethernet Adapter"
+      else
+        expect(subject.name).to eql "vboxnet0"
+      end
     end
 
-  end
+    it "should set network_name for hostonly vboxnet1" do
+      subject.hostonly "vboxnet1"
+      expect(subject.connection).to eql :hostonly
+      if Gem.win_platform?
+        expect(subject.name).to eql "VirtualBox Host-Only Ethernet Adapter #2"
+      else
+        expect(subject.name).to eql "vboxnet1"
+      end
+    end
+
+end
 
   describe "#ip4=" do
 

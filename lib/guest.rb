@@ -13,6 +13,7 @@ class Guest
     @cores      = 1
     @memory     = 1024
     @vram       = 128
+    @usb        = nil
     @ostype     = "RedHat_64"
     @boot       = [:net, :dvd, :disk]
     @interfaces = []
@@ -59,6 +60,14 @@ class Guest
     d.medium = 'emptydrive'
     yield d
     @disks << d
+  end
+
+  def usb=(bus)
+    @usb = bus
+  end
+
+  def usb
+    @usb
   end
 
 end
