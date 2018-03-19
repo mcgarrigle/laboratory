@@ -30,6 +30,10 @@ class Command
     @action.list
   end
 
+  def _dump(*names)
+    these(names) { |guest| p(guest) }
+  end
+
   def _up_help_text
     "starts all guests"
   end

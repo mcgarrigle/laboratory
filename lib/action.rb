@@ -14,6 +14,10 @@ class Action
     end
   end
 
+  def dump(guest)
+    puts guest
+  end
+
   def up(guest)
     puts "up #{guest.name}"
     case guest.status
