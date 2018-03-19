@@ -4,16 +4,18 @@ require "guest"
 
 describe Guest do
 
+  subject { Guest.new("foo") }
+
   describe "#interface" do
 
     it "should create an interface" do
-      expect(Interface).to receive(:new).with(1)
+      expect(Interface).to receive(:new).with("foo", 1)
       subject.interface { }
     end
 
     it "should create all interfaces" do
-      expect(Interface).to receive(:new).with(1)
-      expect(Interface).to receive(:new).with(2)
+      expect(Interface).to receive(:new).with("foo", 1)
+      expect(Interface).to receive(:new).with("foo", 2)
       subject.interface { }
       subject.interface { }
     end

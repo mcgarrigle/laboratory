@@ -43,7 +43,7 @@ class Guest
 
   def interface
     n = @interfaces.size + 1
-    i = Interface.new(n)
+    i = Interface.new(@name, n)
     yield i
     @interfaces << i
   end

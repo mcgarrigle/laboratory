@@ -1,13 +1,15 @@
 
+require "digest"
 require "netaddr"
 require "forward"
 
 class Interface
 
-  attr_accessor :id, :netmask4, :prefix4, :gateway4, :rules
+  attr_accessor :id, :netmask4, :prefix4, :gateway4, :rules, :mac
   attr_reader   :connection, :name
 
-  def initialize(id = 0)
+  def initialize(fqdn = "", id = 0)
+    @fqdn         = fqdn
     @id           = id
     @connection   = :nat
     @adapter      = ""
@@ -19,6 +21,12 @@ class Interface
     @prefix4      = "/0"
     @rules        = []
     @config       = {}
+    @mac          = Interface.generate_mac("#{fqdn}:#{id}")
+  end
+
+  def self.generate_mac(s)
+    digest = Digest::MD5.hexdigest(s).upcase
+    "02" + digest[0..10]
   end
 
   def bridged

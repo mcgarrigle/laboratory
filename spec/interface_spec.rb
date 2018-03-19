@@ -49,7 +49,26 @@ describe Interface do
       end
     end
 
-end
+  end
+
+  describe "#mac" do
+
+    it "should generate a mac address" do
+      subject = Interface.new("bar.foo.local", 1)
+      expect(subject.mac).to eql("02119F9985821")
+    end
+
+    it "should generate a different mac address" do
+      subject = Interface.new("bar.foo.local", 2)
+      expect(subject.mac).to eql("02CD29F78ED09")
+    end
+
+    it "should generate another mac address" do
+      subject = Interface.new("baz.foo.local", 1)
+      expect(subject.mac).to eql("023B8BDAA6080")
+    end
+
+  end
 
   describe "#ip4=" do
 
