@@ -26,7 +26,7 @@ class Interface
 
   def self.generate_mac(s)
     digest = Digest::MD5.hexdigest(s).upcase
-    "02" + digest[0..10]
+    "02" + digest[0..9]
   end
 
   def bridged
