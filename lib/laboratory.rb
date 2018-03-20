@@ -1,18 +1,24 @@
 
 require "network"
 require "guest"
+require "plugins"
 
 
 class Laboratory
 
   attr_accessor :name, :domain
-  attr_reader   :networks
+  attr_reader   :plugins, :networks
 
   def initialize(name = "")
     @name     = name
+    @domain   = "foo.local"
     @networks = {}
     @guests   = {}
-    @domain   = "foo.local"
+    @plugins  = {}
+  end
+
+  def plugin(name, options = {})
+    @plugins[name.to_s] = options
   end
 
   def network(name, options = {})
