@@ -4,11 +4,11 @@ module Plugins
   class Mason
 
     def initialize(options = {})
-      puts "mason: init"
+      #puts "mason: init"
     end
 
     def create(guest)
-      puts "mason: create #{guest.name}"
+      #puts "mason: create #{guest.name}"
     end
 
     def start(guest)

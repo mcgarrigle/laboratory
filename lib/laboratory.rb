@@ -18,7 +18,8 @@ class Laboratory
   end
 
   def plugin(name, options = {})
-    @plugins[name.to_s] = options
+    klass = Plugins.load(name)
+    @plugins[name.to_s] = klass.new(options)
   end
 
   def network(name, options = {})
