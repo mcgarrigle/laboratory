@@ -2,10 +2,11 @@
 
 ISO = "../Downloads/centos-gold-7.4.1708.iso"
 
+
 laboratory "project" do |lab|
   lab.domain = "foo.local"
 
-  lab.plugin :mason, :api => "http://10.0.30.10"
+  lab.plugin :mason, :api => "http://10.0.30.10:9090"
 
   # lab.network :management, :hostonly => "10.0.30.0/24"
   # lab.network :cluster, :natnetwork => "10.0.40.0/24"
