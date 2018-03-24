@@ -5,11 +5,12 @@ ISO = "../Downloads/centos-gold-7.4.1708.iso"
 
 laboratory "project" do |lab|
   lab.domain = "foo.local"
+  lab.nameservers "10.0.30.11"
 
   lab.plugin :mason, :api => "http://10.0.30.10:9090"
 
   # lab.network :management, :hostonly => "10.0.30.0/24"
-  # lab.network :cluster, :natnetwork => "10.0.40.0/24"
+  # lab.network :cluster, :natnetwork => "10.0.40.0/24, ":gateway = "10.0.40.1"
 
   lab.guest "foreman" do |g|
     g.cores  = 2
@@ -52,7 +53,7 @@ laboratory "project" do |lab|
     g.boot   = [:dvd, :disk]
     g.interface do |i| 
       i.hostonly(:vboxnet0)   # "vboxnet{n}" => "VirtualBox Host-Only Ethernet Adapter #{n + 1}"
-      i.ip4     = "10.0.30.101/24"
+      i.ip4 = "10.0.30.101/24"
     end
     g.interface do |i|
       i.natnetwork(:cluster)
@@ -60,6 +61,22 @@ laboratory "project" do |lab|
       i.gateway4 = "10.0.40.1"
     end
     g.dvd  {|d| d.medium = ISO  }
+    g.disk {|d| d.size = 102400 }
+  end
+
+  lab.guest "netboot" do |g|
+    g.cores  = 1
+    g.memory = 2048
+    g.boot   = [:net, :disk]
+    g.interface do |i| 
+      i.hostonly(:vboxnet0)
+      i.ip4 = "10.0.30.102/24"
+    end
+    g.interface do |i|
+      i.natnetwork(:cluster)
+      i.ip4 = "10.0.40.102/24"
+      i.gateway4 = "10.0.40.1"
+    end
     g.disk {|d| d.size = 102400 }
   end
 

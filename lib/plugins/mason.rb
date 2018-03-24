@@ -6,16 +6,19 @@ module Plugins
 
   class Mason
 
-    def initialize(options = {:api => "http://localhost:9090"})
+    def initialize(laboratory, options = {:api => "http://localhost:9090"})
+      @laboratory = laboratory
       @uri = URI(options[:api])
     end
 
     def create(guest)
       puts "mason: create #{guest.name}"
-      interfaces = guest.interfaces.map {|i| { :mac => i.mac, :ip => i.ip4, :netmask => i.netmask4 } }
-      hash = {:fqdn => guest.name, :interfaces => interfaces }
+      nameserver = @laboratory.nameservers.first
+      interfaces = guest.interfaces.map {|i| { :mac => i.mac, :ip => i.ip4, :netmask => i.netmask4, :gateway => i.gateway4 } }
+      hash = {:fqdn => guest.fqdn, :interfaces => interfaces, :nameserver => nameserver }
+      p hash
       res = Net::HTTP.start(@uri.hostname, @uri.port) { |http|
-        http.put("/node/#{guest.name}", hash.to_json)
+        http.put("/node/#{guest.fqdn}", hash.to_json)
       }
     end
 

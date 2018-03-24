@@ -4,11 +4,12 @@ require "disk"
 
 class Guest
 
-  attr_accessor :name, :enabled, :cores, :memory, :vram, :ostype
+  attr_accessor :name, :fqdn, :enabled, :cores, :memory, :vram, :ostype
   attr_accessor :interfaces, :disks, :status
 
   def initialize(name = "foo")
     @name       = name.to_s
+    @fqdn       = @name
     @enabled    = true
     @cores      = 1
     @memory     = 1024
@@ -43,7 +44,7 @@ class Guest
 
   def interface
     n = @interfaces.size + 1
-    i = Interface.new(@name, n)
+    i = Interface.new(@fqdn, n)
     yield i
     @interfaces << i
   end

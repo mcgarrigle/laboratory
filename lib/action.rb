@@ -24,8 +24,10 @@ class Action
     when :running then return
     when nil      then @hypervisor.create(guest)
     end
+    @laboratory.plugins.each {|plugin| plugin.create(guest) }
     @hypervisor.start(guest)
-  rescue
+  rescue => e
+    puts e.inspect
   end
 
   def down(guest)

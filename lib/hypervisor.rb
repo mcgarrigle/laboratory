@@ -34,21 +34,23 @@ class Hypervisor
     @vbox.modifyvm(:natdnshostresolver1 => :on)
 
     guest.boot.each_with_index do |device, i|
-      boot = "boot#{i + 1}".to_sym
+      boot = "boot#{i + 1}"
       @vbox.modifyvm(boot => device)
     end
 
-    guest.interfaces.each_with_index do |interface, i|
-      interface.id = i  + 1
+    guest.interfaces.each do |interface|
       create_interface(interface)
     end
 
-    @vbox.storagectl(:name => "IDE", :add => :ide)
     @vbox.storagectl(:name => "SATA", :add => :sata, :controller => :IntelAHCI)
-    dvds,disks = guest.disks.partition {|d| d.device == :sr0 }
-    dvd = dvds.first
 
-    @vbox.storageattach(:storagectl => "IDE", :port => 0, :device => 0, :type => :dvddrive, :medium => dvd.medium)
+    dvds, disks = guest.disks.partition {|d| d.device == :sr0 }
+    dvd = dvds.first  # only one dvd
+
+    if dvd
+      @vbox.storagectl(:name => "IDE", :add => :ide)
+      @vbox.storageattach(:storagectl => "IDE", :port => 0, :device => 0, :type => :dvddrive, :medium => dvd.medium)
+    end
 
     disks.each_with_index do |disk, port|
       disk.port = port
