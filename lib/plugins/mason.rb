@@ -18,7 +18,7 @@ module Plugins
       hash = {:fqdn => guest.fqdn, :interfaces => interfaces, :nameserver => nameserver }
       p hash
       res = Net::HTTP.start(@uri.hostname, @uri.port) { |http|
-        http.put("/node/#{guest.fqdn}", hash.to_json)
+        http.post("/node", hash.to_json)
       }
     end
 
