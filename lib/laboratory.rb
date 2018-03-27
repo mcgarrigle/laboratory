@@ -32,6 +32,8 @@ class Laboratory
   def plugin(name, options = {})
     klass = Plugins.load(name)
     @plugins[name.to_s] = klass.new(self, options)
+  rescue => e
+    puts "#{name} plugin did not initialize: #{e.message}"
   end
 
   def plugins

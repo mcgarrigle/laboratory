@@ -8,7 +8,14 @@ module Plugins
 
     def initialize(laboratory, options = {:api => "http://localhost:9090"})
       @laboratory = laboratory
-      @uri = URI(options[:api])
+      url  = options[:api]
+      @uri = URI(url)
+      response = Net::HTTP.start(@uri.hostname, @uri.port) { |http|
+        http.read_timeout = 1
+        http.get("/version")
+      }
+      result = JSON.parse(response.body)
+      puts "mason version #{result['version']}"
     end
 
     def create(guest)
