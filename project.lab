@@ -65,6 +65,7 @@ laboratory "project" do |lab|
   end
 
   lab.guest "netboot" do |g|
+    g.disabled
     g.cores  = 1
     g.memory = 2048
     g.boot   = [:net, :disk]

@@ -21,9 +21,12 @@ class Action
   def up(guest)
     puts "up #{guest.name}"
     case guest.status
-    when :running then return
-    when nil      then @hypervisor.create(guest)
+    when :disabled then 
+      puts "^ disabled"
+      return
+    when :running  then return
     end
+    @hypervisor.create(guest)
     @laboratory.plugins.each {|plugin| plugin.create(guest) }
     @hypervisor.start(guest)
   rescue => e
@@ -40,7 +43,7 @@ class Action
   def delete(guest)
     puts "delete #{guest.name} #{guest.status}"
     case guest.status
-    when nil      then return
+    when :defined then return
     when :running then @hypervisor.stop(guest)
     end
     @hypervisor.destroy(guest)

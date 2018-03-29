@@ -5,7 +5,7 @@ require "disk"
 class Guest
 
   attr_accessor :name, :fqdn, :enabled, :cores, :memory, :vram, :ostype
-  attr_accessor :interfaces, :disks, :status
+  attr_accessor :interfaces, :disks
 
   def initialize(name = "foo")
     @name       = name.to_s
@@ -26,9 +26,30 @@ class Guest
     [*('a'..'z')].sample(8).join
   end
 
+  def status=(s)
+    @status = s
+  end
+
+  # :defined  => in lab but no VM created
+  # :stopped  => in hypervisor but not running
+  # :running  => running in hypervisor
+  # :disabled => defined in lab but will not be started
+  #              but can be stopped and destroyed
+
+  def status
+    return :disabled unless @enabled
+    case @status
+    when nil then :defined
+    else @status
+    end
+  end
+
   def to_s
-    status = @status || "defined"
-    "%7s %s" % [status, @name]
+    "%8s %s" % [status, @name]
+  end
+
+  def disabled
+    @enabled = false
   end
 
   def boot=(order)

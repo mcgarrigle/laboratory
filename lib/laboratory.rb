@@ -56,7 +56,7 @@ class Laboratory
     @guests.values
   end
 
-  def find(name)
+  def [](name)
     @guests[name]
   end
 

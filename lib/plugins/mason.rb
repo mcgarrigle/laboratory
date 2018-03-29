@@ -9,7 +9,7 @@ module Plugins
     def initialize(laboratory, options = {:api => "http://localhost:9090"})
       @laboratory = laboratory
       @uri = URI(options[:api])
-      response = Net::HTTP.start(@uri.hostname, @uri.port, :open_timeout => 1, :read_timeout => 1) { |http|
+      response = Net::HTTP.start(@uri.hostname, @uri.port, :open_timeout => 2, :read_timeout => 2) { |http|
         http.get("/version")
       }
       result = JSON.parse(response.body)

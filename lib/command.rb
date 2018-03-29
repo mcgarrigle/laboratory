@@ -13,7 +13,7 @@ class Command
     if names.size == 0
       guests = @laboratory.guests
     else
-      guests = names.map { |n| @laboratory.find(n) }.compact
+      guests = names.map { |n| @laboratory[n] }.compact
     end
     guests.each { |g| yield g }
   end
