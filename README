@@ -1,6 +1,6 @@
 
-Playpen
--------
+laboratory
+----------
 
 Super-simple-virtual-wrapper-xp-mac-and-linux ♬ ...
 
@@ -64,6 +64,8 @@ Reccomendation: Create a CentOS "gold build" ISO (see https://github.com/mcgarri
   $ sudo bundle install
   $ review network.lab to see what is going to be built
   $ lab up
+
+Also look at "mason", a plugin and PXE boot host for bringing up laboratories.
 
 Watch all the VMs spin up - if using "centos-gold", watch them install themselves.
 
