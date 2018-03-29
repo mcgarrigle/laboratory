@@ -4,7 +4,7 @@ require "disk"
 
 class Guest
 
-  attr_accessor :name, :fqdn, :enabled, :cores, :memory, :vram, :ostype
+  attr_accessor :name, :fqdn, :cores, :memory, :vram, :ostype
   attr_accessor :interfaces, :disks
 
   def initialize(name = "foo")
@@ -50,6 +50,14 @@ class Guest
 
   def disabled
     @enabled = false
+  end
+
+  def enabled=(state = true)
+    @enabled = state
+  end
+
+  def enabled?
+    @enabled
   end
 
   def boot=(order)
