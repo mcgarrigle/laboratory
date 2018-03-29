@@ -18,36 +18,38 @@ class Action
     puts guest
   end
 
+  def _create(guest)
+    @hypervisor.create(guest)
+    @laboratory.plugins.each { |plugin| plugin.create(guest) }
+  end
+
   def up(guest)
-    puts "up #{guest.name}"
+    puts "up #{guest.name} => #{guest.status}"
     case guest.status
-    when :disabled then 
-      puts "^ disabled"
-      return
+    when :disabled then return puts "^ disabled"
+    when :defined  then _create(guest)
     when :running  then return
     end
-    @hypervisor.create(guest)
-    @laboratory.plugins.each {|plugin| plugin.create(guest) }
     @hypervisor.start(guest)
   rescue => e
     puts e.inspect
   end
 
   def down(guest)
-    puts "down #{guest.name} #{guest.status}"
-    return if guest.status == :stopped
-    @hypervisor.stop(guest)
-  rescue
+    puts "down #{guest.name} => #{guest.status}"
+    @hypervisor.stop(guest) if guest.status == :running
+  rescue => e
+    puts e.inspect
   end
 
   def delete(guest)
-    puts "delete #{guest.name} #{guest.status}"
-    case guest.status
-    when :defined then return
-    when :running then @hypervisor.stop(guest)
-    end
+    puts "delete #{guest.name} => #{guest.status}"
+    return if guest.status == :defined
+    self.down(guest)
+    sleep 5
     @hypervisor.destroy(guest)
-  rescue
+  rescue => e
+    puts e.inspect
   end
 
 end
