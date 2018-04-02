@@ -2,7 +2,7 @@
 require "vbox"
 require "vm"
 
-class Hypervisor
+class Virtualbox
 
   def initialize
     @machine_folder = Vbox.machine_folder

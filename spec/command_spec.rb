@@ -17,7 +17,7 @@ describe Command do
   context "during initilization" do
 
     it "should create a new hypervisor" do
-      expect(Hypervisor).to receive(:new).and_return(double)
+      expect(Virtualbox).to receive(:new).and_return(double)
       Command.new(laboratory)
     end
 
@@ -34,11 +34,11 @@ describe Command do
     let(:hypervisor) { instance_double("Hypervisor") }
 
     before(:each) do
-      allow(Hypervisor).to receive(:new).and_return(hypervisor)
+      allow(Virtualbox).to receive(:new).and_return(hypervisor)
     end
 
     xit "should call Hypervisor.list" do
-      expect(Hypervisor).to receive(:list).and_return([])
+      expect(Virtualbox).to receive(:list).and_return([])
       subject.run("list")
     end
 

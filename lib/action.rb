@@ -1,11 +1,11 @@
 
-require 'hypervisor'
+require 'virtualbox'
 
 class Action
 
   def initialize(laboratory)
     @laboratory = laboratory
-    @hypervisor = Hypervisor.new
+    @hypervisor = Virtualbox.new
   end
 
   def list

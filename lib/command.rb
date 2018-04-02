@@ -1,6 +1,5 @@
 
 require 'action'
-require 'hypervisor'
 
 class Command 
 

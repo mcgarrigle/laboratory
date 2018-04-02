@@ -17,7 +17,7 @@ describe Action do
   context "during initilization" do
 
     it "should create a new hypervisor" do
-      expect(Hypervisor).to receive(:new).and_return(double)
+      expect(Virtualbox).to receive(:new).and_return(double)
       Action.new(laboratory)
     end
 
@@ -32,7 +32,7 @@ describe Action do
     end
 
     xit "should call Hypervisor.list" do
-      expect(Hypervisor).to receive(:list).and_return([])
+      expect(Virtualbox).to receive(:list).and_return([])
       subject.list
     end
 
