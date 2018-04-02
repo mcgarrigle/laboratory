@@ -32,7 +32,9 @@ class Laboratory
   def plugin(name, options = {})
     klass = Plugins.load(name)
     @plugins[name.to_s] = klass.new(self, options)
-  rescue => e
+  rescue LoadError => e
+    puts "#{name} plugin not found"
+  rescue Exception => e
     puts "#{name} plugin did not initialize: #{e.message}"
   end
 

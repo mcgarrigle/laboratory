@@ -26,9 +26,9 @@ class Action
   def up(guest)
     puts "up #{guest.name} => #{guest.status}"
     case guest.status
-    when :disabled then return puts "^ disabled"
-    when :defined  then _create(guest)
+    when :disabled then return
     when :running  then return
+    when :defined  then _create(guest)
     end
     @hypervisor.start(guest)
   rescue => e
