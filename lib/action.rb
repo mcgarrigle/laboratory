@@ -24,7 +24,7 @@ class Action
   end
 
   def up(guest)
-    puts "up #{guest.name} => #{guest.status}"
+    intent(guest, "up")
     case guest.status
     when :disabled then return
     when :running  then return
@@ -36,20 +36,24 @@ class Action
   end
 
   def down(guest)
-    puts "down #{guest.name} => #{guest.status}"
+    intent(guest, "down")
     @hypervisor.stop(guest) if guest.status == :running
   rescue => e
     puts e.inspect
   end
 
   def delete(guest)
-    puts "delete #{guest.name} => #{guest.status}"
+    intent(guest, "delete")
     return if guest.status == :defined
     self.down(guest)
     sleep 5
     @hypervisor.destroy(guest)
   rescue => e
     puts e.inspect
+  end
+
+  def intent(guest, state)
+    puts "#{guest.name} [#{guest.status}] => [#{state}]"
   end
 
 end
