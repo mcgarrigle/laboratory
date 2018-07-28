@@ -64,7 +64,7 @@ class Virtualbox
     macaddress = "macaddress#{interface.id}"
     @vbox.modifyvm(interface.nic => interface.connection, macaddress => interface.mac)
     case interface.connection
-    when :intnet, :natnetwork, :hostonly then 
+    when :bridged, :intnet, :natnetwork, :hostonly then 
       @vbox.modifyvm(interface.adapter => interface.name)
     end
     port = "natpf#{interface.id}".to_sym

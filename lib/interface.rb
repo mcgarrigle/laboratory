@@ -29,8 +29,10 @@ class Interface
     "02" + digest[0..9]
   end
 
-  def bridged
+  def bridged(name)
     @connection = :bridged
+    @adapter    = "bridgeadapter"
+    @name       = name.to_s
   end
 
   def nat

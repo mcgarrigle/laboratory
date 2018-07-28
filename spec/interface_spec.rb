@@ -3,12 +3,15 @@ require "interface"
 
 describe Interface do
 
+  subject { Interface.new("node.foo.local", 666) }
+
   describe "#network" do
 
     it "should set connection for bridged" do
-      subject.bridged
+      subject.bridged :en0
       expect(subject.connection).to eql :bridged
-      expect(subject.name).to eql ""
+      expect(subject.adapter).to eql "bridgeadapter666"
+      expect(subject.name).to eql "en0"
     end
 
     it "should set connection for nat" do
@@ -20,18 +23,21 @@ describe Interface do
     it "should set network_name for intnet" do
       subject.intnet :cluster
       expect(subject.connection).to eql :intnet
+      expect(subject.adapter).to eql "intnet666"
       expect(subject.name).to eql "cluster"
     end
 
     it "should set network_name for natnetwork" do
       subject.natnetwork :application
       expect(subject.connection).to eql :natnetwork
+      expect(subject.adapter).to eql "nat-network666"
       expect(subject.name).to eql "application"
     end
 
     it "should set network_name for hostonly vboxnet0" do
       subject.hostonly "vboxnet0"
       expect(subject.connection).to eql :hostonly
+      expect(subject.adapter).to eql "hostonlyadapter666"
       if Gem.win_platform?
         expect(subject.name).to eql "VirtualBox Host-Only Ethernet Adapter"
       else
@@ -42,6 +48,7 @@ describe Interface do
     it "should set network_name for hostonly vboxnet1" do
       subject.hostonly "vboxnet1"
       expect(subject.connection).to eql :hostonly
+      expect(subject.adapter).to eql "hostonlyadapter666"
       if Gem.win_platform?
         expect(subject.name).to eql "VirtualBox Host-Only Ethernet Adapter #2"
       else
