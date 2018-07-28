@@ -7,6 +7,6 @@
 source "https://rubygems.org"
 
 gem "rspec"
-gem "netaddr"
+gem "netaddr", "1.5.1"
 gem "inifile"
 gem "nokogiri"
