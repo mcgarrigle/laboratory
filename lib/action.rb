@@ -10,7 +10,7 @@ class Action
 
   def list
     @laboratory.guests.each do |guest|
-      puts guest
+      puts "#{guest.name} [#{guest.status}]"
     end
   end
 
