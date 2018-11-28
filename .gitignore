@@ -3,5 +3,6 @@ bin/bundler
 bin/htmldiff
 bin/ldiff
 bin/rspec
+vendor
 *.swp
 Gemfile.lock
