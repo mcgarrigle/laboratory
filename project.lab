@@ -16,7 +16,7 @@ laboratory "project" do |lab|
     g.cores  = 2
     g.memory = 4096
     g.usb    = "2.0"
-    g.boot   = [:dvd, :disk]
+    g.boot   = [:net, :disk]
     g.interface do |i| 
       i.hostonly(:vboxnet0)   # "vboxnet{n}" => "VirtualBox Host-Only Ethernet Adapter #{n + 1}"
       i.ip4 = "10.0.30.10/24"
@@ -26,7 +26,7 @@ laboratory "project" do |lab|
       i.ip4 = "10.0.40.10/24"
       i.gateway4 = "10.0.40.1"
     end
-    g.dvd  {|d| d.medium = ISO  }
+    # g.dvd  {|d| d.medium = ISO  }
     g.disk {|d| d.size = 102400 }
   end
 

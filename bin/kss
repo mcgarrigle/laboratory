@@ -7,7 +7,7 @@
 
 require "webrick"
 
-server = WEBrick::HTTPServer.new(:Port => 80, :DocumentRoot => "ks")
+server = WEBrick::HTTPServer.new(:Port => 8000, :DocumentRoot => "ks")
 
 trap('INT') { server.shutdown } 
 

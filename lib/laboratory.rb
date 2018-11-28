@@ -35,7 +35,7 @@ class Laboratory
   rescue LoadError => e
     puts "#{name} plugin not found"
   rescue Exception => e
-    puts "#{name} plugin did not initialize: #{e.message}"
+    puts "#{name} plugin did not initialize: #{e.class} => #{e.message}"
   end
 
   def plugins
