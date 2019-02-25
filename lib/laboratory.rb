@@ -55,7 +55,7 @@ class Laboratory
   end
 
   def guests
-    @guests.values
+    @guests.values.select {|g| g.enabled? }
   end
 
   def [](name)
